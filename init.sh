@@ -36,7 +36,7 @@ sed -i "s/listen.group = www-data/listen.group = delivery/g" /etc/php/7.4/fpm/po
 sed -i "s/;catch_workers_output = yes/catch_workers_output = yes/g" /etc/php/7.4/fpm/pool.d/www.conf
 
 if [ $DEV != 'true' ]; then
-  sed -i "s/\$this->addResources(__DIR__ \. '\/\.\.\/env\.php');//g" /opt/events/src/Application.php
+  sed -i "s/\$this->addResources(__DIR__ \. '\/\.\.\/env\.php');//g" /opt/delivery/src/Application.php
   sed -i "s/DELIVERY_QUEUE_URL/$DELIVERY_QUEUE_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_SMS_URL/$DELIVERY_SMS_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_SMS_WORKER/$DELIVERY_SMS_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
