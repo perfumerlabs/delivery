@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'propel' => [
+        'bin'           => 'vendor/bin/propel',
+        'project'       => 'delivery',
+        'database'      => 'pgsql',
+        'dsn'           => 'pgsql:host=PG_HOST;port=PG_PORT;dbname=PG_DATABASE',
+        'db_schema'     => 'PG_SCHEMA',
+        'db_user'       => 'PG_USER',
+        'db_password'   => 'PG_PASSWORD',
+        'platform'      => 'pgsql',
+        'config_dir'    => 'src/Resource/propel/connection',
+        'schema_dir'    => 'src/Resource/propel/schema',
+        'model_dir'     => 'src/Model',
+        'migration_dir' => 'src/Resource/propel/migration',
+        'migration_table' => 'delivery_propel_migration',
+    ],
+    'delivery' => [
+        'queue_url' => 'DELIVERY_QUEUE_URL',
+        'sms_url' => 'DELIVERY_SMS_URL',
+        'sms_worker' => 'DELIVERY_SMS_WORKER',
+        'email_url' => 'DELIVERY_EMAIL_URL',
+        'email_worker' => 'DELIVERY_EMAIL_WORKER',
+    ],
+];

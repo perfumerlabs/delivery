@@ -1,0 +1,22 @@
+<?php
+
+return [
+    'propel' => [
+        'bin'           => 'vendor/bin/propel',
+        'project'       => 'delivery',
+        'database'      => 'pgsql',
+        'dsn'           => 'pgsql:host=db;port=5432;dbname=delivery',
+        'db_user'       => 'postgres',
+        'db_password'   => 'postgres',
+        'db_schema'     => 'public',
+        'platform'      => 'pgsql',
+        'config_dir'    => './',
+        'schema_dir'    => 'src/Resource/propel/schema',
+        'model_dir'     => 'src/Model',
+        'migration_dir' => 'src/Resource/propel/migration',
+        'migration_table' => 'delivery_propel_migration',
+    ],
+    'delivery' => [
+        'timezone' => 'Utc',
+    ],
+];

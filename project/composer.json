@@ -1,0 +1,40 @@
+{
+    "name": "perfumerlabs/delivery",
+    "type": "library",
+    "description": "Docker container for manage deliveries through sms, email or custom channels",
+    "homepage": "https://perfumerlabs.com",
+    "authors": [
+        {
+            "name": "Ilyas Makashev",
+            "email": "mehmatovec@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "perfumer/framework": "0.9.7",
+        "propel/propel": "2.0.0-alpha12",
+        "pwfisher/command-line-php": "dev-master",
+        "symfony/console": "5.*",
+        "symfony/http-foundation": "5.*",
+        "nikic/fast-route": "1.*",
+        "guzzlehttp/guzzle": "7.*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "filp/whoops": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Project\\": "src/",
+            "Delivery\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
