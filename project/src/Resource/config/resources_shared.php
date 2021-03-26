@@ -22,5 +22,10 @@ return [
         'sms_worker' => 'DELIVERY_SMS_WORKER',
         'email_url' => 'DELIVERY_EMAIL_URL',
         'email_worker' => 'DELIVERY_EMAIL_WORKER',
+        'feed_url' => 'DELIVERY_FEED_URL',
+        'feed_worker' => 'DELIVERY_FEED_WORKER',
+        'worker' => 'DELIVERY_WORKER',
+        'url' => 'DELIVERY_URL',
+        'timezone' => 'DELIVERY_TIMEZONE',
     ],
 ];

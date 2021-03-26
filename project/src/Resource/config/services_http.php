@@ -6,6 +6,10 @@ return [
         'init' => function(\Perfumer\Component\Container\Container $container) {
             return \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
                 $r->addRoute('POST', '/delivery', 'delivery.post');
+                $r->addRoute('GET', '/delivery', 'delivery.get');
+                $r->addRoute('PATCH', '/delivery', 'delivery.patch');
+                $r->addRoute('DELETE', '/delivery', 'delivery.delete');
+                $r->addRoute('POST', '/delivery/send', 'delivery/send.post');
             });
         }
     ],

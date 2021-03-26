@@ -12,6 +12,10 @@ docker run \
 -e DELIVERY_SMS_WORKER=sms \
 -e DELIVERY_EMAIL_URL="http://email" \
 -e DELIVERY_EMAIL_WORKER=email \
+-e DELIVERY_FEED_URL="http://feed" \
+-e DELIVERY_FEED_WORKER=feed \
+-e DELIVERY_URL="http://delivery" \
+-e DELIVERY_WORKER=delivery \
 -e PG_HOST=db \
 -e PG_PORT=5432 \
 -e PG_DATABASE=delivery_db \
@@ -30,6 +34,10 @@ Environment variables
 - DELIVERY_SMS_WORKER - worker that handles sms queueing. Required.
 - DELIVERY_EMAIL_URL [Email](https://github.com/perfumerlabs/email) service URL. Required.
 - DELIVERY_EMAIL_WORKER - worker that handles email queueing. Required.
+- DELIVERY_FEED_URL [Feed](https://github.com/perfumerlabs/feed) service URL. Required.
+- DELIVERY_FEED_WORKER - worker that handles feed queueing. Required.
+- DELIVERY_URL - this service URL. Required.
+- DELIVERY_WORKER - worker that handles delivery queueing. Required.
 - PHP_PM_MAX_CHILDREN - number of FPM workers. Default value is 10.
 - PHP_PM_MAX_REQUESTS - number of FPM max requests. Default value is 500.
 - PG_HOST - PostgreSQL host. Required.
