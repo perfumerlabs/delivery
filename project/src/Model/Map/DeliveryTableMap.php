@@ -58,7 +58,7 @@ class DeliveryTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 10;
 
     /**
      * The number of lazy-loaded columns
@@ -68,7 +68,7 @@ class DeliveryTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 10;
 
     /**
      * the column name for the id field
@@ -81,19 +81,34 @@ class DeliveryTableMap extends TableMap
     const COL_NAME = 'delivery_delivery.name';
 
     /**
-     * the column name for the data_url field
+     * the column name for the has_email field
      */
-    const COL_DATA_URL = 'delivery_delivery.data_url';
+    const COL_HAS_EMAIL = 'delivery_delivery.has_email';
 
     /**
-     * the column name for the filters field
+     * the column name for the has_feed field
      */
-    const COL_FILTERS = 'delivery_delivery.filters';
+    const COL_HAS_FEED = 'delivery_delivery.has_feed';
+
+    /**
+     * the column name for the has_sms field
+     */
+    const COL_HAS_SMS = 'delivery_delivery.has_sms';
 
     /**
      * the column name for the status field
      */
     const COL_STATUS = 'delivery_delivery.status';
+
+    /**
+     * the column name for the nb_sent_notifications field
+     */
+    const COL_NB_SENT_NOTIFICATIONS = 'delivery_delivery.nb_sent_notifications';
+
+    /**
+     * the column name for the nb_all_notifications field
+     */
+    const COL_NB_ALL_NOTIFICATIONS = 'delivery_delivery.nb_all_notifications';
 
     /**
      * the column name for the created_at field
@@ -122,11 +137,11 @@ class DeliveryTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'DataUrl', 'Filters', 'Status', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'dataUrl', 'filters', 'status', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(DeliveryTableMap::COL_ID, DeliveryTableMap::COL_NAME, DeliveryTableMap::COL_DATA_URL, DeliveryTableMap::COL_FILTERS, DeliveryTableMap::COL_STATUS, DeliveryTableMap::COL_CREATED_AT, DeliveryTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'data_url', 'filters', 'status', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'HasEmail', 'HasFeed', 'HasSms', 'Status', 'NbSentNotifications', 'NbAllNotifications', 'CreatedAt', 'UpdatedAt', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'hasEmail', 'hasFeed', 'hasSms', 'status', 'nbSentNotifications', 'nbAllNotifications', 'createdAt', 'updatedAt', ),
+        self::TYPE_COLNAME       => array(DeliveryTableMap::COL_ID, DeliveryTableMap::COL_NAME, DeliveryTableMap::COL_HAS_EMAIL, DeliveryTableMap::COL_HAS_FEED, DeliveryTableMap::COL_HAS_SMS, DeliveryTableMap::COL_STATUS, DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS, DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS, DeliveryTableMap::COL_CREATED_AT, DeliveryTableMap::COL_UPDATED_AT, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'has_email', 'has_feed', 'has_sms', 'status', 'nb_sent_notifications', 'nb_all_notifications', 'created_at', 'updated_at', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -136,11 +151,11 @@ class DeliveryTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'DataUrl' => 2, 'Filters' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'dataUrl' => 2, 'filters' => 3, 'status' => 4, 'createdAt' => 5, 'updatedAt' => 6, ),
-        self::TYPE_COLNAME       => array(DeliveryTableMap::COL_ID => 0, DeliveryTableMap::COL_NAME => 1, DeliveryTableMap::COL_DATA_URL => 2, DeliveryTableMap::COL_FILTERS => 3, DeliveryTableMap::COL_STATUS => 4, DeliveryTableMap::COL_CREATED_AT => 5, DeliveryTableMap::COL_UPDATED_AT => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'data_url' => 2, 'filters' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'HasEmail' => 2, 'HasFeed' => 3, 'HasSms' => 4, 'Status' => 5, 'NbSentNotifications' => 6, 'NbAllNotifications' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'hasEmail' => 2, 'hasFeed' => 3, 'hasSms' => 4, 'status' => 5, 'nbSentNotifications' => 6, 'nbAllNotifications' => 7, 'createdAt' => 8, 'updatedAt' => 9, ),
+        self::TYPE_COLNAME       => array(DeliveryTableMap::COL_ID => 0, DeliveryTableMap::COL_NAME => 1, DeliveryTableMap::COL_HAS_EMAIL => 2, DeliveryTableMap::COL_HAS_FEED => 3, DeliveryTableMap::COL_HAS_SMS => 4, DeliveryTableMap::COL_STATUS => 5, DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS => 6, DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS => 7, DeliveryTableMap::COL_CREATED_AT => 8, DeliveryTableMap::COL_UPDATED_AT => 9, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'has_email' => 2, 'has_feed' => 3, 'has_sms' => 4, 'status' => 5, 'nb_sent_notifications' => 6, 'nb_all_notifications' => 7, 'created_at' => 8, 'updated_at' => 9, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
     /**
@@ -166,22 +181,30 @@ class DeliveryTableMap extends TableMap
         'COL_NAME' => 'NAME',
         'name' => 'NAME',
         'delivery_delivery.name' => 'NAME',
-        'DataUrl' => 'DATA_URL',
-        'Delivery.DataUrl' => 'DATA_URL',
-        'dataUrl' => 'DATA_URL',
-        'delivery.dataUrl' => 'DATA_URL',
-        'DeliveryTableMap::COL_DATA_URL' => 'DATA_URL',
-        'COL_DATA_URL' => 'DATA_URL',
-        'data_url' => 'DATA_URL',
-        'delivery_delivery.data_url' => 'DATA_URL',
-        'Filters' => 'FILTERS',
-        'Delivery.Filters' => 'FILTERS',
-        'filters' => 'FILTERS',
-        'delivery.filters' => 'FILTERS',
-        'DeliveryTableMap::COL_FILTERS' => 'FILTERS',
-        'COL_FILTERS' => 'FILTERS',
-        'filters' => 'FILTERS',
-        'delivery_delivery.filters' => 'FILTERS',
+        'HasEmail' => 'HAS_EMAIL',
+        'Delivery.HasEmail' => 'HAS_EMAIL',
+        'hasEmail' => 'HAS_EMAIL',
+        'delivery.hasEmail' => 'HAS_EMAIL',
+        'DeliveryTableMap::COL_HAS_EMAIL' => 'HAS_EMAIL',
+        'COL_HAS_EMAIL' => 'HAS_EMAIL',
+        'has_email' => 'HAS_EMAIL',
+        'delivery_delivery.has_email' => 'HAS_EMAIL',
+        'HasFeed' => 'HAS_FEED',
+        'Delivery.HasFeed' => 'HAS_FEED',
+        'hasFeed' => 'HAS_FEED',
+        'delivery.hasFeed' => 'HAS_FEED',
+        'DeliveryTableMap::COL_HAS_FEED' => 'HAS_FEED',
+        'COL_HAS_FEED' => 'HAS_FEED',
+        'has_feed' => 'HAS_FEED',
+        'delivery_delivery.has_feed' => 'HAS_FEED',
+        'HasSms' => 'HAS_SMS',
+        'Delivery.HasSms' => 'HAS_SMS',
+        'hasSms' => 'HAS_SMS',
+        'delivery.hasSms' => 'HAS_SMS',
+        'DeliveryTableMap::COL_HAS_SMS' => 'HAS_SMS',
+        'COL_HAS_SMS' => 'HAS_SMS',
+        'has_sms' => 'HAS_SMS',
+        'delivery_delivery.has_sms' => 'HAS_SMS',
         'Status' => 'STATUS',
         'Delivery.Status' => 'STATUS',
         'status' => 'STATUS',
@@ -190,6 +213,22 @@ class DeliveryTableMap extends TableMap
         'COL_STATUS' => 'STATUS',
         'status' => 'STATUS',
         'delivery_delivery.status' => 'STATUS',
+        'NbSentNotifications' => 'NB_SENT_NOTIFICATIONS',
+        'Delivery.NbSentNotifications' => 'NB_SENT_NOTIFICATIONS',
+        'nbSentNotifications' => 'NB_SENT_NOTIFICATIONS',
+        'delivery.nbSentNotifications' => 'NB_SENT_NOTIFICATIONS',
+        'DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS' => 'NB_SENT_NOTIFICATIONS',
+        'COL_NB_SENT_NOTIFICATIONS' => 'NB_SENT_NOTIFICATIONS',
+        'nb_sent_notifications' => 'NB_SENT_NOTIFICATIONS',
+        'delivery_delivery.nb_sent_notifications' => 'NB_SENT_NOTIFICATIONS',
+        'NbAllNotifications' => 'NB_ALL_NOTIFICATIONS',
+        'Delivery.NbAllNotifications' => 'NB_ALL_NOTIFICATIONS',
+        'nbAllNotifications' => 'NB_ALL_NOTIFICATIONS',
+        'delivery.nbAllNotifications' => 'NB_ALL_NOTIFICATIONS',
+        'DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS' => 'NB_ALL_NOTIFICATIONS',
+        'COL_NB_ALL_NOTIFICATIONS' => 'NB_ALL_NOTIFICATIONS',
+        'nb_all_notifications' => 'NB_ALL_NOTIFICATIONS',
+        'delivery_delivery.nb_all_notifications' => 'NB_ALL_NOTIFICATIONS',
         'CreatedAt' => 'CREATED_AT',
         'Delivery.CreatedAt' => 'CREATED_AT',
         'createdAt' => 'CREATED_AT',
@@ -258,14 +297,17 @@ class DeliveryTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('name', 'Name', 'VARCHAR', true, 255, null);
-        $this->addColumn('data_url', 'DataUrl', 'VARCHAR', true, 255, null);
-        $this->addColumn('filters', 'Filters', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('has_email', 'HasEmail', 'BOOLEAN', true, null, false);
+        $this->addColumn('has_feed', 'HasFeed', 'BOOLEAN', true, null, false);
+        $this->addColumn('has_sms', 'HasSms', 'BOOLEAN', true, null, false);
         $this->addColumn('status', 'Status', 'ENUM', true, null, 'started');
         $this->getColumn('status')->setValueSet(array (
   0 => 'started',
   1 => 'canceled',
   2 => 'finished',
 ));
+        $this->addColumn('nb_sent_notifications', 'NbSentNotifications', 'INTEGER', false, null, 0);
+        $this->addColumn('nb_all_notifications', 'NbAllNotifications', 'INTEGER', false, null, 0);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
     } // initialize()
@@ -278,7 +320,7 @@ class DeliveryTableMap extends TableMap
         $this->addRelation('Notification', '\\Delivery\\Model\\Notification', RelationMap::ONE_TO_ONE, array (
   0 =>
   array (
-    0 => ':delivery_id',
+    0 => ':id',
     1 => ':id',
   ),
 ), 'CASCADE', null, null, false);
@@ -294,6 +336,7 @@ class DeliveryTableMap extends TableMap
     {
         return array(
             'timestampable' => array('create_column' => 'created_at', 'update_column' => 'updated_at', 'disable_created_at' => 'false', 'disable_updated_at' => 'false', ),
+            'delegate' => array('to' => 'delivery_notification', ),
         );
     } // getBehaviors()
     /**
@@ -449,17 +492,23 @@ class DeliveryTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(DeliveryTableMap::COL_ID);
             $criteria->addSelectColumn(DeliveryTableMap::COL_NAME);
-            $criteria->addSelectColumn(DeliveryTableMap::COL_DATA_URL);
-            $criteria->addSelectColumn(DeliveryTableMap::COL_FILTERS);
+            $criteria->addSelectColumn(DeliveryTableMap::COL_HAS_EMAIL);
+            $criteria->addSelectColumn(DeliveryTableMap::COL_HAS_FEED);
+            $criteria->addSelectColumn(DeliveryTableMap::COL_HAS_SMS);
             $criteria->addSelectColumn(DeliveryTableMap::COL_STATUS);
+            $criteria->addSelectColumn(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS);
+            $criteria->addSelectColumn(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS);
             $criteria->addSelectColumn(DeliveryTableMap::COL_CREATED_AT);
             $criteria->addSelectColumn(DeliveryTableMap::COL_UPDATED_AT);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
-            $criteria->addSelectColumn($alias . '.data_url');
-            $criteria->addSelectColumn($alias . '.filters');
+            $criteria->addSelectColumn($alias . '.has_email');
+            $criteria->addSelectColumn($alias . '.has_feed');
+            $criteria->addSelectColumn($alias . '.has_sms');
             $criteria->addSelectColumn($alias . '.status');
+            $criteria->addSelectColumn($alias . '.nb_sent_notifications');
+            $criteria->addSelectColumn($alias . '.nb_all_notifications');
             $criteria->addSelectColumn($alias . '.created_at');
             $criteria->addSelectColumn($alias . '.updated_at');
         }
@@ -481,17 +530,23 @@ class DeliveryTableMap extends TableMap
         if (null === $alias) {
             $criteria->removeSelectColumn(DeliveryTableMap::COL_ID);
             $criteria->removeSelectColumn(DeliveryTableMap::COL_NAME);
-            $criteria->removeSelectColumn(DeliveryTableMap::COL_DATA_URL);
-            $criteria->removeSelectColumn(DeliveryTableMap::COL_FILTERS);
+            $criteria->removeSelectColumn(DeliveryTableMap::COL_HAS_EMAIL);
+            $criteria->removeSelectColumn(DeliveryTableMap::COL_HAS_FEED);
+            $criteria->removeSelectColumn(DeliveryTableMap::COL_HAS_SMS);
             $criteria->removeSelectColumn(DeliveryTableMap::COL_STATUS);
+            $criteria->removeSelectColumn(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS);
+            $criteria->removeSelectColumn(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS);
             $criteria->removeSelectColumn(DeliveryTableMap::COL_CREATED_AT);
             $criteria->removeSelectColumn(DeliveryTableMap::COL_UPDATED_AT);
         } else {
             $criteria->removeSelectColumn($alias . '.id');
             $criteria->removeSelectColumn($alias . '.name');
-            $criteria->removeSelectColumn($alias . '.data_url');
-            $criteria->removeSelectColumn($alias . '.filters');
+            $criteria->removeSelectColumn($alias . '.has_email');
+            $criteria->removeSelectColumn($alias . '.has_feed');
+            $criteria->removeSelectColumn($alias . '.has_sms');
             $criteria->removeSelectColumn($alias . '.status');
+            $criteria->removeSelectColumn($alias . '.nb_sent_notifications');
+            $criteria->removeSelectColumn($alias . '.nb_all_notifications');
             $criteria->removeSelectColumn($alias . '.created_at');
             $criteria->removeSelectColumn($alias . '.updated_at');
         }

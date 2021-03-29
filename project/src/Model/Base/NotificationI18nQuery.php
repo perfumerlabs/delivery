@@ -20,23 +20,23 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  *
- * @method     ChildNotificationI18nQuery orderByDeliveryId($order = Criteria::ASC) Order by the delivery_id column
+ * @method     ChildNotificationI18nQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildNotificationI18nQuery orderByLocale($order = Criteria::ASC) Order by the locale column
- * @method     ChildNotificationI18nQuery orderByEmailTitle($order = Criteria::ASC) Order by the email_title column
- * @method     ChildNotificationI18nQuery orderByEmailContent($order = Criteria::ASC) Order by the email_content column
+ * @method     ChildNotificationI18nQuery orderByEmailSubject($order = Criteria::ASC) Order by the email_subject column
+ * @method     ChildNotificationI18nQuery orderByEmailHtml($order = Criteria::ASC) Order by the email_html column
+ * @method     ChildNotificationI18nQuery orderBySmsMessage($order = Criteria::ASC) Order by the sms_message column
  * @method     ChildNotificationI18nQuery orderByFeedTitle($order = Criteria::ASC) Order by the feed_title column
- * @method     ChildNotificationI18nQuery orderByFeedContent($order = Criteria::ASC) Order by the feed_content column
- * @method     ChildNotificationI18nQuery orderBySmsContent($order = Criteria::ASC) Order by the sms_content column
- * @method     ChildNotificationI18nQuery orderByLinkText($order = Criteria::ASC) Order by the link_text column
+ * @method     ChildNotificationI18nQuery orderByFeedText($order = Criteria::ASC) Order by the feed_text column
+ * @method     ChildNotificationI18nQuery orderByFeedImage($order = Criteria::ASC) Order by the feed_image column
  *
- * @method     ChildNotificationI18nQuery groupByDeliveryId() Group by the delivery_id column
+ * @method     ChildNotificationI18nQuery groupById() Group by the id column
  * @method     ChildNotificationI18nQuery groupByLocale() Group by the locale column
- * @method     ChildNotificationI18nQuery groupByEmailTitle() Group by the email_title column
- * @method     ChildNotificationI18nQuery groupByEmailContent() Group by the email_content column
+ * @method     ChildNotificationI18nQuery groupByEmailSubject() Group by the email_subject column
+ * @method     ChildNotificationI18nQuery groupByEmailHtml() Group by the email_html column
+ * @method     ChildNotificationI18nQuery groupBySmsMessage() Group by the sms_message column
  * @method     ChildNotificationI18nQuery groupByFeedTitle() Group by the feed_title column
- * @method     ChildNotificationI18nQuery groupByFeedContent() Group by the feed_content column
- * @method     ChildNotificationI18nQuery groupBySmsContent() Group by the sms_content column
- * @method     ChildNotificationI18nQuery groupByLinkText() Group by the link_text column
+ * @method     ChildNotificationI18nQuery groupByFeedText() Group by the feed_text column
+ * @method     ChildNotificationI18nQuery groupByFeedImage() Group by the feed_image column
  *
  * @method     ChildNotificationI18nQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildNotificationI18nQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -61,36 +61,36 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildNotificationI18n|null findOne(ConnectionInterface $con = null) Return the first ChildNotificationI18n matching the query
  * @method     ChildNotificationI18n findOneOrCreate(ConnectionInterface $con = null) Return the first ChildNotificationI18n matching the query, or a new ChildNotificationI18n object populated from the query conditions when no match is found
  *
- * @method     ChildNotificationI18n|null findOneByDeliveryId(int $delivery_id) Return the first ChildNotificationI18n filtered by the delivery_id column
+ * @method     ChildNotificationI18n|null findOneById(int $id) Return the first ChildNotificationI18n filtered by the id column
  * @method     ChildNotificationI18n|null findOneByLocale(string $locale) Return the first ChildNotificationI18n filtered by the locale column
- * @method     ChildNotificationI18n|null findOneByEmailTitle(string $email_title) Return the first ChildNotificationI18n filtered by the email_title column
- * @method     ChildNotificationI18n|null findOneByEmailContent(string $email_content) Return the first ChildNotificationI18n filtered by the email_content column
+ * @method     ChildNotificationI18n|null findOneByEmailSubject(string $email_subject) Return the first ChildNotificationI18n filtered by the email_subject column
+ * @method     ChildNotificationI18n|null findOneByEmailHtml(string $email_html) Return the first ChildNotificationI18n filtered by the email_html column
+ * @method     ChildNotificationI18n|null findOneBySmsMessage(string $sms_message) Return the first ChildNotificationI18n filtered by the sms_message column
  * @method     ChildNotificationI18n|null findOneByFeedTitle(string $feed_title) Return the first ChildNotificationI18n filtered by the feed_title column
- * @method     ChildNotificationI18n|null findOneByFeedContent(string $feed_content) Return the first ChildNotificationI18n filtered by the feed_content column
- * @method     ChildNotificationI18n|null findOneBySmsContent(string $sms_content) Return the first ChildNotificationI18n filtered by the sms_content column
- * @method     ChildNotificationI18n|null findOneByLinkText(string $link_text) Return the first ChildNotificationI18n filtered by the link_text column *
+ * @method     ChildNotificationI18n|null findOneByFeedText(string $feed_text) Return the first ChildNotificationI18n filtered by the feed_text column
+ * @method     ChildNotificationI18n|null findOneByFeedImage(string $feed_image) Return the first ChildNotificationI18n filtered by the feed_image column *
 
  * @method     ChildNotificationI18n requirePk($key, ConnectionInterface $con = null) Return the ChildNotificationI18n by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildNotificationI18n requireOne(ConnectionInterface $con = null) Return the first ChildNotificationI18n matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildNotificationI18n requireOneByDeliveryId(int $delivery_id) Return the first ChildNotificationI18n filtered by the delivery_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneById(int $id) Return the first ChildNotificationI18n filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildNotificationI18n requireOneByLocale(string $locale) Return the first ChildNotificationI18n filtered by the locale column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotificationI18n requireOneByEmailTitle(string $email_title) Return the first ChildNotificationI18n filtered by the email_title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotificationI18n requireOneByEmailContent(string $email_content) Return the first ChildNotificationI18n filtered by the email_content column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneByEmailSubject(string $email_subject) Return the first ChildNotificationI18n filtered by the email_subject column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneByEmailHtml(string $email_html) Return the first ChildNotificationI18n filtered by the email_html column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneBySmsMessage(string $sms_message) Return the first ChildNotificationI18n filtered by the sms_message column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildNotificationI18n requireOneByFeedTitle(string $feed_title) Return the first ChildNotificationI18n filtered by the feed_title column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotificationI18n requireOneByFeedContent(string $feed_content) Return the first ChildNotificationI18n filtered by the feed_content column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotificationI18n requireOneBySmsContent(string $sms_content) Return the first ChildNotificationI18n filtered by the sms_content column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotificationI18n requireOneByLinkText(string $link_text) Return the first ChildNotificationI18n filtered by the link_text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneByFeedText(string $feed_text) Return the first ChildNotificationI18n filtered by the feed_text column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotificationI18n requireOneByFeedImage(string $feed_image) Return the first ChildNotificationI18n filtered by the feed_image column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildNotificationI18n[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildNotificationI18n objects based on current ModelCriteria
- * @method     ChildNotificationI18n[]|ObjectCollection findByDeliveryId(int $delivery_id) Return ChildNotificationI18n objects filtered by the delivery_id column
+ * @method     ChildNotificationI18n[]|ObjectCollection findById(int $id) Return ChildNotificationI18n objects filtered by the id column
  * @method     ChildNotificationI18n[]|ObjectCollection findByLocale(string $locale) Return ChildNotificationI18n objects filtered by the locale column
- * @method     ChildNotificationI18n[]|ObjectCollection findByEmailTitle(string $email_title) Return ChildNotificationI18n objects filtered by the email_title column
- * @method     ChildNotificationI18n[]|ObjectCollection findByEmailContent(string $email_content) Return ChildNotificationI18n objects filtered by the email_content column
+ * @method     ChildNotificationI18n[]|ObjectCollection findByEmailSubject(string $email_subject) Return ChildNotificationI18n objects filtered by the email_subject column
+ * @method     ChildNotificationI18n[]|ObjectCollection findByEmailHtml(string $email_html) Return ChildNotificationI18n objects filtered by the email_html column
+ * @method     ChildNotificationI18n[]|ObjectCollection findBySmsMessage(string $sms_message) Return ChildNotificationI18n objects filtered by the sms_message column
  * @method     ChildNotificationI18n[]|ObjectCollection findByFeedTitle(string $feed_title) Return ChildNotificationI18n objects filtered by the feed_title column
- * @method     ChildNotificationI18n[]|ObjectCollection findByFeedContent(string $feed_content) Return ChildNotificationI18n objects filtered by the feed_content column
- * @method     ChildNotificationI18n[]|ObjectCollection findBySmsContent(string $sms_content) Return ChildNotificationI18n objects filtered by the sms_content column
- * @method     ChildNotificationI18n[]|ObjectCollection findByLinkText(string $link_text) Return ChildNotificationI18n objects filtered by the link_text column
+ * @method     ChildNotificationI18n[]|ObjectCollection findByFeedText(string $feed_text) Return ChildNotificationI18n objects filtered by the feed_text column
+ * @method     ChildNotificationI18n[]|ObjectCollection findByFeedImage(string $feed_image) Return ChildNotificationI18n objects filtered by the feed_image column
  * @method     ChildNotificationI18n[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -143,7 +143,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
      * $obj = $c->findPk(array(12, 34), $con);
      * </code>
      *
-     * @param array[$delivery_id, $locale] $key Primary key to use for the query
+     * @param array[$id, $locale] $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
      * @return ChildNotificationI18n|array|mixed the result, formatted by the current formatter
@@ -189,7 +189,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT delivery_id, locale, email_title, email_content, feed_title, feed_content, sms_content, link_text FROM delivery_notification_i18n WHERE delivery_id = :p0 AND locale = :p1';
+        $sql = 'SELECT id, locale, email_subject, email_html, sms_message, feed_title, feed_text, feed_image FROM delivery_notification_i18n WHERE id = :p0 AND locale = :p1';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key[0], PDO::PARAM_INT);
@@ -263,7 +263,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
      */
     public function filterByPrimaryKey($key)
     {
-        $this->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $key[0], Criteria::EQUAL);
+        $this->addUsingAlias(NotificationI18nTableMap::COL_ID, $key[0], Criteria::EQUAL);
         $this->addUsingAlias(NotificationI18nTableMap::COL_LOCALE, $key[1], Criteria::EQUAL);
 
         return $this;
@@ -282,7 +282,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
             return $this->add(null, '1<>1', Criteria::CUSTOM);
         }
         foreach ($keys as $key) {
-            $cton0 = $this->getNewCriterion(NotificationI18nTableMap::COL_DELIVERY_ID, $key[0], Criteria::EQUAL);
+            $cton0 = $this->getNewCriterion(NotificationI18nTableMap::COL_ID, $key[0], Criteria::EQUAL);
             $cton1 = $this->getNewCriterion(NotificationI18nTableMap::COL_LOCALE, $key[1], Criteria::EQUAL);
             $cton0->addAnd($cton1);
             $this->addOr($cton0);
@@ -292,18 +292,18 @@ abstract class NotificationI18nQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the delivery_id column
+     * Filter the query on the id column
      *
      * Example usage:
      * <code>
-     * $query->filterByDeliveryId(1234); // WHERE delivery_id = 1234
-     * $query->filterByDeliveryId(array(12, 34)); // WHERE delivery_id IN (12, 34)
-     * $query->filterByDeliveryId(array('min' => 12)); // WHERE delivery_id > 12
+     * $query->filterById(1234); // WHERE id = 1234
+     * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+     * $query->filterById(array('min' => 12)); // WHERE id > 12
      * </code>
      *
      * @see       filterByNotification()
      *
-     * @param     mixed $deliveryId The value to use as filter.
+     * @param     mixed $id The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -311,16 +311,16 @@ abstract class NotificationI18nQuery extends ModelCriteria
      *
      * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
      */
-    public function filterByDeliveryId($deliveryId = null, $comparison = null)
+    public function filterById($id = null, $comparison = null)
     {
-        if (is_array($deliveryId)) {
+        if (is_array($id)) {
             $useMinMax = false;
-            if (isset($deliveryId['min'])) {
-                $this->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $deliveryId['min'], Criteria::GREATER_EQUAL);
+            if (isset($id['min'])) {
+                $this->addUsingAlias(NotificationI18nTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($deliveryId['max'])) {
-                $this->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $deliveryId['max'], Criteria::LESS_EQUAL);
+            if (isset($id['max'])) {
+                $this->addUsingAlias(NotificationI18nTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -331,7 +331,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $deliveryId, $comparison);
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_ID, $id, $comparison);
     }
 
     /**
@@ -360,53 +360,78 @@ abstract class NotificationI18nQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the email_title column
+     * Filter the query on the email_subject column
      *
      * Example usage:
      * <code>
-     * $query->filterByEmailTitle('fooValue');   // WHERE email_title = 'fooValue'
-     * $query->filterByEmailTitle('%fooValue%', Criteria::LIKE); // WHERE email_title LIKE '%fooValue%'
+     * $query->filterByEmailSubject('fooValue');   // WHERE email_subject = 'fooValue'
+     * $query->filterByEmailSubject('%fooValue%', Criteria::LIKE); // WHERE email_subject LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $emailTitle The value to use as filter.
+     * @param     string $emailSubject The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
      */
-    public function filterByEmailTitle($emailTitle = null, $comparison = null)
+    public function filterByEmailSubject($emailSubject = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($emailTitle)) {
+            if (is_array($emailSubject)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_EMAIL_TITLE, $emailTitle, $comparison);
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_EMAIL_SUBJECT, $emailSubject, $comparison);
     }
 
     /**
-     * Filter the query on the email_content column
+     * Filter the query on the email_html column
      *
      * Example usage:
      * <code>
-     * $query->filterByEmailContent('fooValue');   // WHERE email_content = 'fooValue'
-     * $query->filterByEmailContent('%fooValue%', Criteria::LIKE); // WHERE email_content LIKE '%fooValue%'
+     * $query->filterByEmailHtml('fooValue');   // WHERE email_html = 'fooValue'
+     * $query->filterByEmailHtml('%fooValue%', Criteria::LIKE); // WHERE email_html LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $emailContent The value to use as filter.
+     * @param     string $emailHtml The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
      */
-    public function filterByEmailContent($emailContent = null, $comparison = null)
+    public function filterByEmailHtml($emailHtml = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($emailContent)) {
+            if (is_array($emailHtml)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_EMAIL_CONTENT, $emailContent, $comparison);
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_EMAIL_HTML, $emailHtml, $comparison);
+    }
+
+    /**
+     * Filter the query on the sms_message column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySmsMessage('fooValue');   // WHERE sms_message = 'fooValue'
+     * $query->filterBySmsMessage('%fooValue%', Criteria::LIKE); // WHERE sms_message LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $smsMessage The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
+     */
+    public function filterBySmsMessage($smsMessage = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($smsMessage)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_SMS_MESSAGE, $smsMessage, $comparison);
     }
 
     /**
@@ -435,78 +460,53 @@ abstract class NotificationI18nQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the feed_content column
+     * Filter the query on the feed_text column
      *
      * Example usage:
      * <code>
-     * $query->filterByFeedContent('fooValue');   // WHERE feed_content = 'fooValue'
-     * $query->filterByFeedContent('%fooValue%', Criteria::LIKE); // WHERE feed_content LIKE '%fooValue%'
+     * $query->filterByFeedText('fooValue');   // WHERE feed_text = 'fooValue'
+     * $query->filterByFeedText('%fooValue%', Criteria::LIKE); // WHERE feed_text LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $feedContent The value to use as filter.
+     * @param     string $feedText The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
      */
-    public function filterByFeedContent($feedContent = null, $comparison = null)
+    public function filterByFeedText($feedText = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($feedContent)) {
+            if (is_array($feedText)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_FEED_CONTENT, $feedContent, $comparison);
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_FEED_TEXT, $feedText, $comparison);
     }
 
     /**
-     * Filter the query on the sms_content column
+     * Filter the query on the feed_image column
      *
      * Example usage:
      * <code>
-     * $query->filterBySmsContent('fooValue');   // WHERE sms_content = 'fooValue'
-     * $query->filterBySmsContent('%fooValue%', Criteria::LIKE); // WHERE sms_content LIKE '%fooValue%'
+     * $query->filterByFeedImage('fooValue');   // WHERE feed_image = 'fooValue'
+     * $query->filterByFeedImage('%fooValue%', Criteria::LIKE); // WHERE feed_image LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $smsContent The value to use as filter.
+     * @param     string $feedImage The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
      */
-    public function filterBySmsContent($smsContent = null, $comparison = null)
+    public function filterByFeedImage($feedImage = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($smsContent)) {
+            if (is_array($feedImage)) {
                 $comparison = Criteria::IN;
             }
         }
 
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_SMS_CONTENT, $smsContent, $comparison);
-    }
-
-    /**
-     * Filter the query on the link_text column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByLinkText('fooValue');   // WHERE link_text = 'fooValue'
-     * $query->filterByLinkText('%fooValue%', Criteria::LIKE); // WHERE link_text LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $linkText The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationI18nQuery The current query, for fluid interface
-     */
-    public function filterByLinkText($linkText = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($linkText)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(NotificationI18nTableMap::COL_LINK_TEXT, $linkText, $comparison);
+        return $this->addUsingAlias(NotificationI18nTableMap::COL_FEED_IMAGE, $feedImage, $comparison);
     }
 
     /**
@@ -523,14 +523,14 @@ abstract class NotificationI18nQuery extends ModelCriteria
     {
         if ($notification instanceof \Delivery\Model\Notification) {
             return $this
-                ->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $notification->getDeliveryId(), $comparison);
+                ->addUsingAlias(NotificationI18nTableMap::COL_ID, $notification->getId(), $comparison);
         } elseif ($notification instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(NotificationI18nTableMap::COL_DELIVERY_ID, $notification->toKeyValue('PrimaryKey', 'DeliveryId'), $comparison);
+                ->addUsingAlias(NotificationI18nTableMap::COL_ID, $notification->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByNotification() only accepts arguments of type \Delivery\Model\Notification or Collection');
         }
@@ -596,7 +596,7 @@ abstract class NotificationI18nQuery extends ModelCriteria
     public function prune($notificationI18n = null)
     {
         if ($notificationI18n) {
-            $this->addCond('pruneCond0', $this->getAliasedColName(NotificationI18nTableMap::COL_DELIVERY_ID), $notificationI18n->getDeliveryId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond0', $this->getAliasedColName(NotificationI18nTableMap::COL_ID), $notificationI18n->getId(), Criteria::NOT_EQUAL);
             $this->addCond('pruneCond1', $this->getAliasedColName(NotificationI18nTableMap::COL_LOCALE), $notificationI18n->getLocale(), Criteria::NOT_EQUAL);
             $this->combine(array('pruneCond0', 'pruneCond1'), Criteria::LOGICAL_OR);
         }

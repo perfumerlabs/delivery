@@ -4,34 +4,32 @@
     <table name="delivery_delivery" phpName="Delivery">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="name" type="varchar" size="255" required="true"/> <!-- Name of delivery -->
-        <column name="data_url" type="varchar" size="255" required="true"/> <!-- URL using for fetching users email, phones, feed ID -->
-        <column name="filters" type="longvarchar"/> <!-- array of filters sending to data_url -->
-        <column name="status" type="enum" valueSet="started,canceled,finished" required="true" defaultValue="started"/> <!-- Status of delivery -->
-        <behavior name="timestampable"/>
-    </table>
-
-    <table name="delivery_notification" phpName="Notification">
-        <column name="delivery_id" type="integer" primaryKey="true"/> <!-- Delivery -->
         <column name="has_email" type="boolean" required="true" defaultValue="false"/> <!-- Send email? -->
         <column name="has_feed" type="boolean" required="true" defaultValue="false"/> <!-- Send feed? -->
         <column name="has_sms" type="boolean" required="true" defaultValue="false"/> <!-- Send SMS? -->
-        <column name="email_title" type="varchar" size="255"/> <!-- Email notif title -->
-        <column name="email_content" type="longvarchar"/> <!-- Email notif content -->
-        <column name="feed_title" type="varchar" size="255"/> <!-- Feed notif title -->
-        <column name="feed_content" type="longvarchar"/> <!-- Feed notif content -->
-        <column name="sms_content" type="longvarchar"/> <!-- SMS notif content -->
-        <column name="link_url" type="varchar" size="255"/> <!-- Notif link URL -->
-        <column name="link_text" type="varchar" size="255"/> <!-- Notif link text -->
-
-        <foreign-key foreignTable="delivery_delivery" phpName="Delivery" onDelete="CASCADE">
-            <reference local="delivery_id" foreign="id"/>
-        </foreign-key>
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="email_title,email_content,feed_title,feed_content,sms_content,link_text"/>
-        </behavior>
+        <column name="status" type="enum" valueSet="started,canceled,finished" required="true" defaultValue="started"/> <!-- Status of delivery -->
+        <column name="nb_sent_notifications" type="integer" defaultValue="0"/> <!-- Sent notifications count -->
+        <column name="nb_all_notifications" type="integer" defaultValue="0"/> <!-- All notifications count -->
         <behavior name="timestampable"/>
-        <unique>
-            <unique-column name="delivery_id"/>
-        </unique>
+        <behavior name="delegate">
+            <parameter name="to" value="delivery_notification" />
+        </behavior>
+    </table>
+
+    <!-- Dependent Table from delivery_delivery describes notification information -->
+    <table name="delivery_notification" phpName="Notification">
+        <column name="data_url" type="varchar" size="255" required="true"/> <!-- URL using for fetching users email, phones, feed ID -->
+        <column name="filters" type="json"/> <!-- Array of filters sending to data_url -->
+        <column name="email_subject" type="varchar" size="255"/> <!-- Email notif subject -->
+        <column name="email_html" type="longvarchar"/> <!-- Email notif html -->
+        <column name="sms_message" type="longvarchar"/> <!-- SMS notif message -->
+        <column name="feed_title" type="varchar" size="255"/> <!-- Feed notif title -->
+        <column name="feed_text" type="longvarchar"/> <!-- Feed notif text -->
+        <column name="feed_image" type="varchar" size="255"/> <!-- Feed notif image -->
+        <column name="feed_payload" type="json"/> <!-- Feed notif payload -->
+        <column name="payload" type="json"/> <!-- Payload. Some additional data -->
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="email_subject,email_html,sms_message,feed_title,feed_text,feed_image"/>
+        </behavior>
     </table>
 </database>

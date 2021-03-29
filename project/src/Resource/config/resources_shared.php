@@ -24,7 +24,7 @@ return [
         'email_worker' => 'DELIVERY_EMAIL_WORKER',
         'feed_url' => 'DELIVERY_FEED_URL',
         'feed_worker' => 'DELIVERY_FEED_WORKER',
-        'worker' => 'DELIVERY_WORKER',
+        'fraction_worker' => 'DELIVERY_FRACTION_WORKER',
         'url' => 'DELIVERY_URL',
         'timezone' => 'DELIVERY_TIMEZONE',
     ],

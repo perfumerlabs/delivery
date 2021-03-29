@@ -20,18 +20,13 @@ class DeliveryFacade
 
     private $delivery_domain;
 
-    private $notification_domain;
-
     public function __construct(
         Queue $queue,
-        DeliveryDomain $delivery_domain,
-        NotificationDomain $notification_domain
+        DeliveryDomain $delivery_domain
     ) {
         $this->queue = $queue;
 
         $this->delivery_domain = $delivery_domain;
-
-        $this->notification_domain = $notification_domain;
     }
 
     public function save(array $data): SaveResponse
@@ -48,8 +43,6 @@ class DeliveryFacade
         }
 
         $delivery = $this->saveDelivery($data);
-
-        $this->saveNotification($delivery, $data['messages']);
 
         $this->queue->sendDelivery($delivery->getId(), $data['min'], $data['max'], $data['gap']);
 
@@ -68,6 +61,7 @@ class DeliveryFacade
         }
 
         $obj = DeliveryQuery::create()
+            ->joinWithNotification()
             ->findPk($delivery_id);
 
         if (!$obj) {
@@ -132,25 +126,27 @@ class DeliveryFacade
             return $response;
         }
 
-        $locale = $user['locale'] ?? 'ru';
+        $locales = array_column($users, 'locale');
+        $locales = array_unique($locales);
 
-        $notification->setLocale($locale);
+        foreach ($locales as $locale) {
+            $notification->setLocale($locale);
 
-        if ($notification->hasEmail()) {
-            $emails = array_column($users, 'email');
+            if ($obj->hasEmail()) {
+                $this->sendEmail($users, $notification);
+            }
 
-            $this->sendEmail($emails, $notification);
+            if ($obj->hasSms()) {
+                $phones = array_column($users, 'phone');
+                $this->sendSms($phones, $notification);
+            }
+
+            if ($obj->hasFeed()) {
+                $this->sendFeed($users, $notification);
+            }
         }
 
-        if ($notification->hasSms()) {
-            $phones = array_column($users, 'phone');
-
-            $this->sendSms($phones, $notification);
-        }
-
-        if ($notification->hasFeed()) {
-            $this->sendFeed($users, $notification);
-        }
+        $this->delivery_domain->increaseProgress($obj, $max - $min);
 
         //последняя итерация
         if ($max - $min <= $gap) {
@@ -162,72 +158,78 @@ class DeliveryFacade
 
     private function sendFeed(array $users, Notification $notification): void
     {
+        $title = $notification->getFeedTitle();
+        if (($title === null || $title === '') && $notification->getLocale() !== 'ru') {
+            $title = $notification->setLocale('ru')->getFeedTitle();
+        }
+
+        $text = $notification->getFeedText();
+        if (($text === null || $text === '') && $notification->getLocale() !== 'ru') {
+            $text = $notification->setLocale('ru')->getFeedText();
+        }
+
+        $image = $notification->getFeedText();
+        if (($image === null || $image === '') && $notification->getLocale() !== 'ru') {
+            $image = $notification->setLocale('ru')->getFeedImage();
+        }
+
         foreach ($users as $user) {
             $feed_collection = $user['feed_collection'] ?? null;
             $feed_recipient  = $user['feed_recipient'] ?? null;
 
-            $title = $notification->getFeedTitle();
-            if (($title === null || $title === '') && $notification->getLocale() !== 'ru') {
-                $title = $notification->setLocale('ru')->getFeedTitle();
-            }
-
-            $text = $notification->getFeedContent();
-            if (($text === null || $text === '') && $notification->getLocale() !== 'ru') {
-                $text = $notification->setLocale('ru')->getFeedContent();
-            }
-
-            $this->queue->sendFeed($feed_collection, $feed_recipient, $title, $text);
+            $this->queue->sendFeed(
+                $feed_collection,
+                $feed_recipient,
+                $title,
+                $text,
+                $image,
+                $notification->getFeedPayload()
+            );
         }
     }
 
     private function sendSms(array $phones, Notification $notification): void
     {
         foreach ($phones as $key => $phone) {
-            $phone = Text::sanitizePhone($phone);
+            $phone        = Text::sanitizePhone($phone);
             $phones[$key] = $phone;
         }
 
-        $message = $notification->getSmsContent();
+        $message = $notification->getSmsMessage();
 
         if (($message === null || $message === '') && $notification->getLocale() !== 'ru') {
-            $message = $notification->setLocale('ru')->getSmsContent();
+            $message = $notification->setLocale('ru')->getSmsMessage();
         }
 
         $this->queue->sendSms($phones, $message);
     }
 
-    private function sendEmail(array $emails, Notification $notification): void
+    private function sendEmail(array $users, Notification $notification): void
     {
-        $subject = $notification->getEmailTitle();
+        $subject = $notification->getEmailSubject();
 
         if (($subject === null || $subject === '') && $notification->getLocale() !== 'ru') {
-            $subject = $notification->setLocale('ru')->getEmailTitle();
+            $subject = $notification->setLocale('ru')->getEmailSubject();
         }
 
         if (!$subject) {
             return;
         }
 
-        $text = $notification->getEmailContent();
+        $html = $notification->getEmailHtml();
 
-        if (($text === null || $text === '') && $notification->getLocale() !== 'ru') {
-            $text = $notification->setLocale('ru')->getEmailContent();
+        if (($html === null || $html === '') && $notification->getLocale() !== 'ru') {
+            $html = $notification->setLocale('ru')->getEmailHtml();
         }
 
-        $html = '<html><body><p>' . $text . '</p>';
-
-        if ($notification->getLinkUrl()) {
-            $link_text = $notification->getLinkText();
-            if ($link_text === null || $link_text === '') {
-                $link_text = $notification->getLinkUrl();
+        foreach ($users as $user) {
+            $email = $user['email'] ?? null;
+            if (!$email) {
+                continue;
             }
 
-            $html .= '<p><a href="' . $notification->getLinkUrl() . '">' . $link_text . '</a></p>';
+            $this->queue->sendEmail($email, $subject, null, $html);
         }
-
-        $html .= '</body></html>';
-
-        $this->queue->sendEmail($emails, $subject, null, $html);
     }
 
     /**
@@ -237,7 +239,7 @@ class DeliveryFacade
      *      'email' => (string) email.
      *      'phone' => (string) phone.
      *      'feed_collection' => (string) user feed collection,
-     *          'feed_recipient' => (string | int) user feed recipient,
+     *      'feed_recipient' => (string | int) user feed recipient,
      *      'locale' => (string) user language
      *    ],
      * ]
@@ -267,34 +269,29 @@ class DeliveryFacade
 
     private function saveDelivery(array $data): Delivery
     {
+        $messages = $data['messages'] ?? null;
+
         $new_data = [
-            'delivery' => $data['delivery'] ?? null,
-            'name'     => $data['name'] ?? null,
-            'data_url' => $data['data_url'] ?? null,
-            'filters'  => $data['filters'] ?? null,
-            'status'   => DeliveryTableMap::COL_STATUS_STARTED,
+            'delivery'             => $data['delivery'] ?? null,
+            'name'                 => $data['name'] ?? null,
+            'has_email'            => $messages['has_email'] ?? null,
+            'has_feed'             => $messages['has_feed'] ?? null,
+            'has_sms'              => $messages['has_sms'] ?? null,
+            'status'               => DeliveryTableMap::COL_STATUS_STARTED,
+            'nb_all_notifications' => $data['max'],
+            'data_url'             => $data['data_url'] ?? null,
+            'filters'              => $data['filters'] ?? null,
+            'email_subject'        => $messages['email_subject'] ?? null,
+            'email_html'           => $messages['email_html'] ?? null,
+            'sms_message'          => $messages['sms_message'] ?? null,
+            'feed_title'           => $messages['feed_title'] ?? null,
+            'feed_text'            => $messages['feed_text'] ?? null,
+            'feed_image'           => $messages['feed_image'] ?? null,
+            'feed_payload'         => $messages['feed_payload'] ?? null,
+            'payload'              => $messages['payload'] ?? null,
         ];
 
         return $this->delivery_domain->save($new_data);
-    }
-
-    private function saveNotification(Delivery $delivery, array $messages): Notification
-    {
-        $data = [
-            'delivery'      => $delivery,
-            'has_email'     => $messages['has_email'] ?? null,
-            'has_feed'      => $messages['has_feed'] ?? null,
-            'has_sms'       => $messages['has_sms'] ?? null,
-            'link_url'      => $messages['link_url'] ?? null,
-            'email_title'   => $messages['email_title'] ?? null,
-            'email_content' => $messages['email_content'] ?? null,
-            'feed_title'    => $messages['feed_title'] ?? null,
-            'feed_content'  => $messages['feed_content'] ?? null,
-            'sms_content'   => $messages['sms_content'] ?? null,
-            'link_text'     => $messages['link_text'] ?? null,
-        ];
-
-        return $this->notification_domain->save($data);
     }
 
     private function validateDelivery(array $data): ?string

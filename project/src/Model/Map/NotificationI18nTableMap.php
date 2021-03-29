@@ -71,9 +71,9 @@ class NotificationI18nTableMap extends TableMap
     const NUM_HYDRATE_COLUMNS = 8;
 
     /**
-     * the column name for the delivery_id field
+     * the column name for the id field
      */
-    const COL_DELIVERY_ID = 'delivery_notification_i18n.delivery_id';
+    const COL_ID = 'delivery_notification_i18n.id';
 
     /**
      * the column name for the locale field
@@ -81,14 +81,19 @@ class NotificationI18nTableMap extends TableMap
     const COL_LOCALE = 'delivery_notification_i18n.locale';
 
     /**
-     * the column name for the email_title field
+     * the column name for the email_subject field
      */
-    const COL_EMAIL_TITLE = 'delivery_notification_i18n.email_title';
+    const COL_EMAIL_SUBJECT = 'delivery_notification_i18n.email_subject';
 
     /**
-     * the column name for the email_content field
+     * the column name for the email_html field
      */
-    const COL_EMAIL_CONTENT = 'delivery_notification_i18n.email_content';
+    const COL_EMAIL_HTML = 'delivery_notification_i18n.email_html';
+
+    /**
+     * the column name for the sms_message field
+     */
+    const COL_SMS_MESSAGE = 'delivery_notification_i18n.sms_message';
 
     /**
      * the column name for the feed_title field
@@ -96,19 +101,14 @@ class NotificationI18nTableMap extends TableMap
     const COL_FEED_TITLE = 'delivery_notification_i18n.feed_title';
 
     /**
-     * the column name for the feed_content field
+     * the column name for the feed_text field
      */
-    const COL_FEED_CONTENT = 'delivery_notification_i18n.feed_content';
+    const COL_FEED_TEXT = 'delivery_notification_i18n.feed_text';
 
     /**
-     * the column name for the sms_content field
+     * the column name for the feed_image field
      */
-    const COL_SMS_CONTENT = 'delivery_notification_i18n.sms_content';
-
-    /**
-     * the column name for the link_text field
-     */
-    const COL_LINK_TEXT = 'delivery_notification_i18n.link_text';
+    const COL_FEED_IMAGE = 'delivery_notification_i18n.feed_image';
 
     /**
      * The default string format for model objects of the related table
@@ -122,10 +122,10 @@ class NotificationI18nTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('DeliveryId', 'Locale', 'EmailTitle', 'EmailContent', 'FeedTitle', 'FeedContent', 'SmsContent', 'LinkText', ),
-        self::TYPE_CAMELNAME     => array('deliveryId', 'locale', 'emailTitle', 'emailContent', 'feedTitle', 'feedContent', 'smsContent', 'linkText', ),
-        self::TYPE_COLNAME       => array(NotificationI18nTableMap::COL_DELIVERY_ID, NotificationI18nTableMap::COL_LOCALE, NotificationI18nTableMap::COL_EMAIL_TITLE, NotificationI18nTableMap::COL_EMAIL_CONTENT, NotificationI18nTableMap::COL_FEED_TITLE, NotificationI18nTableMap::COL_FEED_CONTENT, NotificationI18nTableMap::COL_SMS_CONTENT, NotificationI18nTableMap::COL_LINK_TEXT, ),
-        self::TYPE_FIELDNAME     => array('delivery_id', 'locale', 'email_title', 'email_content', 'feed_title', 'feed_content', 'sms_content', 'link_text', ),
+        self::TYPE_PHPNAME       => array('Id', 'Locale', 'EmailSubject', 'EmailHtml', 'SmsMessage', 'FeedTitle', 'FeedText', 'FeedImage', ),
+        self::TYPE_CAMELNAME     => array('id', 'locale', 'emailSubject', 'emailHtml', 'smsMessage', 'feedTitle', 'feedText', 'feedImage', ),
+        self::TYPE_COLNAME       => array(NotificationI18nTableMap::COL_ID, NotificationI18nTableMap::COL_LOCALE, NotificationI18nTableMap::COL_EMAIL_SUBJECT, NotificationI18nTableMap::COL_EMAIL_HTML, NotificationI18nTableMap::COL_SMS_MESSAGE, NotificationI18nTableMap::COL_FEED_TITLE, NotificationI18nTableMap::COL_FEED_TEXT, NotificationI18nTableMap::COL_FEED_IMAGE, ),
+        self::TYPE_FIELDNAME     => array('id', 'locale', 'email_subject', 'email_html', 'sms_message', 'feed_title', 'feed_text', 'feed_image', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -136,10 +136,10 @@ class NotificationI18nTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('DeliveryId' => 0, 'Locale' => 1, 'EmailTitle' => 2, 'EmailContent' => 3, 'FeedTitle' => 4, 'FeedContent' => 5, 'SmsContent' => 6, 'LinkText' => 7, ),
-        self::TYPE_CAMELNAME     => array('deliveryId' => 0, 'locale' => 1, 'emailTitle' => 2, 'emailContent' => 3, 'feedTitle' => 4, 'feedContent' => 5, 'smsContent' => 6, 'linkText' => 7, ),
-        self::TYPE_COLNAME       => array(NotificationI18nTableMap::COL_DELIVERY_ID => 0, NotificationI18nTableMap::COL_LOCALE => 1, NotificationI18nTableMap::COL_EMAIL_TITLE => 2, NotificationI18nTableMap::COL_EMAIL_CONTENT => 3, NotificationI18nTableMap::COL_FEED_TITLE => 4, NotificationI18nTableMap::COL_FEED_CONTENT => 5, NotificationI18nTableMap::COL_SMS_CONTENT => 6, NotificationI18nTableMap::COL_LINK_TEXT => 7, ),
-        self::TYPE_FIELDNAME     => array('delivery_id' => 0, 'locale' => 1, 'email_title' => 2, 'email_content' => 3, 'feed_title' => 4, 'feed_content' => 5, 'sms_content' => 6, 'link_text' => 7, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Locale' => 1, 'EmailSubject' => 2, 'EmailHtml' => 3, 'SmsMessage' => 4, 'FeedTitle' => 5, 'FeedText' => 6, 'FeedImage' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'locale' => 1, 'emailSubject' => 2, 'emailHtml' => 3, 'smsMessage' => 4, 'feedTitle' => 5, 'feedText' => 6, 'feedImage' => 7, ),
+        self::TYPE_COLNAME       => array(NotificationI18nTableMap::COL_ID => 0, NotificationI18nTableMap::COL_LOCALE => 1, NotificationI18nTableMap::COL_EMAIL_SUBJECT => 2, NotificationI18nTableMap::COL_EMAIL_HTML => 3, NotificationI18nTableMap::COL_SMS_MESSAGE => 4, NotificationI18nTableMap::COL_FEED_TITLE => 5, NotificationI18nTableMap::COL_FEED_TEXT => 6, NotificationI18nTableMap::COL_FEED_IMAGE => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'locale' => 1, 'email_subject' => 2, 'email_html' => 3, 'sms_message' => 4, 'feed_title' => 5, 'feed_text' => 6, 'feed_image' => 7, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -150,14 +150,14 @@ class NotificationI18nTableMap extends TableMap
      */
     protected $normalizedColumnNameMap = [
 
-        'DeliveryId' => 'DELIVERY_ID',
-        'NotificationI18n.DeliveryId' => 'DELIVERY_ID',
-        'deliveryId' => 'DELIVERY_ID',
-        'notificationI18n.deliveryId' => 'DELIVERY_ID',
-        'NotificationI18nTableMap::COL_DELIVERY_ID' => 'DELIVERY_ID',
-        'COL_DELIVERY_ID' => 'DELIVERY_ID',
-        'delivery_id' => 'DELIVERY_ID',
-        'delivery_notification_i18n.delivery_id' => 'DELIVERY_ID',
+        'Id' => 'ID',
+        'NotificationI18n.Id' => 'ID',
+        'id' => 'ID',
+        'notificationI18n.id' => 'ID',
+        'NotificationI18nTableMap::COL_ID' => 'ID',
+        'COL_ID' => 'ID',
+        'id' => 'ID',
+        'delivery_notification_i18n.id' => 'ID',
         'Locale' => 'LOCALE',
         'NotificationI18n.Locale' => 'LOCALE',
         'locale' => 'LOCALE',
@@ -166,22 +166,30 @@ class NotificationI18nTableMap extends TableMap
         'COL_LOCALE' => 'LOCALE',
         'locale' => 'LOCALE',
         'delivery_notification_i18n.locale' => 'LOCALE',
-        'EmailTitle' => 'EMAIL_TITLE',
-        'NotificationI18n.EmailTitle' => 'EMAIL_TITLE',
-        'emailTitle' => 'EMAIL_TITLE',
-        'notificationI18n.emailTitle' => 'EMAIL_TITLE',
-        'NotificationI18nTableMap::COL_EMAIL_TITLE' => 'EMAIL_TITLE',
-        'COL_EMAIL_TITLE' => 'EMAIL_TITLE',
-        'email_title' => 'EMAIL_TITLE',
-        'delivery_notification_i18n.email_title' => 'EMAIL_TITLE',
-        'EmailContent' => 'EMAIL_CONTENT',
-        'NotificationI18n.EmailContent' => 'EMAIL_CONTENT',
-        'emailContent' => 'EMAIL_CONTENT',
-        'notificationI18n.emailContent' => 'EMAIL_CONTENT',
-        'NotificationI18nTableMap::COL_EMAIL_CONTENT' => 'EMAIL_CONTENT',
-        'COL_EMAIL_CONTENT' => 'EMAIL_CONTENT',
-        'email_content' => 'EMAIL_CONTENT',
-        'delivery_notification_i18n.email_content' => 'EMAIL_CONTENT',
+        'EmailSubject' => 'EMAIL_SUBJECT',
+        'NotificationI18n.EmailSubject' => 'EMAIL_SUBJECT',
+        'emailSubject' => 'EMAIL_SUBJECT',
+        'notificationI18n.emailSubject' => 'EMAIL_SUBJECT',
+        'NotificationI18nTableMap::COL_EMAIL_SUBJECT' => 'EMAIL_SUBJECT',
+        'COL_EMAIL_SUBJECT' => 'EMAIL_SUBJECT',
+        'email_subject' => 'EMAIL_SUBJECT',
+        'delivery_notification_i18n.email_subject' => 'EMAIL_SUBJECT',
+        'EmailHtml' => 'EMAIL_HTML',
+        'NotificationI18n.EmailHtml' => 'EMAIL_HTML',
+        'emailHtml' => 'EMAIL_HTML',
+        'notificationI18n.emailHtml' => 'EMAIL_HTML',
+        'NotificationI18nTableMap::COL_EMAIL_HTML' => 'EMAIL_HTML',
+        'COL_EMAIL_HTML' => 'EMAIL_HTML',
+        'email_html' => 'EMAIL_HTML',
+        'delivery_notification_i18n.email_html' => 'EMAIL_HTML',
+        'SmsMessage' => 'SMS_MESSAGE',
+        'NotificationI18n.SmsMessage' => 'SMS_MESSAGE',
+        'smsMessage' => 'SMS_MESSAGE',
+        'notificationI18n.smsMessage' => 'SMS_MESSAGE',
+        'NotificationI18nTableMap::COL_SMS_MESSAGE' => 'SMS_MESSAGE',
+        'COL_SMS_MESSAGE' => 'SMS_MESSAGE',
+        'sms_message' => 'SMS_MESSAGE',
+        'delivery_notification_i18n.sms_message' => 'SMS_MESSAGE',
         'FeedTitle' => 'FEED_TITLE',
         'NotificationI18n.FeedTitle' => 'FEED_TITLE',
         'feedTitle' => 'FEED_TITLE',
@@ -190,30 +198,22 @@ class NotificationI18nTableMap extends TableMap
         'COL_FEED_TITLE' => 'FEED_TITLE',
         'feed_title' => 'FEED_TITLE',
         'delivery_notification_i18n.feed_title' => 'FEED_TITLE',
-        'FeedContent' => 'FEED_CONTENT',
-        'NotificationI18n.FeedContent' => 'FEED_CONTENT',
-        'feedContent' => 'FEED_CONTENT',
-        'notificationI18n.feedContent' => 'FEED_CONTENT',
-        'NotificationI18nTableMap::COL_FEED_CONTENT' => 'FEED_CONTENT',
-        'COL_FEED_CONTENT' => 'FEED_CONTENT',
-        'feed_content' => 'FEED_CONTENT',
-        'delivery_notification_i18n.feed_content' => 'FEED_CONTENT',
-        'SmsContent' => 'SMS_CONTENT',
-        'NotificationI18n.SmsContent' => 'SMS_CONTENT',
-        'smsContent' => 'SMS_CONTENT',
-        'notificationI18n.smsContent' => 'SMS_CONTENT',
-        'NotificationI18nTableMap::COL_SMS_CONTENT' => 'SMS_CONTENT',
-        'COL_SMS_CONTENT' => 'SMS_CONTENT',
-        'sms_content' => 'SMS_CONTENT',
-        'delivery_notification_i18n.sms_content' => 'SMS_CONTENT',
-        'LinkText' => 'LINK_TEXT',
-        'NotificationI18n.LinkText' => 'LINK_TEXT',
-        'linkText' => 'LINK_TEXT',
-        'notificationI18n.linkText' => 'LINK_TEXT',
-        'NotificationI18nTableMap::COL_LINK_TEXT' => 'LINK_TEXT',
-        'COL_LINK_TEXT' => 'LINK_TEXT',
-        'link_text' => 'LINK_TEXT',
-        'delivery_notification_i18n.link_text' => 'LINK_TEXT',
+        'FeedText' => 'FEED_TEXT',
+        'NotificationI18n.FeedText' => 'FEED_TEXT',
+        'feedText' => 'FEED_TEXT',
+        'notificationI18n.feedText' => 'FEED_TEXT',
+        'NotificationI18nTableMap::COL_FEED_TEXT' => 'FEED_TEXT',
+        'COL_FEED_TEXT' => 'FEED_TEXT',
+        'feed_text' => 'FEED_TEXT',
+        'delivery_notification_i18n.feed_text' => 'FEED_TEXT',
+        'FeedImage' => 'FEED_IMAGE',
+        'NotificationI18n.FeedImage' => 'FEED_IMAGE',
+        'feedImage' => 'FEED_IMAGE',
+        'notificationI18n.feedImage' => 'FEED_IMAGE',
+        'NotificationI18nTableMap::COL_FEED_IMAGE' => 'FEED_IMAGE',
+        'COL_FEED_IMAGE' => 'FEED_IMAGE',
+        'feed_image' => 'FEED_IMAGE',
+        'delivery_notification_i18n.feed_image' => 'FEED_IMAGE',
     ];
 
     /**
@@ -233,14 +233,14 @@ class NotificationI18nTableMap extends TableMap
         $this->setPackage('');
         $this->setUseIdGenerator(false);
         // columns
-        $this->addForeignPrimaryKey('delivery_id', 'DeliveryId', 'INTEGER' , 'delivery_notification', 'delivery_id', true, null, null);
+        $this->addForeignPrimaryKey('id', 'Id', 'INTEGER' , 'delivery_notification', 'id', true, null, null);
         $this->addPrimaryKey('locale', 'Locale', 'VARCHAR', true, 5, 'en_US');
-        $this->addColumn('email_title', 'EmailTitle', 'VARCHAR', false, 255, null);
-        $this->addColumn('email_content', 'EmailContent', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('email_subject', 'EmailSubject', 'VARCHAR', false, 255, null);
+        $this->addColumn('email_html', 'EmailHtml', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('sms_message', 'SmsMessage', 'LONGVARCHAR', false, null, null);
         $this->addColumn('feed_title', 'FeedTitle', 'VARCHAR', false, 255, null);
-        $this->addColumn('feed_content', 'FeedContent', 'LONGVARCHAR', false, null, null);
-        $this->addColumn('sms_content', 'SmsContent', 'LONGVARCHAR', false, null, null);
-        $this->addColumn('link_text', 'LinkText', 'VARCHAR', false, 255, null);
+        $this->addColumn('feed_text', 'FeedText', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('feed_image', 'FeedImage', 'VARCHAR', false, 255, null);
     } // initialize()
 
     /**
@@ -251,8 +251,8 @@ class NotificationI18nTableMap extends TableMap
         $this->addRelation('Notification', '\\Delivery\\Model\\Notification', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':delivery_id',
-    1 => ':delivery_id',
+    0 => ':id',
+    1 => ':id',
   ),
 ), 'CASCADE', null, null, false);
     } // buildRelations()
@@ -272,7 +272,7 @@ class NotificationI18nTableMap extends TableMap
     {
         if (Propel::isInstancePoolingEnabled()) {
             if (null === $key) {
-                $key = serialize([(null === $obj->getDeliveryId() || is_scalar($obj->getDeliveryId()) || is_callable([$obj->getDeliveryId(), '__toString']) ? (string) $obj->getDeliveryId() : $obj->getDeliveryId()), (null === $obj->getLocale() || is_scalar($obj->getLocale()) || is_callable([$obj->getLocale(), '__toString']) ? (string) $obj->getLocale() : $obj->getLocale())]);
+                $key = serialize([(null === $obj->getId() || is_scalar($obj->getId()) || is_callable([$obj->getId(), '__toString']) ? (string) $obj->getId() : $obj->getId()), (null === $obj->getLocale() || is_scalar($obj->getLocale()) || is_callable([$obj->getLocale(), '__toString']) ? (string) $obj->getLocale() : $obj->getLocale())]);
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -292,7 +292,7 @@ class NotificationI18nTableMap extends TableMap
     {
         if (Propel::isInstancePoolingEnabled() && null !== $value) {
             if (is_object($value) && $value instanceof \Delivery\Model\NotificationI18n) {
-                $key = serialize([(null === $value->getDeliveryId() || is_scalar($value->getDeliveryId()) || is_callable([$value->getDeliveryId(), '__toString']) ? (string) $value->getDeliveryId() : $value->getDeliveryId()), (null === $value->getLocale() || is_scalar($value->getLocale()) || is_callable([$value->getLocale(), '__toString']) ? (string) $value->getLocale() : $value->getLocale())]);
+                $key = serialize([(null === $value->getId() || is_scalar($value->getId()) || is_callable([$value->getId(), '__toString']) ? (string) $value->getId() : $value->getId()), (null === $value->getLocale() || is_scalar($value->getLocale()) || is_callable([$value->getLocale(), '__toString']) ? (string) $value->getLocale() : $value->getLocale())]);
 
             } elseif (is_array($value) && count($value) === 2) {
                 // assume we've been passed a primary key";
@@ -326,11 +326,11 @@ class NotificationI18nTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null && $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] === null) {
             return null;
         }
 
-        return serialize([(null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)]), (null === $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)])]);
+        return serialize([(null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)]), (null === $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 1 + $offset : static::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)])]);
     }
 
     /**
@@ -352,7 +352,7 @@ class NotificationI18nTableMap extends TableMap
         $pks[] = (int) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
-                : self::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)
+                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
         ];
         $pks[] = (string) $row[
             $indexType == TableMap::TYPE_NUM
@@ -460,23 +460,23 @@ class NotificationI18nTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_DELIVERY_ID);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_ID);
             $criteria->addSelectColumn(NotificationI18nTableMap::COL_LOCALE);
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_EMAIL_TITLE);
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_EMAIL_CONTENT);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_EMAIL_SUBJECT);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_EMAIL_HTML);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_SMS_MESSAGE);
             $criteria->addSelectColumn(NotificationI18nTableMap::COL_FEED_TITLE);
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_FEED_CONTENT);
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_SMS_CONTENT);
-            $criteria->addSelectColumn(NotificationI18nTableMap::COL_LINK_TEXT);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_FEED_TEXT);
+            $criteria->addSelectColumn(NotificationI18nTableMap::COL_FEED_IMAGE);
         } else {
-            $criteria->addSelectColumn($alias . '.delivery_id');
+            $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.locale');
-            $criteria->addSelectColumn($alias . '.email_title');
-            $criteria->addSelectColumn($alias . '.email_content');
+            $criteria->addSelectColumn($alias . '.email_subject');
+            $criteria->addSelectColumn($alias . '.email_html');
+            $criteria->addSelectColumn($alias . '.sms_message');
             $criteria->addSelectColumn($alias . '.feed_title');
-            $criteria->addSelectColumn($alias . '.feed_content');
-            $criteria->addSelectColumn($alias . '.sms_content');
-            $criteria->addSelectColumn($alias . '.link_text');
+            $criteria->addSelectColumn($alias . '.feed_text');
+            $criteria->addSelectColumn($alias . '.feed_image');
         }
     }
 
@@ -494,23 +494,23 @@ class NotificationI18nTableMap extends TableMap
     public static function removeSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_DELIVERY_ID);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_ID);
             $criteria->removeSelectColumn(NotificationI18nTableMap::COL_LOCALE);
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_EMAIL_TITLE);
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_EMAIL_CONTENT);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_EMAIL_SUBJECT);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_EMAIL_HTML);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_SMS_MESSAGE);
             $criteria->removeSelectColumn(NotificationI18nTableMap::COL_FEED_TITLE);
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_FEED_CONTENT);
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_SMS_CONTENT);
-            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_LINK_TEXT);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_FEED_TEXT);
+            $criteria->removeSelectColumn(NotificationI18nTableMap::COL_FEED_IMAGE);
         } else {
-            $criteria->removeSelectColumn($alias . '.delivery_id');
+            $criteria->removeSelectColumn($alias . '.id');
             $criteria->removeSelectColumn($alias . '.locale');
-            $criteria->removeSelectColumn($alias . '.email_title');
-            $criteria->removeSelectColumn($alias . '.email_content');
+            $criteria->removeSelectColumn($alias . '.email_subject');
+            $criteria->removeSelectColumn($alias . '.email_html');
+            $criteria->removeSelectColumn($alias . '.sms_message');
             $criteria->removeSelectColumn($alias . '.feed_title');
-            $criteria->removeSelectColumn($alias . '.feed_content');
-            $criteria->removeSelectColumn($alias . '.sms_content');
-            $criteria->removeSelectColumn($alias . '.link_text');
+            $criteria->removeSelectColumn($alias . '.feed_text');
+            $criteria->removeSelectColumn($alias . '.feed_image');
         }
     }
 
@@ -569,7 +569,7 @@ class NotificationI18nTableMap extends TableMap
                 $values = array($values);
             }
             foreach ($values as $value) {
-                $criterion = $criteria->getNewCriterion(NotificationI18nTableMap::COL_DELIVERY_ID, $value[0]);
+                $criterion = $criteria->getNewCriterion(NotificationI18nTableMap::COL_ID, $value[0]);
                 $criterion->addAnd($criteria->getNewCriterion(NotificationI18nTableMap::COL_LOCALE, $value[1]));
                 $criteria->addOr($criterion);
             }

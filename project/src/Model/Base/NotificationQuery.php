@@ -21,21 +21,17 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  *
- * @method     ChildNotificationQuery orderByDeliveryId($order = Criteria::ASC) Order by the delivery_id column
- * @method     ChildNotificationQuery orderByHasEmail($order = Criteria::ASC) Order by the has_email column
- * @method     ChildNotificationQuery orderByHasFeed($order = Criteria::ASC) Order by the has_feed column
- * @method     ChildNotificationQuery orderByHasSms($order = Criteria::ASC) Order by the has_sms column
- * @method     ChildNotificationQuery orderByLinkUrl($order = Criteria::ASC) Order by the link_url column
- * @method     ChildNotificationQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
- * @method     ChildNotificationQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
+ * @method     ChildNotificationQuery orderByDataUrl($order = Criteria::ASC) Order by the data_url column
+ * @method     ChildNotificationQuery orderByFilters($order = Criteria::ASC) Order by the filters column
+ * @method     ChildNotificationQuery orderByFeedPayload($order = Criteria::ASC) Order by the feed_payload column
+ * @method     ChildNotificationQuery orderByPayload($order = Criteria::ASC) Order by the payload column
+ * @method     ChildNotificationQuery orderById($order = Criteria::ASC) Order by the id column
  *
- * @method     ChildNotificationQuery groupByDeliveryId() Group by the delivery_id column
- * @method     ChildNotificationQuery groupByHasEmail() Group by the has_email column
- * @method     ChildNotificationQuery groupByHasFeed() Group by the has_feed column
- * @method     ChildNotificationQuery groupByHasSms() Group by the has_sms column
- * @method     ChildNotificationQuery groupByLinkUrl() Group by the link_url column
- * @method     ChildNotificationQuery groupByCreatedAt() Group by the created_at column
- * @method     ChildNotificationQuery groupByUpdatedAt() Group by the updated_at column
+ * @method     ChildNotificationQuery groupByDataUrl() Group by the data_url column
+ * @method     ChildNotificationQuery groupByFilters() Group by the filters column
+ * @method     ChildNotificationQuery groupByFeedPayload() Group by the feed_payload column
+ * @method     ChildNotificationQuery groupByPayload() Group by the payload column
+ * @method     ChildNotificationQuery groupById() Group by the id column
  *
  * @method     ChildNotificationQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildNotificationQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -70,33 +66,27 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildNotification|null findOne(ConnectionInterface $con = null) Return the first ChildNotification matching the query
  * @method     ChildNotification findOneOrCreate(ConnectionInterface $con = null) Return the first ChildNotification matching the query, or a new ChildNotification object populated from the query conditions when no match is found
  *
- * @method     ChildNotification|null findOneByDeliveryId(int $delivery_id) Return the first ChildNotification filtered by the delivery_id column
- * @method     ChildNotification|null findOneByHasEmail(boolean $has_email) Return the first ChildNotification filtered by the has_email column
- * @method     ChildNotification|null findOneByHasFeed(boolean $has_feed) Return the first ChildNotification filtered by the has_feed column
- * @method     ChildNotification|null findOneByHasSms(boolean $has_sms) Return the first ChildNotification filtered by the has_sms column
- * @method     ChildNotification|null findOneByLinkUrl(string $link_url) Return the first ChildNotification filtered by the link_url column
- * @method     ChildNotification|null findOneByCreatedAt(string $created_at) Return the first ChildNotification filtered by the created_at column
- * @method     ChildNotification|null findOneByUpdatedAt(string $updated_at) Return the first ChildNotification filtered by the updated_at column *
+ * @method     ChildNotification|null findOneByDataUrl(string $data_url) Return the first ChildNotification filtered by the data_url column
+ * @method     ChildNotification|null findOneByFilters(string $filters) Return the first ChildNotification filtered by the filters column
+ * @method     ChildNotification|null findOneByFeedPayload(string $feed_payload) Return the first ChildNotification filtered by the feed_payload column
+ * @method     ChildNotification|null findOneByPayload(string $payload) Return the first ChildNotification filtered by the payload column
+ * @method     ChildNotification|null findOneById(int $id) Return the first ChildNotification filtered by the id column *
 
  * @method     ChildNotification requirePk($key, ConnectionInterface $con = null) Return the ChildNotification by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildNotification requireOne(ConnectionInterface $con = null) Return the first ChildNotification matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildNotification requireOneByDeliveryId(int $delivery_id) Return the first ChildNotification filtered by the delivery_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByHasEmail(boolean $has_email) Return the first ChildNotification filtered by the has_email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByHasFeed(boolean $has_feed) Return the first ChildNotification filtered by the has_feed column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByHasSms(boolean $has_sms) Return the first ChildNotification filtered by the has_sms column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByLinkUrl(string $link_url) Return the first ChildNotification filtered by the link_url column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByCreatedAt(string $created_at) Return the first ChildNotification filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildNotification requireOneByUpdatedAt(string $updated_at) Return the first ChildNotification filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotification requireOneByDataUrl(string $data_url) Return the first ChildNotification filtered by the data_url column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotification requireOneByFilters(string $filters) Return the first ChildNotification filtered by the filters column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotification requireOneByFeedPayload(string $feed_payload) Return the first ChildNotification filtered by the feed_payload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotification requireOneByPayload(string $payload) Return the first ChildNotification filtered by the payload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildNotification requireOneById(int $id) Return the first ChildNotification filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildNotification[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildNotification objects based on current ModelCriteria
- * @method     ChildNotification[]|ObjectCollection findByDeliveryId(int $delivery_id) Return ChildNotification objects filtered by the delivery_id column
- * @method     ChildNotification[]|ObjectCollection findByHasEmail(boolean $has_email) Return ChildNotification objects filtered by the has_email column
- * @method     ChildNotification[]|ObjectCollection findByHasFeed(boolean $has_feed) Return ChildNotification objects filtered by the has_feed column
- * @method     ChildNotification[]|ObjectCollection findByHasSms(boolean $has_sms) Return ChildNotification objects filtered by the has_sms column
- * @method     ChildNotification[]|ObjectCollection findByLinkUrl(string $link_url) Return ChildNotification objects filtered by the link_url column
- * @method     ChildNotification[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildNotification objects filtered by the created_at column
- * @method     ChildNotification[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildNotification objects filtered by the updated_at column
+ * @method     ChildNotification[]|ObjectCollection findByDataUrl(string $data_url) Return ChildNotification objects filtered by the data_url column
+ * @method     ChildNotification[]|ObjectCollection findByFilters(string $filters) Return ChildNotification objects filtered by the filters column
+ * @method     ChildNotification[]|ObjectCollection findByFeedPayload(string $feed_payload) Return ChildNotification objects filtered by the feed_payload column
+ * @method     ChildNotification[]|ObjectCollection findByPayload(string $payload) Return ChildNotification objects filtered by the payload column
+ * @method     ChildNotification[]|ObjectCollection findById(int $id) Return ChildNotification objects filtered by the id column
  * @method     ChildNotification[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -195,7 +185,7 @@ abstract class NotificationQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT delivery_id, has_email, has_feed, has_sms, link_url, created_at, updated_at FROM delivery_notification WHERE delivery_id = :p0';
+        $sql = 'SELECT data_url, filters, feed_payload, payload, id FROM delivery_notification WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -269,7 +259,7 @@ abstract class NotificationQuery extends ModelCriteria
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(NotificationTableMap::COL_ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -282,22 +272,122 @@ abstract class NotificationQuery extends ModelCriteria
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(NotificationTableMap::COL_ID, $keys, Criteria::IN);
     }
 
     /**
-     * Filter the query on the delivery_id column
+     * Filter the query on the data_url column
      *
      * Example usage:
      * <code>
-     * $query->filterByDeliveryId(1234); // WHERE delivery_id = 1234
-     * $query->filterByDeliveryId(array(12, 34)); // WHERE delivery_id IN (12, 34)
-     * $query->filterByDeliveryId(array('min' => 12)); // WHERE delivery_id > 12
+     * $query->filterByDataUrl('fooValue');   // WHERE data_url = 'fooValue'
+     * $query->filterByDataUrl('%fooValue%', Criteria::LIKE); // WHERE data_url LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $dataUrl The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildNotificationQuery The current query, for fluid interface
+     */
+    public function filterByDataUrl($dataUrl = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($dataUrl)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(NotificationTableMap::COL_DATA_URL, $dataUrl, $comparison);
+    }
+
+    /**
+     * Filter the query on the filters column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFilters('fooValue');   // WHERE filters = 'fooValue'
+     * $query->filterByFilters('%fooValue%', Criteria::LIKE); // WHERE filters LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $filters The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildNotificationQuery The current query, for fluid interface
+     */
+    public function filterByFilters($filters = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($filters)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(NotificationTableMap::COL_FILTERS, $filters, $comparison);
+    }
+
+    /**
+     * Filter the query on the feed_payload column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFeedPayload('fooValue');   // WHERE feed_payload = 'fooValue'
+     * $query->filterByFeedPayload('%fooValue%', Criteria::LIKE); // WHERE feed_payload LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $feedPayload The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildNotificationQuery The current query, for fluid interface
+     */
+    public function filterByFeedPayload($feedPayload = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($feedPayload)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(NotificationTableMap::COL_FEED_PAYLOAD, $feedPayload, $comparison);
+    }
+
+    /**
+     * Filter the query on the payload column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPayload('fooValue');   // WHERE payload = 'fooValue'
+     * $query->filterByPayload('%fooValue%', Criteria::LIKE); // WHERE payload LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $payload The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildNotificationQuery The current query, for fluid interface
+     */
+    public function filterByPayload($payload = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($payload)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(NotificationTableMap::COL_PAYLOAD, $payload, $comparison);
+    }
+
+    /**
+     * Filter the query on the id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterById(1234); // WHERE id = 1234
+     * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+     * $query->filterById(array('min' => 12)); // WHERE id > 12
      * </code>
      *
      * @see       filterByDelivery()
      *
-     * @param     mixed $deliveryId The value to use as filter.
+     * @param     mixed $id The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -305,16 +395,16 @@ abstract class NotificationQuery extends ModelCriteria
      *
      * @return $this|ChildNotificationQuery The current query, for fluid interface
      */
-    public function filterByDeliveryId($deliveryId = null, $comparison = null)
+    public function filterById($id = null, $comparison = null)
     {
-        if (is_array($deliveryId)) {
+        if (is_array($id)) {
             $useMinMax = false;
-            if (isset($deliveryId['min'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $deliveryId['min'], Criteria::GREATER_EQUAL);
+            if (isset($id['min'])) {
+                $this->addUsingAlias(NotificationTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($deliveryId['max'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $deliveryId['max'], Criteria::LESS_EQUAL);
+            if (isset($id['max'])) {
+                $this->addUsingAlias(NotificationTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -325,199 +415,7 @@ abstract class NotificationQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $deliveryId, $comparison);
-    }
-
-    /**
-     * Filter the query on the has_email column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByHasEmail(true); // WHERE has_email = true
-     * $query->filterByHasEmail('yes'); // WHERE has_email = true
-     * </code>
-     *
-     * @param     boolean|string $hasEmail The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByHasEmail($hasEmail = null, $comparison = null)
-    {
-        if (is_string($hasEmail)) {
-            $hasEmail = in_array(strtolower($hasEmail), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_HAS_EMAIL, $hasEmail, $comparison);
-    }
-
-    /**
-     * Filter the query on the has_feed column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByHasFeed(true); // WHERE has_feed = true
-     * $query->filterByHasFeed('yes'); // WHERE has_feed = true
-     * </code>
-     *
-     * @param     boolean|string $hasFeed The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByHasFeed($hasFeed = null, $comparison = null)
-    {
-        if (is_string($hasFeed)) {
-            $hasFeed = in_array(strtolower($hasFeed), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_HAS_FEED, $hasFeed, $comparison);
-    }
-
-    /**
-     * Filter the query on the has_sms column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByHasSms(true); // WHERE has_sms = true
-     * $query->filterByHasSms('yes'); // WHERE has_sms = true
-     * </code>
-     *
-     * @param     boolean|string $hasSms The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByHasSms($hasSms = null, $comparison = null)
-    {
-        if (is_string($hasSms)) {
-            $hasSms = in_array(strtolower($hasSms), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_HAS_SMS, $hasSms, $comparison);
-    }
-
-    /**
-     * Filter the query on the link_url column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByLinkUrl('fooValue');   // WHERE link_url = 'fooValue'
-     * $query->filterByLinkUrl('%fooValue%', Criteria::LIKE); // WHERE link_url LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $linkUrl The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByLinkUrl($linkUrl = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($linkUrl)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_LINK_URL, $linkUrl, $comparison);
-    }
-
-    /**
-     * Filter the query on the created_at column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByCreatedAt('2011-03-14'); // WHERE created_at = '2011-03-14'
-     * $query->filterByCreatedAt('now'); // WHERE created_at = '2011-03-14'
-     * $query->filterByCreatedAt(array('max' => 'yesterday')); // WHERE created_at > '2011-03-13'
-     * </code>
-     *
-     * @param     mixed $createdAt The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByCreatedAt($createdAt = null, $comparison = null)
-    {
-        if (is_array($createdAt)) {
-            $useMinMax = false;
-            if (isset($createdAt['min'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($createdAt['max'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_CREATED_AT, $createdAt, $comparison);
-    }
-
-    /**
-     * Filter the query on the updated_at column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByUpdatedAt('2011-03-14'); // WHERE updated_at = '2011-03-14'
-     * $query->filterByUpdatedAt('now'); // WHERE updated_at = '2011-03-14'
-     * $query->filterByUpdatedAt(array('max' => 'yesterday')); // WHERE updated_at > '2011-03-13'
-     * </code>
-     *
-     * @param     mixed $updatedAt The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function filterByUpdatedAt($updatedAt = null, $comparison = null)
-    {
-        if (is_array($updatedAt)) {
-            $useMinMax = false;
-            if (isset($updatedAt['min'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($updatedAt['max'])) {
-                $this->addUsingAlias(NotificationTableMap::COL_UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(NotificationTableMap::COL_UPDATED_AT, $updatedAt, $comparison);
+        return $this->addUsingAlias(NotificationTableMap::COL_ID, $id, $comparison);
     }
 
     /**
@@ -534,14 +432,14 @@ abstract class NotificationQuery extends ModelCriteria
     {
         if ($delivery instanceof \Delivery\Model\Delivery) {
             return $this
-                ->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $delivery->getId(), $comparison);
+                ->addUsingAlias(NotificationTableMap::COL_ID, $delivery->getId(), $comparison);
         } elseif ($delivery instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $delivery->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(NotificationTableMap::COL_ID, $delivery->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByDelivery() only accepts arguments of type \Delivery\Model\Delivery or Collection');
         }
@@ -555,7 +453,7 @@ abstract class NotificationQuery extends ModelCriteria
      *
      * @return $this|ChildNotificationQuery The current query, for fluid interface
      */
-    public function joinDelivery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDelivery($relationAlias = null, $joinType = 'LEFT JOIN')
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('Delivery');
@@ -590,7 +488,7 @@ abstract class NotificationQuery extends ModelCriteria
      *
      * @return \Delivery\Model\DeliveryQuery A secondary query class using the current class as primary query
      */
-    public function useDeliveryQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDeliveryQuery($relationAlias = null, $joinType = 'LEFT JOIN')
     {
         return $this
             ->joinDelivery($relationAlias, $joinType)
@@ -609,7 +507,7 @@ abstract class NotificationQuery extends ModelCriteria
     {
         if ($notificationI18n instanceof \Delivery\Model\NotificationI18n) {
             return $this
-                ->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $notificationI18n->getDeliveryId(), $comparison);
+                ->addUsingAlias(NotificationTableMap::COL_ID, $notificationI18n->getId(), $comparison);
         } elseif ($notificationI18n instanceof ObjectCollection) {
             return $this
                 ->useNotificationI18nQuery()
@@ -680,7 +578,7 @@ abstract class NotificationQuery extends ModelCriteria
     public function prune($notification = null)
     {
         if ($notification) {
-            $this->addUsingAlias(NotificationTableMap::COL_DELIVERY_ID, $notification->getDeliveryId(), Criteria::NOT_EQUAL);
+            $this->addUsingAlias(NotificationTableMap::COL_ID, $notification->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;
@@ -802,72 +700,6 @@ abstract class NotificationQuery extends ModelCriteria
         return $this
             ->joinI18n($locale, $relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'NotificationI18n', '\Delivery\Model\NotificationI18nQuery');
-    }
-
-    // timestampable behavior
-
-    /**
-     * Filter by the latest updated
-     *
-     * @param      int $nbDays Maximum age of the latest update in days
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function recentlyUpdated($nbDays = 7)
-    {
-        return $this->addUsingAlias(NotificationTableMap::COL_UPDATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
-    }
-
-    /**
-     * Order by update date desc
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function lastUpdatedFirst()
-    {
-        return $this->addDescendingOrderByColumn(NotificationTableMap::COL_UPDATED_AT);
-    }
-
-    /**
-     * Order by update date asc
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function firstUpdatedFirst()
-    {
-        return $this->addAscendingOrderByColumn(NotificationTableMap::COL_UPDATED_AT);
-    }
-
-    /**
-     * Order by create date desc
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function lastCreatedFirst()
-    {
-        return $this->addDescendingOrderByColumn(NotificationTableMap::COL_CREATED_AT);
-    }
-
-    /**
-     * Filter by the latest created
-     *
-     * @param      int $nbDays Maximum age of in days
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function recentlyCreated($nbDays = 7)
-    {
-        return $this->addUsingAlias(NotificationTableMap::COL_CREATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
-    }
-
-    /**
-     * Order by create date asc
-     *
-     * @return     $this|ChildNotificationQuery The current query, for fluid interface
-     */
-    public function firstCreatedFirst()
-    {
-        return $this->addAscendingOrderByColumn(NotificationTableMap::COL_CREATED_AT);
     }
 
 } // NotificationQuery

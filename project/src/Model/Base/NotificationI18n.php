@@ -62,11 +62,11 @@ abstract class NotificationI18n implements ActiveRecordInterface
     protected $virtualColumns = array();
 
     /**
-     * The value for the delivery_id field.
+     * The value for the id field.
      *
      * @var        int
      */
-    protected $delivery_id;
+    protected $id;
 
     /**
      * The value for the locale field.
@@ -77,18 +77,25 @@ abstract class NotificationI18n implements ActiveRecordInterface
     protected $locale;
 
     /**
-     * The value for the email_title field.
+     * The value for the email_subject field.
      *
      * @var        string|null
      */
-    protected $email_title;
+    protected $email_subject;
 
     /**
-     * The value for the email_content field.
+     * The value for the email_html field.
      *
      * @var        string|null
      */
-    protected $email_content;
+    protected $email_html;
+
+    /**
+     * The value for the sms_message field.
+     *
+     * @var        string|null
+     */
+    protected $sms_message;
 
     /**
      * The value for the feed_title field.
@@ -98,25 +105,18 @@ abstract class NotificationI18n implements ActiveRecordInterface
     protected $feed_title;
 
     /**
-     * The value for the feed_content field.
+     * The value for the feed_text field.
      *
      * @var        string|null
      */
-    protected $feed_content;
+    protected $feed_text;
 
     /**
-     * The value for the sms_content field.
+     * The value for the feed_image field.
      *
      * @var        string|null
      */
-    protected $sms_content;
-
-    /**
-     * The value for the link_text field.
-     *
-     * @var        string|null
-     */
-    protected $link_text;
+    protected $feed_image;
 
     /**
      * @var        ChildNotification
@@ -370,13 +370,13 @@ abstract class NotificationI18n implements ActiveRecordInterface
     }
 
     /**
-     * Get the [delivery_id] column value.
+     * Get the [id] column value.
      *
      * @return int
      */
-    public function getDeliveryId()
+    public function getId()
     {
-        return $this->delivery_id;
+        return $this->id;
     }
 
     /**
@@ -390,23 +390,33 @@ abstract class NotificationI18n implements ActiveRecordInterface
     }
 
     /**
-     * Get the [email_title] column value.
+     * Get the [email_subject] column value.
      *
      * @return string|null
      */
-    public function getEmailTitle()
+    public function getEmailSubject()
     {
-        return $this->email_title;
+        return $this->email_subject;
     }
 
     /**
-     * Get the [email_content] column value.
+     * Get the [email_html] column value.
      *
      * @return string|null
      */
-    public function getEmailContent()
+    public function getEmailHtml()
     {
-        return $this->email_content;
+        return $this->email_html;
+    }
+
+    /**
+     * Get the [sms_message] column value.
+     *
+     * @return string|null
+     */
+    public function getSmsMessage()
+    {
+        return $this->sms_message;
     }
 
     /**
@@ -420,58 +430,48 @@ abstract class NotificationI18n implements ActiveRecordInterface
     }
 
     /**
-     * Get the [feed_content] column value.
+     * Get the [feed_text] column value.
      *
      * @return string|null
      */
-    public function getFeedContent()
+    public function getFeedText()
     {
-        return $this->feed_content;
+        return $this->feed_text;
     }
 
     /**
-     * Get the [sms_content] column value.
+     * Get the [feed_image] column value.
      *
      * @return string|null
      */
-    public function getSmsContent()
+    public function getFeedImage()
     {
-        return $this->sms_content;
+        return $this->feed_image;
     }
 
     /**
-     * Get the [link_text] column value.
-     *
-     * @return string|null
-     */
-    public function getLinkText()
-    {
-        return $this->link_text;
-    }
-
-    /**
-     * Set the value of [delivery_id] column.
+     * Set the value of [id] column.
      *
      * @param int $v New value
      * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
      */
-    public function setDeliveryId($v)
+    public function setId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->delivery_id !== $v) {
-            $this->delivery_id = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_DELIVERY_ID] = true;
+        if ($this->id !== $v) {
+            $this->id = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_ID] = true;
         }
 
-        if ($this->aNotification !== null && $this->aNotification->getDeliveryId() !== $v) {
+        if ($this->aNotification !== null && $this->aNotification->getId() !== $v) {
             $this->aNotification = null;
         }
 
         return $this;
-    } // setDeliveryId()
+    } // setId()
 
     /**
      * Set the value of [locale] column.
@@ -494,44 +494,64 @@ abstract class NotificationI18n implements ActiveRecordInterface
     } // setLocale()
 
     /**
-     * Set the value of [email_title] column.
+     * Set the value of [email_subject] column.
      *
      * @param string|null $v New value
      * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
      */
-    public function setEmailTitle($v)
+    public function setEmailSubject($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->email_title !== $v) {
-            $this->email_title = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_EMAIL_TITLE] = true;
+        if ($this->email_subject !== $v) {
+            $this->email_subject = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_EMAIL_SUBJECT] = true;
         }
 
         return $this;
-    } // setEmailTitle()
+    } // setEmailSubject()
 
     /**
-     * Set the value of [email_content] column.
+     * Set the value of [email_html] column.
      *
      * @param string|null $v New value
      * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
      */
-    public function setEmailContent($v)
+    public function setEmailHtml($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->email_content !== $v) {
-            $this->email_content = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_EMAIL_CONTENT] = true;
+        if ($this->email_html !== $v) {
+            $this->email_html = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_EMAIL_HTML] = true;
         }
 
         return $this;
-    } // setEmailContent()
+    } // setEmailHtml()
+
+    /**
+     * Set the value of [sms_message] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
+     */
+    public function setSmsMessage($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->sms_message !== $v) {
+            $this->sms_message = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_SMS_MESSAGE] = true;
+        }
+
+        return $this;
+    } // setSmsMessage()
 
     /**
      * Set the value of [feed_title] column.
@@ -554,64 +574,44 @@ abstract class NotificationI18n implements ActiveRecordInterface
     } // setFeedTitle()
 
     /**
-     * Set the value of [feed_content] column.
+     * Set the value of [feed_text] column.
      *
      * @param string|null $v New value
      * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
      */
-    public function setFeedContent($v)
+    public function setFeedText($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->feed_content !== $v) {
-            $this->feed_content = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_FEED_CONTENT] = true;
+        if ($this->feed_text !== $v) {
+            $this->feed_text = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_FEED_TEXT] = true;
         }
 
         return $this;
-    } // setFeedContent()
+    } // setFeedText()
 
     /**
-     * Set the value of [sms_content] column.
+     * Set the value of [feed_image] column.
      *
      * @param string|null $v New value
      * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
      */
-    public function setSmsContent($v)
+    public function setFeedImage($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->sms_content !== $v) {
-            $this->sms_content = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_SMS_CONTENT] = true;
+        if ($this->feed_image !== $v) {
+            $this->feed_image = $v;
+            $this->modifiedColumns[NotificationI18nTableMap::COL_FEED_IMAGE] = true;
         }
 
         return $this;
-    } // setSmsContent()
-
-    /**
-     * Set the value of [link_text] column.
-     *
-     * @param string|null $v New value
-     * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
-     */
-    public function setLinkText($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->link_text !== $v) {
-            $this->link_text = $v;
-            $this->modifiedColumns[NotificationI18nTableMap::COL_LINK_TEXT] = true;
-        }
-
-        return $this;
-    } // setLinkText()
+    } // setFeedImage()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -653,29 +653,29 @@ abstract class NotificationI18n implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : NotificationI18nTableMap::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->delivery_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : NotificationI18nTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->id = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : NotificationI18nTableMap::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)];
             $this->locale = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : NotificationI18nTableMap::translateFieldName('EmailTitle', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->email_title = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : NotificationI18nTableMap::translateFieldName('EmailSubject', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->email_subject = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : NotificationI18nTableMap::translateFieldName('EmailContent', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->email_content = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : NotificationI18nTableMap::translateFieldName('EmailHtml', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->email_html = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : NotificationI18nTableMap::translateFieldName('FeedTitle', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : NotificationI18nTableMap::translateFieldName('SmsMessage', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->sms_message = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : NotificationI18nTableMap::translateFieldName('FeedTitle', TableMap::TYPE_PHPNAME, $indexType)];
             $this->feed_title = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : NotificationI18nTableMap::translateFieldName('FeedContent', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->feed_content = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : NotificationI18nTableMap::translateFieldName('FeedText', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->feed_text = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : NotificationI18nTableMap::translateFieldName('SmsContent', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->sms_content = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : NotificationI18nTableMap::translateFieldName('LinkText', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->link_text = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : NotificationI18nTableMap::translateFieldName('FeedImage', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->feed_image = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -706,7 +706,7 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aNotification !== null && $this->delivery_id !== $this->aNotification->getDeliveryId()) {
+        if ($this->aNotification !== null && $this->id !== $this->aNotification->getId()) {
             $this->aNotification = null;
         }
     } // ensureConsistency
@@ -897,29 +897,29 @@ abstract class NotificationI18n implements ActiveRecordInterface
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_DELIVERY_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'delivery_id';
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'id';
         }
         if ($this->isColumnModified(NotificationI18nTableMap::COL_LOCALE)) {
             $modifiedColumns[':p' . $index++]  = 'locale';
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_TITLE)) {
-            $modifiedColumns[':p' . $index++]  = 'email_title';
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_SUBJECT)) {
+            $modifiedColumns[':p' . $index++]  = 'email_subject';
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_CONTENT)) {
-            $modifiedColumns[':p' . $index++]  = 'email_content';
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_HTML)) {
+            $modifiedColumns[':p' . $index++]  = 'email_html';
+        }
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_SMS_MESSAGE)) {
+            $modifiedColumns[':p' . $index++]  = 'sms_message';
         }
         if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_TITLE)) {
             $modifiedColumns[':p' . $index++]  = 'feed_title';
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_CONTENT)) {
-            $modifiedColumns[':p' . $index++]  = 'feed_content';
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_TEXT)) {
+            $modifiedColumns[':p' . $index++]  = 'feed_text';
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_SMS_CONTENT)) {
-            $modifiedColumns[':p' . $index++]  = 'sms_content';
-        }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_LINK_TEXT)) {
-            $modifiedColumns[':p' . $index++]  = 'link_text';
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_IMAGE)) {
+            $modifiedColumns[':p' . $index++]  = 'feed_image';
         }
 
         $sql = sprintf(
@@ -932,29 +932,29 @@ abstract class NotificationI18n implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case 'delivery_id':
-                        $stmt->bindValue($identifier, $this->delivery_id, PDO::PARAM_INT);
+                    case 'id':
+                        $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
                     case 'locale':
                         $stmt->bindValue($identifier, $this->locale, PDO::PARAM_STR);
                         break;
-                    case 'email_title':
-                        $stmt->bindValue($identifier, $this->email_title, PDO::PARAM_STR);
+                    case 'email_subject':
+                        $stmt->bindValue($identifier, $this->email_subject, PDO::PARAM_STR);
                         break;
-                    case 'email_content':
-                        $stmt->bindValue($identifier, $this->email_content, PDO::PARAM_STR);
+                    case 'email_html':
+                        $stmt->bindValue($identifier, $this->email_html, PDO::PARAM_STR);
+                        break;
+                    case 'sms_message':
+                        $stmt->bindValue($identifier, $this->sms_message, PDO::PARAM_STR);
                         break;
                     case 'feed_title':
                         $stmt->bindValue($identifier, $this->feed_title, PDO::PARAM_STR);
                         break;
-                    case 'feed_content':
-                        $stmt->bindValue($identifier, $this->feed_content, PDO::PARAM_STR);
+                    case 'feed_text':
+                        $stmt->bindValue($identifier, $this->feed_text, PDO::PARAM_STR);
                         break;
-                    case 'sms_content':
-                        $stmt->bindValue($identifier, $this->sms_content, PDO::PARAM_STR);
-                        break;
-                    case 'link_text':
-                        $stmt->bindValue($identifier, $this->link_text, PDO::PARAM_STR);
+                    case 'feed_image':
+                        $stmt->bindValue($identifier, $this->feed_image, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1012,28 +1012,28 @@ abstract class NotificationI18n implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                return $this->getDeliveryId();
+                return $this->getId();
                 break;
             case 1:
                 return $this->getLocale();
                 break;
             case 2:
-                return $this->getEmailTitle();
+                return $this->getEmailSubject();
                 break;
             case 3:
-                return $this->getEmailContent();
+                return $this->getEmailHtml();
                 break;
             case 4:
-                return $this->getFeedTitle();
+                return $this->getSmsMessage();
                 break;
             case 5:
-                return $this->getFeedContent();
+                return $this->getFeedTitle();
                 break;
             case 6:
-                return $this->getSmsContent();
+                return $this->getFeedText();
                 break;
             case 7:
-                return $this->getLinkText();
+                return $this->getFeedImage();
                 break;
             default:
                 return null;
@@ -1065,14 +1065,14 @@ abstract class NotificationI18n implements ActiveRecordInterface
         $alreadyDumpedObjects['NotificationI18n'][$this->hashCode()] = true;
         $keys = NotificationI18nTableMap::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getDeliveryId(),
+            $keys[0] => $this->getId(),
             $keys[1] => $this->getLocale(),
-            $keys[2] => $this->getEmailTitle(),
-            $keys[3] => $this->getEmailContent(),
-            $keys[4] => $this->getFeedTitle(),
-            $keys[5] => $this->getFeedContent(),
-            $keys[6] => $this->getSmsContent(),
-            $keys[7] => $this->getLinkText(),
+            $keys[2] => $this->getEmailSubject(),
+            $keys[3] => $this->getEmailHtml(),
+            $keys[4] => $this->getSmsMessage(),
+            $keys[5] => $this->getFeedTitle(),
+            $keys[6] => $this->getFeedText(),
+            $keys[7] => $this->getFeedImage(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1130,28 +1130,28 @@ abstract class NotificationI18n implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                $this->setDeliveryId($value);
+                $this->setId($value);
                 break;
             case 1:
                 $this->setLocale($value);
                 break;
             case 2:
-                $this->setEmailTitle($value);
+                $this->setEmailSubject($value);
                 break;
             case 3:
-                $this->setEmailContent($value);
+                $this->setEmailHtml($value);
                 break;
             case 4:
-                $this->setFeedTitle($value);
+                $this->setSmsMessage($value);
                 break;
             case 5:
-                $this->setFeedContent($value);
+                $this->setFeedTitle($value);
                 break;
             case 6:
-                $this->setSmsContent($value);
+                $this->setFeedText($value);
                 break;
             case 7:
-                $this->setLinkText($value);
+                $this->setFeedImage($value);
                 break;
         } // switch()
 
@@ -1180,28 +1180,28 @@ abstract class NotificationI18n implements ActiveRecordInterface
         $keys = NotificationI18nTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
-            $this->setDeliveryId($arr[$keys[0]]);
+            $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
             $this->setLocale($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setEmailTitle($arr[$keys[2]]);
+            $this->setEmailSubject($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setEmailContent($arr[$keys[3]]);
+            $this->setEmailHtml($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setFeedTitle($arr[$keys[4]]);
+            $this->setSmsMessage($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setFeedContent($arr[$keys[5]]);
+            $this->setFeedTitle($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setSmsContent($arr[$keys[6]]);
+            $this->setFeedText($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setLinkText($arr[$keys[7]]);
+            $this->setFeedImage($arr[$keys[7]]);
         }
     }
 
@@ -1244,29 +1244,29 @@ abstract class NotificationI18n implements ActiveRecordInterface
     {
         $criteria = new Criteria(NotificationI18nTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_DELIVERY_ID)) {
-            $criteria->add(NotificationI18nTableMap::COL_DELIVERY_ID, $this->delivery_id);
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_ID)) {
+            $criteria->add(NotificationI18nTableMap::COL_ID, $this->id);
         }
         if ($this->isColumnModified(NotificationI18nTableMap::COL_LOCALE)) {
             $criteria->add(NotificationI18nTableMap::COL_LOCALE, $this->locale);
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_TITLE)) {
-            $criteria->add(NotificationI18nTableMap::COL_EMAIL_TITLE, $this->email_title);
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_SUBJECT)) {
+            $criteria->add(NotificationI18nTableMap::COL_EMAIL_SUBJECT, $this->email_subject);
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_CONTENT)) {
-            $criteria->add(NotificationI18nTableMap::COL_EMAIL_CONTENT, $this->email_content);
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_EMAIL_HTML)) {
+            $criteria->add(NotificationI18nTableMap::COL_EMAIL_HTML, $this->email_html);
+        }
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_SMS_MESSAGE)) {
+            $criteria->add(NotificationI18nTableMap::COL_SMS_MESSAGE, $this->sms_message);
         }
         if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_TITLE)) {
             $criteria->add(NotificationI18nTableMap::COL_FEED_TITLE, $this->feed_title);
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_CONTENT)) {
-            $criteria->add(NotificationI18nTableMap::COL_FEED_CONTENT, $this->feed_content);
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_TEXT)) {
+            $criteria->add(NotificationI18nTableMap::COL_FEED_TEXT, $this->feed_text);
         }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_SMS_CONTENT)) {
-            $criteria->add(NotificationI18nTableMap::COL_SMS_CONTENT, $this->sms_content);
-        }
-        if ($this->isColumnModified(NotificationI18nTableMap::COL_LINK_TEXT)) {
-            $criteria->add(NotificationI18nTableMap::COL_LINK_TEXT, $this->link_text);
+        if ($this->isColumnModified(NotificationI18nTableMap::COL_FEED_IMAGE)) {
+            $criteria->add(NotificationI18nTableMap::COL_FEED_IMAGE, $this->feed_image);
         }
 
         return $criteria;
@@ -1285,7 +1285,7 @@ abstract class NotificationI18n implements ActiveRecordInterface
     public function buildPkeyCriteria()
     {
         $criteria = ChildNotificationI18nQuery::create();
-        $criteria->add(NotificationI18nTableMap::COL_DELIVERY_ID, $this->delivery_id);
+        $criteria->add(NotificationI18nTableMap::COL_ID, $this->id);
         $criteria->add(NotificationI18nTableMap::COL_LOCALE, $this->locale);
 
         return $criteria;
@@ -1299,13 +1299,13 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function hashCode()
     {
-        $validPk = null !== $this->getDeliveryId() &&
+        $validPk = null !== $this->getId() &&
             null !== $this->getLocale();
 
         $validPrimaryKeyFKs = 1;
         $primaryKeyFKs = [];
 
-        //relation delivery_notification_i18n_fk_2bb2d5 to table delivery_notification
+        //relation delivery_notification_i18n_fk_f143f9 to table delivery_notification
         if ($this->aNotification && $hash = spl_object_hash($this->aNotification)) {
             $primaryKeyFKs[] = $hash;
         } else {
@@ -1329,7 +1329,7 @@ abstract class NotificationI18n implements ActiveRecordInterface
     public function getPrimaryKey()
     {
         $pks = array();
-        $pks[0] = $this->getDeliveryId();
+        $pks[0] = $this->getId();
         $pks[1] = $this->getLocale();
 
         return $pks;
@@ -1343,7 +1343,7 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function setPrimaryKey($keys)
     {
-        $this->setDeliveryId($keys[0]);
+        $this->setId($keys[0]);
         $this->setLocale($keys[1]);
     }
 
@@ -1353,7 +1353,7 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function isPrimaryKeyNull()
     {
-        return (null === $this->getDeliveryId()) && (null === $this->getLocale());
+        return (null === $this->getId()) && (null === $this->getLocale());
     }
 
     /**
@@ -1369,14 +1369,14 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setDeliveryId($this->getDeliveryId());
+        $copyObj->setId($this->getId());
         $copyObj->setLocale($this->getLocale());
-        $copyObj->setEmailTitle($this->getEmailTitle());
-        $copyObj->setEmailContent($this->getEmailContent());
+        $copyObj->setEmailSubject($this->getEmailSubject());
+        $copyObj->setEmailHtml($this->getEmailHtml());
+        $copyObj->setSmsMessage($this->getSmsMessage());
         $copyObj->setFeedTitle($this->getFeedTitle());
-        $copyObj->setFeedContent($this->getFeedContent());
-        $copyObj->setSmsContent($this->getSmsContent());
-        $copyObj->setLinkText($this->getLinkText());
+        $copyObj->setFeedText($this->getFeedText());
+        $copyObj->setFeedImage($this->getFeedImage());
         if ($makeNew) {
             $copyObj->setNew(true);
         }
@@ -1414,9 +1414,9 @@ abstract class NotificationI18n implements ActiveRecordInterface
     public function setNotification(ChildNotification $v = null)
     {
         if ($v === null) {
-            $this->setDeliveryId(NULL);
+            $this->setId(NULL);
         } else {
-            $this->setDeliveryId($v->getDeliveryId());
+            $this->setId($v->getId());
         }
 
         $this->aNotification = $v;
@@ -1441,8 +1441,8 @@ abstract class NotificationI18n implements ActiveRecordInterface
      */
     public function getNotification(ConnectionInterface $con = null)
     {
-        if ($this->aNotification === null && ($this->delivery_id != 0)) {
-            $this->aNotification = ChildNotificationQuery::create()->findPk($this->delivery_id, $con);
+        if ($this->aNotification === null && ($this->id != 0)) {
+            $this->aNotification = ChildNotificationQuery::create()->findPk($this->id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1465,14 +1465,14 @@ abstract class NotificationI18n implements ActiveRecordInterface
         if (null !== $this->aNotification) {
             $this->aNotification->removeNotificationI18n($this);
         }
-        $this->delivery_id = null;
+        $this->id = null;
         $this->locale = null;
-        $this->email_title = null;
-        $this->email_content = null;
+        $this->email_subject = null;
+        $this->email_html = null;
+        $this->sms_message = null;
         $this->feed_title = null;
-        $this->feed_content = null;
-        $this->sms_content = null;
-        $this->link_text = null;
+        $this->feed_text = null;
+        $this->feed_image = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->applyDefaultValues();

@@ -2,7 +2,6 @@
 
 namespace Delivery\Model\Base;
 
-use \DateTime;
 use \Exception;
 use \PDO;
 use Delivery\Model\Delivery as ChildDelivery;
@@ -25,7 +24,6 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Propel\Runtime\Util\PropelDateTime;
 
 /**
  * Base class that represents a row from the 'delivery_notification' table.
@@ -69,56 +67,39 @@ abstract class Notification implements ActiveRecordInterface
     protected $virtualColumns = array();
 
     /**
-     * The value for the delivery_id field.
+     * The value for the data_url field.
      *
-     * @var        int
+     * @var        string
      */
-    protected $delivery_id;
+    protected $data_url;
 
     /**
-     * The value for the has_email field.
-     *
-     * Note: this column has a database default value of: false
-     * @var        boolean
-     */
-    protected $has_email;
-
-    /**
-     * The value for the has_feed field.
-     *
-     * Note: this column has a database default value of: false
-     * @var        boolean
-     */
-    protected $has_feed;
-
-    /**
-     * The value for the has_sms field.
-     *
-     * Note: this column has a database default value of: false
-     * @var        boolean
-     */
-    protected $has_sms;
-
-    /**
-     * The value for the link_url field.
+     * The value for the filters field.
      *
      * @var        string|null
      */
-    protected $link_url;
+    protected $filters;
 
     /**
-     * The value for the created_at field.
+     * The value for the feed_payload field.
      *
-     * @var        DateTime|null
+     * @var        string|null
      */
-    protected $created_at;
+    protected $feed_payload;
 
     /**
-     * The value for the updated_at field.
+     * The value for the payload field.
      *
-     * @var        DateTime|null
+     * @var        string|null
      */
-    protected $updated_at;
+    protected $payload;
+
+    /**
+     * The value for the id field.
+     *
+     * @var        int
+     */
+    protected $id;
 
     /**
      * @var        ChildDelivery
@@ -160,25 +141,10 @@ abstract class Notification implements ActiveRecordInterface
     protected $notificationI18nsScheduledForDeletion = null;
 
     /**
-     * Applies default values to this object.
-     * This method should be called from the object's constructor (or
-     * equivalent initialization method).
-     * @see __construct()
-     */
-    public function applyDefaultValues()
-    {
-        $this->has_email = false;
-        $this->has_feed = false;
-        $this->has_sms = false;
-    }
-
-    /**
      * Initializes internal state of Delivery\Model\Base\Notification object.
-     * @see applyDefaults()
      */
     public function __construct()
     {
-        $this->applyDefaultValues();
     }
 
     /**
@@ -400,140 +366,159 @@ abstract class Notification implements ActiveRecordInterface
     }
 
     /**
-     * Get the [delivery_id] column value.
+     * Get the [data_url] column value.
+     *
+     * @return string
+     */
+    public function getDataUrl()
+    {
+        return $this->data_url;
+    }
+
+    /**
+     * Get the [filters] column value.
+     *
+     * @param bool $asArray Returns the JSON data as array instead of object
+
+     * @return object|array|null
+     */
+    public function getFilters($asArray = true)
+    {
+        return json_decode($this->filters, $asArray);
+    }
+
+    /**
+     * Get the [feed_payload] column value.
+     *
+     * @param bool $asArray Returns the JSON data as array instead of object
+
+     * @return object|array|null
+     */
+    public function getFeedPayload($asArray = true)
+    {
+        return json_decode($this->feed_payload, $asArray);
+    }
+
+    /**
+     * Get the [payload] column value.
+     *
+     * @param bool $asArray Returns the JSON data as array instead of object
+
+     * @return object|array|null
+     */
+    public function getPayload($asArray = true)
+    {
+        return json_decode($this->payload, $asArray);
+    }
+
+    /**
+     * Get the [id] column value.
      *
      * @return int
      */
-    public function getDeliveryId()
+    public function getId()
     {
-        return $this->delivery_id;
+        return $this->id;
     }
 
     /**
-     * Get the [has_email] column value.
+     * Set the value of [data_url] column.
      *
-     * @return boolean
+     * @param string $v New value
+     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
      */
-    public function getHasEmail()
+    public function setDataUrl($v)
     {
-        return $this->has_email;
-    }
-
-    /**
-     * Get the [has_email] column value.
-     *
-     * @return boolean
-     */
-    public function hasEmail()
-    {
-        return $this->getHasEmail();
-    }
-
-    /**
-     * Get the [has_feed] column value.
-     *
-     * @return boolean
-     */
-    public function getHasFeed()
-    {
-        return $this->has_feed;
-    }
-
-    /**
-     * Get the [has_feed] column value.
-     *
-     * @return boolean
-     */
-    public function hasFeed()
-    {
-        return $this->getHasFeed();
-    }
-
-    /**
-     * Get the [has_sms] column value.
-     *
-     * @return boolean
-     */
-    public function getHasSms()
-    {
-        return $this->has_sms;
-    }
-
-    /**
-     * Get the [has_sms] column value.
-     *
-     * @return boolean
-     */
-    public function hasSms()
-    {
-        return $this->getHasSms();
-    }
-
-    /**
-     * Get the [link_url] column value.
-     *
-     * @return string|null
-     */
-    public function getLinkUrl()
-    {
-        return $this->link_url;
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [created_at] column value.
-     *
-     *
-     * @param string|null $format The date/time format string (either date()-style or strftime()-style).
-     *   If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime|null Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getCreatedAt($format = null)
-    {
-        if ($format === null) {
-            return $this->created_at;
-        } else {
-            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
+        if ($v !== null) {
+            $v = (string) $v;
         }
-    }
 
-    /**
-     * Get the [optionally formatted] temporal [updated_at] column value.
-     *
-     *
-     * @param string|null $format The date/time format string (either date()-style or strftime()-style).
-     *   If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime|null Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getUpdatedAt($format = null)
-    {
-        if ($format === null) {
-            return $this->updated_at;
-        } else {
-            return $this->updated_at instanceof \DateTimeInterface ? $this->updated_at->format($format) : null;
+        if ($this->data_url !== $v) {
+            $this->data_url = $v;
+            $this->modifiedColumns[NotificationTableMap::COL_DATA_URL] = true;
         }
-    }
+
+        return $this;
+    } // setDataUrl()
 
     /**
-     * Set the value of [delivery_id] column.
+     * Set the value of [filters] column.
+     *
+     * @param string|array|object|null $v new value
+     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
+     */
+    public function setFilters($v)
+    {
+        if (is_string($v)) {
+            // JSON as string needs to be decoded/encoded to get a reliable comparison (spaces, ...)
+            $v = json_decode($v);
+        }
+        $encodedValue = json_encode($v);
+        if ($encodedValue !== $this->filters) {
+            $this->filters = $encodedValue;
+            $this->modifiedColumns[NotificationTableMap::COL_FILTERS] = true;
+        }
+
+        return $this;
+    } // setFilters()
+
+    /**
+     * Set the value of [feed_payload] column.
+     *
+     * @param string|array|object|null $v new value
+     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
+     */
+    public function setFeedPayload($v)
+    {
+        if (is_string($v)) {
+            // JSON as string needs to be decoded/encoded to get a reliable comparison (spaces, ...)
+            $v = json_decode($v);
+        }
+        $encodedValue = json_encode($v);
+        if ($encodedValue !== $this->feed_payload) {
+            $this->feed_payload = $encodedValue;
+            $this->modifiedColumns[NotificationTableMap::COL_FEED_PAYLOAD] = true;
+        }
+
+        return $this;
+    } // setFeedPayload()
+
+    /**
+     * Set the value of [payload] column.
+     *
+     * @param string|array|object|null $v new value
+     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
+     */
+    public function setPayload($v)
+    {
+        if (is_string($v)) {
+            // JSON as string needs to be decoded/encoded to get a reliable comparison (spaces, ...)
+            $v = json_decode($v);
+        }
+        $encodedValue = json_encode($v);
+        if ($encodedValue !== $this->payload) {
+            $this->payload = $encodedValue;
+            $this->modifiedColumns[NotificationTableMap::COL_PAYLOAD] = true;
+        }
+
+        return $this;
+    } // setPayload()
+
+    /**
+     * Set the value of [id] column.
      *
      * @param int $v New value
      * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
      */
-    public function setDeliveryId($v)
+    public function setId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->delivery_id !== $v) {
-            $this->delivery_id = $v;
-            $this->modifiedColumns[NotificationTableMap::COL_DELIVERY_ID] = true;
+        if ($this->id !== $v) {
+            $this->id = $v;
+            $this->modifiedColumns[NotificationTableMap::COL_ID] = true;
         }
 
         if ($this->aDelivery !== null && $this->aDelivery->getId() !== $v) {
@@ -541,151 +526,7 @@ abstract class Notification implements ActiveRecordInterface
         }
 
         return $this;
-    } // setDeliveryId()
-
-    /**
-     * Sets the value of the [has_email] column.
-     * Non-boolean arguments are converted using the following rules:
-     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     *
-     * @param  boolean|integer|string $v The new value
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setHasEmail($v)
-    {
-        if ($v !== null) {
-            if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-            } else {
-                $v = (boolean) $v;
-            }
-        }
-
-        if ($this->has_email !== $v) {
-            $this->has_email = $v;
-            $this->modifiedColumns[NotificationTableMap::COL_HAS_EMAIL] = true;
-        }
-
-        return $this;
-    } // setHasEmail()
-
-    /**
-     * Sets the value of the [has_feed] column.
-     * Non-boolean arguments are converted using the following rules:
-     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     *
-     * @param  boolean|integer|string $v The new value
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setHasFeed($v)
-    {
-        if ($v !== null) {
-            if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-            } else {
-                $v = (boolean) $v;
-            }
-        }
-
-        if ($this->has_feed !== $v) {
-            $this->has_feed = $v;
-            $this->modifiedColumns[NotificationTableMap::COL_HAS_FEED] = true;
-        }
-
-        return $this;
-    } // setHasFeed()
-
-    /**
-     * Sets the value of the [has_sms] column.
-     * Non-boolean arguments are converted using the following rules:
-     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     *
-     * @param  boolean|integer|string $v The new value
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setHasSms($v)
-    {
-        if ($v !== null) {
-            if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
-            } else {
-                $v = (boolean) $v;
-            }
-        }
-
-        if ($this->has_sms !== $v) {
-            $this->has_sms = $v;
-            $this->modifiedColumns[NotificationTableMap::COL_HAS_SMS] = true;
-        }
-
-        return $this;
-    } // setHasSms()
-
-    /**
-     * Set the value of [link_url] column.
-     *
-     * @param string|null $v New value
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setLinkUrl($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->link_url !== $v) {
-            $this->link_url = $v;
-            $this->modifiedColumns[NotificationTableMap::COL_LINK_URL] = true;
-        }
-
-        return $this;
-    } // setLinkUrl()
-
-    /**
-     * Sets the value of [created_at] column to a normalized version of the date/time value specified.
-     *
-     * @param  string|integer|\DateTimeInterface|null $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setCreatedAt($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->created_at !== null || $dt !== null) {
-            if ($this->created_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->created_at->format("Y-m-d H:i:s.u")) {
-                $this->created_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[NotificationTableMap::COL_CREATED_AT] = true;
-            }
-        } // if either are not null
-
-        return $this;
-    } // setCreatedAt()
-
-    /**
-     * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
-     *
-     * @param  string|integer|\DateTimeInterface|null $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Delivery\Model\Notification The current object (for fluent API support)
-     */
-    public function setUpdatedAt($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->updated_at !== null || $dt !== null) {
-            if ($this->updated_at === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->updated_at->format("Y-m-d H:i:s.u")) {
-                $this->updated_at = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[NotificationTableMap::COL_UPDATED_AT] = true;
-            }
-        } // if either are not null
-
-        return $this;
-    } // setUpdatedAt()
+    } // setId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -697,18 +538,6 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
-            if ($this->has_email !== false) {
-                return false;
-            }
-
-            if ($this->has_feed !== false) {
-                return false;
-            }
-
-            if ($this->has_sms !== false) {
-                return false;
-            }
-
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -735,26 +564,20 @@ abstract class Notification implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : NotificationTableMap::translateFieldName('DeliveryId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->delivery_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : NotificationTableMap::translateFieldName('DataUrl', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->data_url = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : NotificationTableMap::translateFieldName('HasEmail', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->has_email = (null !== $col) ? (boolean) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : NotificationTableMap::translateFieldName('Filters', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->filters = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : NotificationTableMap::translateFieldName('HasFeed', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->has_feed = (null !== $col) ? (boolean) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : NotificationTableMap::translateFieldName('FeedPayload', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->feed_payload = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : NotificationTableMap::translateFieldName('HasSms', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->has_sms = (null !== $col) ? (boolean) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : NotificationTableMap::translateFieldName('Payload', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->payload = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : NotificationTableMap::translateFieldName('LinkUrl', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->link_url = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : NotificationTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : NotificationTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : NotificationTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -763,7 +586,7 @@ abstract class Notification implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = NotificationTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = NotificationTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Delivery\\Model\\Notification'), 0, $e);
@@ -785,7 +608,7 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aDelivery !== null && $this->delivery_id !== $this->aDelivery->getId()) {
+        if ($this->aDelivery !== null && $this->id !== $this->aDelivery->getId()) {
             $this->aDelivery = null;
         }
     } // ensureConsistency
@@ -896,21 +719,8 @@ abstract class Notification implements ActiveRecordInterface
             $isInsert = $this->isNew();
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
-                // timestampable behavior
-                $time = time();
-                $highPrecision = \Propel\Runtime\Util\PropelDateTime::createHighPrecision();
-                if (!$this->isColumnModified(NotificationTableMap::COL_CREATED_AT)) {
-                    $this->setCreatedAt($highPrecision);
-                }
-                if (!$this->isColumnModified(NotificationTableMap::COL_UPDATED_AT)) {
-                    $this->setUpdatedAt($highPrecision);
-                }
             } else {
                 $ret = $ret && $this->preUpdate($con);
-                // timestampable behavior
-                if ($this->isModified() && !$this->isColumnModified(NotificationTableMap::COL_UPDATED_AT)) {
-                    $this->setUpdatedAt(\Propel\Runtime\Util\PropelDateTime::createHighPrecision());
-                }
             }
             if ($ret) {
                 $affectedRows = $this->doSave($con);
@@ -1008,26 +818,20 @@ abstract class Notification implements ActiveRecordInterface
 
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(NotificationTableMap::COL_DELIVERY_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'delivery_id';
+        if ($this->isColumnModified(NotificationTableMap::COL_DATA_URL)) {
+            $modifiedColumns[':p' . $index++]  = 'data_url';
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_EMAIL)) {
-            $modifiedColumns[':p' . $index++]  = 'has_email';
+        if ($this->isColumnModified(NotificationTableMap::COL_FILTERS)) {
+            $modifiedColumns[':p' . $index++]  = 'filters';
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_FEED)) {
-            $modifiedColumns[':p' . $index++]  = 'has_feed';
+        if ($this->isColumnModified(NotificationTableMap::COL_FEED_PAYLOAD)) {
+            $modifiedColumns[':p' . $index++]  = 'feed_payload';
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_SMS)) {
-            $modifiedColumns[':p' . $index++]  = 'has_sms';
+        if ($this->isColumnModified(NotificationTableMap::COL_PAYLOAD)) {
+            $modifiedColumns[':p' . $index++]  = 'payload';
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_LINK_URL)) {
-            $modifiedColumns[':p' . $index++]  = 'link_url';
-        }
-        if ($this->isColumnModified(NotificationTableMap::COL_CREATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'created_at';
-        }
-        if ($this->isColumnModified(NotificationTableMap::COL_UPDATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'updated_at';
+        if ($this->isColumnModified(NotificationTableMap::COL_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'id';
         }
 
         $sql = sprintf(
@@ -1040,26 +844,20 @@ abstract class Notification implements ActiveRecordInterface
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case 'delivery_id':
-                        $stmt->bindValue($identifier, $this->delivery_id, PDO::PARAM_INT);
+                    case 'data_url':
+                        $stmt->bindValue($identifier, $this->data_url, PDO::PARAM_STR);
                         break;
-                    case 'has_email':
-                        $stmt->bindValue($identifier, $this->has_email, PDO::PARAM_BOOL);
+                    case 'filters':
+                        $stmt->bindValue($identifier, $this->filters, PDO::PARAM_STR);
                         break;
-                    case 'has_feed':
-                        $stmt->bindValue($identifier, $this->has_feed, PDO::PARAM_BOOL);
+                    case 'feed_payload':
+                        $stmt->bindValue($identifier, $this->feed_payload, PDO::PARAM_STR);
                         break;
-                    case 'has_sms':
-                        $stmt->bindValue($identifier, $this->has_sms, PDO::PARAM_BOOL);
+                    case 'payload':
+                        $stmt->bindValue($identifier, $this->payload, PDO::PARAM_STR);
                         break;
-                    case 'link_url':
-                        $stmt->bindValue($identifier, $this->link_url, PDO::PARAM_STR);
-                        break;
-                    case 'created_at':
-                        $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
-                        break;
-                    case 'updated_at':
-                        $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                    case 'id':
+                        $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1117,25 +915,19 @@ abstract class Notification implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                return $this->getDeliveryId();
+                return $this->getDataUrl();
                 break;
             case 1:
-                return $this->getHasEmail();
+                return $this->getFilters();
                 break;
             case 2:
-                return $this->getHasFeed();
+                return $this->getFeedPayload();
                 break;
             case 3:
-                return $this->getHasSms();
+                return $this->getPayload();
                 break;
             case 4:
-                return $this->getLinkUrl();
-                break;
-            case 5:
-                return $this->getCreatedAt();
-                break;
-            case 6:
-                return $this->getUpdatedAt();
+                return $this->getId();
                 break;
             default:
                 return null;
@@ -1167,22 +959,12 @@ abstract class Notification implements ActiveRecordInterface
         $alreadyDumpedObjects['Notification'][$this->hashCode()] = true;
         $keys = NotificationTableMap::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getDeliveryId(),
-            $keys[1] => $this->getHasEmail(),
-            $keys[2] => $this->getHasFeed(),
-            $keys[3] => $this->getHasSms(),
-            $keys[4] => $this->getLinkUrl(),
-            $keys[5] => $this->getCreatedAt(),
-            $keys[6] => $this->getUpdatedAt(),
+            $keys[0] => $this->getDataUrl(),
+            $keys[1] => $this->getFilters(),
+            $keys[2] => $this->getFeedPayload(),
+            $keys[3] => $this->getPayload(),
+            $keys[4] => $this->getId(),
         );
-        if ($result[$keys[5]] instanceof \DateTimeInterface) {
-            $result[$keys[5]] = $result[$keys[5]]->format('Y-m-d H:i:s.u');
-        }
-
-        if ($result[$keys[6]] instanceof \DateTimeInterface) {
-            $result[$keys[6]] = $result[$keys[6]]->format('Y-m-d H:i:s.u');
-        }
-
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -1254,25 +1036,19 @@ abstract class Notification implements ActiveRecordInterface
     {
         switch ($pos) {
             case 0:
-                $this->setDeliveryId($value);
+                $this->setDataUrl($value);
                 break;
             case 1:
-                $this->setHasEmail($value);
+                $this->setFilters($value);
                 break;
             case 2:
-                $this->setHasFeed($value);
+                $this->setFeedPayload($value);
                 break;
             case 3:
-                $this->setHasSms($value);
+                $this->setPayload($value);
                 break;
             case 4:
-                $this->setLinkUrl($value);
-                break;
-            case 5:
-                $this->setCreatedAt($value);
-                break;
-            case 6:
-                $this->setUpdatedAt($value);
+                $this->setId($value);
                 break;
         } // switch()
 
@@ -1301,25 +1077,19 @@ abstract class Notification implements ActiveRecordInterface
         $keys = NotificationTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
-            $this->setDeliveryId($arr[$keys[0]]);
+            $this->setDataUrl($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setHasEmail($arr[$keys[1]]);
+            $this->setFilters($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setHasFeed($arr[$keys[2]]);
+            $this->setFeedPayload($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setHasSms($arr[$keys[3]]);
+            $this->setPayload($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setLinkUrl($arr[$keys[4]]);
-        }
-        if (array_key_exists($keys[5], $arr)) {
-            $this->setCreatedAt($arr[$keys[5]]);
-        }
-        if (array_key_exists($keys[6], $arr)) {
-            $this->setUpdatedAt($arr[$keys[6]]);
+            $this->setId($arr[$keys[4]]);
         }
     }
 
@@ -1362,26 +1132,20 @@ abstract class Notification implements ActiveRecordInterface
     {
         $criteria = new Criteria(NotificationTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(NotificationTableMap::COL_DELIVERY_ID)) {
-            $criteria->add(NotificationTableMap::COL_DELIVERY_ID, $this->delivery_id);
+        if ($this->isColumnModified(NotificationTableMap::COL_DATA_URL)) {
+            $criteria->add(NotificationTableMap::COL_DATA_URL, $this->data_url);
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_EMAIL)) {
-            $criteria->add(NotificationTableMap::COL_HAS_EMAIL, $this->has_email);
+        if ($this->isColumnModified(NotificationTableMap::COL_FILTERS)) {
+            $criteria->add(NotificationTableMap::COL_FILTERS, $this->filters);
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_FEED)) {
-            $criteria->add(NotificationTableMap::COL_HAS_FEED, $this->has_feed);
+        if ($this->isColumnModified(NotificationTableMap::COL_FEED_PAYLOAD)) {
+            $criteria->add(NotificationTableMap::COL_FEED_PAYLOAD, $this->feed_payload);
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_HAS_SMS)) {
-            $criteria->add(NotificationTableMap::COL_HAS_SMS, $this->has_sms);
+        if ($this->isColumnModified(NotificationTableMap::COL_PAYLOAD)) {
+            $criteria->add(NotificationTableMap::COL_PAYLOAD, $this->payload);
         }
-        if ($this->isColumnModified(NotificationTableMap::COL_LINK_URL)) {
-            $criteria->add(NotificationTableMap::COL_LINK_URL, $this->link_url);
-        }
-        if ($this->isColumnModified(NotificationTableMap::COL_CREATED_AT)) {
-            $criteria->add(NotificationTableMap::COL_CREATED_AT, $this->created_at);
-        }
-        if ($this->isColumnModified(NotificationTableMap::COL_UPDATED_AT)) {
-            $criteria->add(NotificationTableMap::COL_UPDATED_AT, $this->updated_at);
+        if ($this->isColumnModified(NotificationTableMap::COL_ID)) {
+            $criteria->add(NotificationTableMap::COL_ID, $this->id);
         }
 
         return $criteria;
@@ -1400,7 +1164,7 @@ abstract class Notification implements ActiveRecordInterface
     public function buildPkeyCriteria()
     {
         $criteria = ChildNotificationQuery::create();
-        $criteria->add(NotificationTableMap::COL_DELIVERY_ID, $this->delivery_id);
+        $criteria->add(NotificationTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1413,12 +1177,12 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function hashCode()
     {
-        $validPk = null !== $this->getDeliveryId();
+        $validPk = null !== $this->getId();
 
         $validPrimaryKeyFKs = 1;
         $primaryKeyFKs = [];
 
-        //relation delivery_notification_fk_dabe67 to table delivery_delivery
+        //relation delivery_notification_fk_cca7da to table delivery_delivery
         if ($this->aDelivery && $hash = spl_object_hash($this->aDelivery)) {
             $primaryKeyFKs[] = $hash;
         } else {
@@ -1440,18 +1204,18 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function getPrimaryKey()
     {
-        return $this->getDeliveryId();
+        return $this->getId();
     }
 
     /**
-     * Generic method to set the primary key (delivery_id column).
+     * Generic method to set the primary key (id column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setDeliveryId($key);
+        $this->setId($key);
     }
 
     /**
@@ -1460,7 +1224,7 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function isPrimaryKeyNull()
     {
-        return null === $this->getDeliveryId();
+        return null === $this->getId();
     }
 
     /**
@@ -1476,13 +1240,11 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setDeliveryId($this->getDeliveryId());
-        $copyObj->setHasEmail($this->getHasEmail());
-        $copyObj->setHasFeed($this->getHasFeed());
-        $copyObj->setHasSms($this->getHasSms());
-        $copyObj->setLinkUrl($this->getLinkUrl());
-        $copyObj->setCreatedAt($this->getCreatedAt());
-        $copyObj->setUpdatedAt($this->getUpdatedAt());
+        $copyObj->setDataUrl($this->getDataUrl());
+        $copyObj->setFilters($this->getFilters());
+        $copyObj->setFeedPayload($this->getFeedPayload());
+        $copyObj->setPayload($this->getPayload());
+        $copyObj->setId($this->getId());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1534,9 +1296,9 @@ abstract class Notification implements ActiveRecordInterface
     public function setDelivery(ChildDelivery $v = null)
     {
         if ($v === null) {
-            $this->setDeliveryId(NULL);
+            $this->setId(NULL);
         } else {
-            $this->setDeliveryId($v->getId());
+            $this->setId($v->getId());
         }
 
         $this->aDelivery = $v;
@@ -1560,8 +1322,8 @@ abstract class Notification implements ActiveRecordInterface
      */
     public function getDelivery(ConnectionInterface $con = null)
     {
-        if ($this->aDelivery === null && ($this->delivery_id != 0)) {
-            $this->aDelivery = ChildDeliveryQuery::create()->findPk($this->delivery_id, $con);
+        if ($this->aDelivery === null && ($this->id != 0)) {
+            $this->aDelivery = ChildDeliveryQuery::create()->findPk($this->id, $con);
             // Because this foreign key represents a one-to-one relationship, we will create a bi-directional association.
             $this->aDelivery->setNotification($this);
         }
@@ -1837,16 +1599,13 @@ abstract class Notification implements ActiveRecordInterface
         if (null !== $this->aDelivery) {
             $this->aDelivery->removeNotification($this);
         }
-        $this->delivery_id = null;
-        $this->has_email = null;
-        $this->has_feed = null;
-        $this->has_sms = null;
-        $this->link_url = null;
-        $this->created_at = null;
-        $this->updated_at = null;
+        $this->data_url = null;
+        $this->filters = null;
+        $this->feed_payload = null;
+        $this->payload = null;
+        $this->id = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
-        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);
@@ -1989,48 +1748,72 @@ abstract class Notification implements ActiveRecordInterface
 
 
         /**
-         * Get the [email_title] column value.
+         * Get the [email_subject] column value.
          *
          * @return string|null
          */
-        public function getEmailTitle()
+        public function getEmailSubject()
         {
-        return $this->getCurrentTranslation()->getEmailTitle();
+        return $this->getCurrentTranslation()->getEmailSubject();
     }
 
 
         /**
-         * Set the value of [email_title] column.
+         * Set the value of [email_subject] column.
          *
          * @param string|null $v New value
          * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
          */
-        public function setEmailTitle($v)
-        {    $this->getCurrentTranslation()->setEmailTitle($v);
+        public function setEmailSubject($v)
+        {    $this->getCurrentTranslation()->setEmailSubject($v);
 
         return $this;
     }
 
 
         /**
-         * Get the [email_content] column value.
+         * Get the [email_html] column value.
          *
          * @return string|null
          */
-        public function getEmailContent()
+        public function getEmailHtml()
         {
-        return $this->getCurrentTranslation()->getEmailContent();
+        return $this->getCurrentTranslation()->getEmailHtml();
     }
 
 
         /**
-         * Set the value of [email_content] column.
+         * Set the value of [email_html] column.
          *
          * @param string|null $v New value
          * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
          */
-        public function setEmailContent($v)
-        {    $this->getCurrentTranslation()->setEmailContent($v);
+        public function setEmailHtml($v)
+        {    $this->getCurrentTranslation()->setEmailHtml($v);
+
+        return $this;
+    }
+
+
+        /**
+         * Get the [sms_message] column value.
+         *
+         * @return string|null
+         */
+        public function getSmsMessage()
+        {
+        return $this->getCurrentTranslation()->getSmsMessage();
+    }
+
+
+        /**
+         * Set the value of [sms_message] column.
+         *
+         * @param string|null $v New value
+         * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
+         */
+        public function setSmsMessage($v)
+        {    $this->getCurrentTranslation()->setSmsMessage($v);
 
         return $this;
     }
@@ -2061,86 +1844,48 @@ abstract class Notification implements ActiveRecordInterface
 
 
         /**
-         * Get the [feed_content] column value.
+         * Get the [feed_text] column value.
          *
          * @return string|null
          */
-        public function getFeedContent()
+        public function getFeedText()
         {
-        return $this->getCurrentTranslation()->getFeedContent();
+        return $this->getCurrentTranslation()->getFeedText();
     }
 
 
         /**
-         * Set the value of [feed_content] column.
+         * Set the value of [feed_text] column.
          *
          * @param string|null $v New value
          * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
          */
-        public function setFeedContent($v)
-        {    $this->getCurrentTranslation()->setFeedContent($v);
+        public function setFeedText($v)
+        {    $this->getCurrentTranslation()->setFeedText($v);
 
         return $this;
     }
 
 
         /**
-         * Get the [sms_content] column value.
+         * Get the [feed_image] column value.
          *
          * @return string|null
          */
-        public function getSmsContent()
+        public function getFeedImage()
         {
-        return $this->getCurrentTranslation()->getSmsContent();
+        return $this->getCurrentTranslation()->getFeedImage();
     }
 
 
         /**
-         * Set the value of [sms_content] column.
+         * Set the value of [feed_image] column.
          *
          * @param string|null $v New value
          * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
          */
-        public function setSmsContent($v)
-        {    $this->getCurrentTranslation()->setSmsContent($v);
-
-        return $this;
-    }
-
-
-        /**
-         * Get the [link_text] column value.
-         *
-         * @return string|null
-         */
-        public function getLinkText()
-        {
-        return $this->getCurrentTranslation()->getLinkText();
-    }
-
-
-        /**
-         * Set the value of [link_text] column.
-         *
-         * @param string|null $v New value
-         * @return $this|\Delivery\Model\NotificationI18n The current object (for fluent API support)
-         */
-        public function setLinkText($v)
-        {    $this->getCurrentTranslation()->setLinkText($v);
-
-        return $this;
-    }
-
-    // timestampable behavior
-
-    /**
-     * Mark the current object so that the update date doesn't get updated during next save
-     *
-     * @return     $this|ChildNotification The current object (for fluent API support)
-     */
-    public function keepUpdateDateUnchanged()
-    {
-        $this->modifiedColumns[NotificationTableMap::COL_UPDATED_AT] = true;
+        public function setFeedImage($v)
+        {    $this->getCurrentTranslation()->setFeedImage($v);
 
         return $this;
     }

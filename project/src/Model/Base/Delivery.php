@@ -79,18 +79,28 @@ abstract class Delivery implements ActiveRecordInterface
     protected $name;
 
     /**
-     * The value for the data_url field.
+     * The value for the has_email field.
      *
-     * @var        string
+     * Note: this column has a database default value of: false
+     * @var        boolean
      */
-    protected $data_url;
+    protected $has_email;
 
     /**
-     * The value for the filters field.
+     * The value for the has_feed field.
      *
-     * @var        string|null
+     * Note: this column has a database default value of: false
+     * @var        boolean
      */
-    protected $filters;
+    protected $has_feed;
+
+    /**
+     * The value for the has_sms field.
+     *
+     * Note: this column has a database default value of: false
+     * @var        boolean
+     */
+    protected $has_sms;
 
     /**
      * The value for the status field.
@@ -99,6 +109,22 @@ abstract class Delivery implements ActiveRecordInterface
      * @var        int
      */
     protected $status;
+
+    /**
+     * The value for the nb_sent_notifications field.
+     *
+     * Note: this column has a database default value of: 0
+     * @var        int|null
+     */
+    protected $nb_sent_notifications;
+
+    /**
+     * The value for the nb_all_notifications field.
+     *
+     * Note: this column has a database default value of: 0
+     * @var        int|null
+     */
+    protected $nb_all_notifications;
 
     /**
      * The value for the created_at field.
@@ -135,7 +161,12 @@ abstract class Delivery implements ActiveRecordInterface
      */
     public function applyDefaultValues()
     {
+        $this->has_email = false;
+        $this->has_feed = false;
+        $this->has_sms = false;
         $this->status = 0;
+        $this->nb_sent_notifications = 0;
+        $this->nb_all_notifications = 0;
     }
 
     /**
@@ -386,23 +417,63 @@ abstract class Delivery implements ActiveRecordInterface
     }
 
     /**
-     * Get the [data_url] column value.
+     * Get the [has_email] column value.
      *
-     * @return string
+     * @return boolean
      */
-    public function getDataUrl()
+    public function getHasEmail()
     {
-        return $this->data_url;
+        return $this->has_email;
     }
 
     /**
-     * Get the [filters] column value.
+     * Get the [has_email] column value.
      *
-     * @return string|null
+     * @return boolean
      */
-    public function getFilters()
+    public function hasEmail()
     {
-        return $this->filters;
+        return $this->getHasEmail();
+    }
+
+    /**
+     * Get the [has_feed] column value.
+     *
+     * @return boolean
+     */
+    public function getHasFeed()
+    {
+        return $this->has_feed;
+    }
+
+    /**
+     * Get the [has_feed] column value.
+     *
+     * @return boolean
+     */
+    public function hasFeed()
+    {
+        return $this->getHasFeed();
+    }
+
+    /**
+     * Get the [has_sms] column value.
+     *
+     * @return boolean
+     */
+    public function getHasSms()
+    {
+        return $this->has_sms;
+    }
+
+    /**
+     * Get the [has_sms] column value.
+     *
+     * @return boolean
+     */
+    public function hasSms()
+    {
+        return $this->getHasSms();
     }
 
     /**
@@ -422,6 +493,26 @@ abstract class Delivery implements ActiveRecordInterface
         }
 
         return $valueSet[$this->status];
+    }
+
+    /**
+     * Get the [nb_sent_notifications] column value.
+     *
+     * @return int|null
+     */
+    public function getNbSentNotifications()
+    {
+        return $this->nb_sent_notifications;
+    }
+
+    /**
+     * Get the [nb_all_notifications] column value.
+     *
+     * @return int|null
+     */
+    public function getNbAllNotifications()
+    {
+        return $this->nb_all_notifications;
     }
 
     /**
@@ -505,44 +596,88 @@ abstract class Delivery implements ActiveRecordInterface
     } // setName()
 
     /**
-     * Set the value of [data_url] column.
+     * Sets the value of the [has_email] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
-     * @param string $v New value
+     * @param  boolean|integer|string $v The new value
      * @return $this|\Delivery\Model\Delivery The current object (for fluent API support)
      */
-    public function setDataUrl($v)
+    public function setHasEmail($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
         }
 
-        if ($this->data_url !== $v) {
-            $this->data_url = $v;
-            $this->modifiedColumns[DeliveryTableMap::COL_DATA_URL] = true;
+        if ($this->has_email !== $v) {
+            $this->has_email = $v;
+            $this->modifiedColumns[DeliveryTableMap::COL_HAS_EMAIL] = true;
         }
 
         return $this;
-    } // setDataUrl()
+    } // setHasEmail()
 
     /**
-     * Set the value of [filters] column.
+     * Sets the value of the [has_feed] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
-     * @param string|null $v New value
+     * @param  boolean|integer|string $v The new value
      * @return $this|\Delivery\Model\Delivery The current object (for fluent API support)
      */
-    public function setFilters($v)
+    public function setHasFeed($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
         }
 
-        if ($this->filters !== $v) {
-            $this->filters = $v;
-            $this->modifiedColumns[DeliveryTableMap::COL_FILTERS] = true;
+        if ($this->has_feed !== $v) {
+            $this->has_feed = $v;
+            $this->modifiedColumns[DeliveryTableMap::COL_HAS_FEED] = true;
         }
 
         return $this;
-    } // setFilters()
+    } // setHasFeed()
+
+    /**
+     * Sets the value of the [has_sms] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     *
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Delivery\Model\Delivery The current object (for fluent API support)
+     */
+    public function setHasSms($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->has_sms !== $v) {
+            $this->has_sms = $v;
+            $this->modifiedColumns[DeliveryTableMap::COL_HAS_SMS] = true;
+        }
+
+        return $this;
+    } // setHasSms()
 
     /**
      * Set the value of [status] column.
@@ -568,6 +703,46 @@ abstract class Delivery implements ActiveRecordInterface
 
         return $this;
     } // setStatus()
+
+    /**
+     * Set the value of [nb_sent_notifications] column.
+     *
+     * @param int|null $v New value
+     * @return $this|\Delivery\Model\Delivery The current object (for fluent API support)
+     */
+    public function setNbSentNotifications($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->nb_sent_notifications !== $v) {
+            $this->nb_sent_notifications = $v;
+            $this->modifiedColumns[DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS] = true;
+        }
+
+        return $this;
+    } // setNbSentNotifications()
+
+    /**
+     * Set the value of [nb_all_notifications] column.
+     *
+     * @param int|null $v New value
+     * @return $this|\Delivery\Model\Delivery The current object (for fluent API support)
+     */
+    public function setNbAllNotifications($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->nb_all_notifications !== $v) {
+            $this->nb_all_notifications = $v;
+            $this->modifiedColumns[DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS] = true;
+        }
+
+        return $this;
+    } // setNbAllNotifications()
 
     /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
@@ -619,7 +794,27 @@ abstract class Delivery implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->has_email !== false) {
+                return false;
+            }
+
+            if ($this->has_feed !== false) {
+                return false;
+            }
+
+            if ($this->has_sms !== false) {
+                return false;
+            }
+
             if ($this->status !== 0) {
+                return false;
+            }
+
+            if ($this->nb_sent_notifications !== 0) {
+                return false;
+            }
+
+            if ($this->nb_all_notifications !== 0) {
                 return false;
             }
 
@@ -655,19 +850,28 @@ abstract class Delivery implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : DeliveryTableMap::translateFieldName('Name', TableMap::TYPE_PHPNAME, $indexType)];
             $this->name = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : DeliveryTableMap::translateFieldName('DataUrl', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->data_url = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : DeliveryTableMap::translateFieldName('HasEmail', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->has_email = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : DeliveryTableMap::translateFieldName('Filters', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->filters = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : DeliveryTableMap::translateFieldName('HasFeed', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->has_feed = (null !== $col) ? (boolean) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : DeliveryTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : DeliveryTableMap::translateFieldName('HasSms', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->has_sms = (null !== $col) ? (boolean) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : DeliveryTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
             $this->status = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : DeliveryTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : DeliveryTableMap::translateFieldName('NbSentNotifications', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->nb_sent_notifications = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : DeliveryTableMap::translateFieldName('NbAllNotifications', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->nb_all_notifications = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : DeliveryTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : DeliveryTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : DeliveryTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
             $this->resetModified();
 
@@ -677,7 +881,7 @@ abstract class Delivery implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = DeliveryTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 10; // 10 = DeliveryTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Delivery\\Model\\Delivery'), 0, $e);
@@ -914,14 +1118,23 @@ abstract class Delivery implements ActiveRecordInterface
         if ($this->isColumnModified(DeliveryTableMap::COL_NAME)) {
             $modifiedColumns[':p' . $index++]  = 'name';
         }
-        if ($this->isColumnModified(DeliveryTableMap::COL_DATA_URL)) {
-            $modifiedColumns[':p' . $index++]  = 'data_url';
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_EMAIL)) {
+            $modifiedColumns[':p' . $index++]  = 'has_email';
         }
-        if ($this->isColumnModified(DeliveryTableMap::COL_FILTERS)) {
-            $modifiedColumns[':p' . $index++]  = 'filters';
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_FEED)) {
+            $modifiedColumns[':p' . $index++]  = 'has_feed';
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_SMS)) {
+            $modifiedColumns[':p' . $index++]  = 'has_sms';
         }
         if ($this->isColumnModified(DeliveryTableMap::COL_STATUS)) {
             $modifiedColumns[':p' . $index++]  = 'status';
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS)) {
+            $modifiedColumns[':p' . $index++]  = 'nb_sent_notifications';
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS)) {
+            $modifiedColumns[':p' . $index++]  = 'nb_all_notifications';
         }
         if ($this->isColumnModified(DeliveryTableMap::COL_CREATED_AT)) {
             $modifiedColumns[':p' . $index++]  = 'created_at';
@@ -946,14 +1159,23 @@ abstract class Delivery implements ActiveRecordInterface
                     case 'name':
                         $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
                         break;
-                    case 'data_url':
-                        $stmt->bindValue($identifier, $this->data_url, PDO::PARAM_STR);
+                    case 'has_email':
+                        $stmt->bindValue($identifier, $this->has_email, PDO::PARAM_BOOL);
                         break;
-                    case 'filters':
-                        $stmt->bindValue($identifier, $this->filters, PDO::PARAM_STR);
+                    case 'has_feed':
+                        $stmt->bindValue($identifier, $this->has_feed, PDO::PARAM_BOOL);
+                        break;
+                    case 'has_sms':
+                        $stmt->bindValue($identifier, $this->has_sms, PDO::PARAM_BOOL);
                         break;
                     case 'status':
                         $stmt->bindValue($identifier, $this->status, PDO::PARAM_INT);
+                        break;
+                    case 'nb_sent_notifications':
+                        $stmt->bindValue($identifier, $this->nb_sent_notifications, PDO::PARAM_INT);
+                        break;
+                    case 'nb_all_notifications':
+                        $stmt->bindValue($identifier, $this->nb_all_notifications, PDO::PARAM_INT);
                         break;
                     case 'created_at':
                         $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
@@ -1023,18 +1245,27 @@ abstract class Delivery implements ActiveRecordInterface
                 return $this->getName();
                 break;
             case 2:
-                return $this->getDataUrl();
+                return $this->getHasEmail();
                 break;
             case 3:
-                return $this->getFilters();
+                return $this->getHasFeed();
                 break;
             case 4:
-                return $this->getStatus();
+                return $this->getHasSms();
                 break;
             case 5:
-                return $this->getCreatedAt();
+                return $this->getStatus();
                 break;
             case 6:
+                return $this->getNbSentNotifications();
+                break;
+            case 7:
+                return $this->getNbAllNotifications();
+                break;
+            case 8:
+                return $this->getCreatedAt();
+                break;
+            case 9:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -1066,21 +1297,30 @@ abstract class Delivery implements ActiveRecordInterface
         }
         $alreadyDumpedObjects['Delivery'][$this->hashCode()] = true;
         $keys = DeliveryTableMap::getFieldNames($keyType);
+        $keys_delivery_notification = \Delivery\Model\Map\NotificationTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
-            $keys[2] => $this->getDataUrl(),
-            $keys[3] => $this->getFilters(),
-            $keys[4] => $this->getStatus(),
-            $keys[5] => $this->getCreatedAt(),
-            $keys[6] => $this->getUpdatedAt(),
+            $keys[2] => $this->getHasEmail(),
+            $keys[3] => $this->getHasFeed(),
+            $keys[4] => $this->getHasSms(),
+            $keys[5] => $this->getStatus(),
+            $keys[6] => $this->getNbSentNotifications(),
+            $keys[7] => $this->getNbAllNotifications(),
+            $keys[8] => $this->getCreatedAt(),
+            $keys[9] => $this->getUpdatedAt(),
+            $keys_delivery_notification[0] => $this->getDataUrl(),
+            $keys_delivery_notification[1] => $this->getFilters(),
+            $keys_delivery_notification[2] => $this->getFeedPayload(),
+            $keys_delivery_notification[3] => $this->getPayload(),
+
         );
-        if ($result[$keys[5]] instanceof \DateTimeInterface) {
-            $result[$keys[5]] = $result[$keys[5]]->format('Y-m-d H:i:s.u');
+        if ($result[$keys[8]] instanceof \DateTimeInterface) {
+            $result[$keys[8]] = $result[$keys[8]]->format('Y-m-d H:i:s.u');
         }
 
-        if ($result[$keys[6]] instanceof \DateTimeInterface) {
-            $result[$keys[6]] = $result[$keys[6]]->format('Y-m-d H:i:s.u');
+        if ($result[$keys[9]] instanceof \DateTimeInterface) {
+            $result[$keys[9]] = $result[$keys[9]]->format('Y-m-d H:i:s.u');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1145,22 +1385,31 @@ abstract class Delivery implements ActiveRecordInterface
                 $this->setName($value);
                 break;
             case 2:
-                $this->setDataUrl($value);
+                $this->setHasEmail($value);
                 break;
             case 3:
-                $this->setFilters($value);
+                $this->setHasFeed($value);
                 break;
             case 4:
+                $this->setHasSms($value);
+                break;
+            case 5:
                 $valueSet = DeliveryTableMap::getValueSet(DeliveryTableMap::COL_STATUS);
                 if (isset($valueSet[$value])) {
                     $value = $valueSet[$value];
                 }
                 $this->setStatus($value);
                 break;
-            case 5:
+            case 6:
+                $this->setNbSentNotifications($value);
+                break;
+            case 7:
+                $this->setNbAllNotifications($value);
+                break;
+            case 8:
                 $this->setCreatedAt($value);
                 break;
-            case 6:
+            case 9:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -1196,19 +1445,28 @@ abstract class Delivery implements ActiveRecordInterface
             $this->setName($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setDataUrl($arr[$keys[2]]);
+            $this->setHasEmail($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setFilters($arr[$keys[3]]);
+            $this->setHasFeed($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setStatus($arr[$keys[4]]);
+            $this->setHasSms($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setCreatedAt($arr[$keys[5]]);
+            $this->setStatus($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setUpdatedAt($arr[$keys[6]]);
+            $this->setNbSentNotifications($arr[$keys[6]]);
+        }
+        if (array_key_exists($keys[7], $arr)) {
+            $this->setNbAllNotifications($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setCreatedAt($arr[$keys[8]]);
+        }
+        if (array_key_exists($keys[9], $arr)) {
+            $this->setUpdatedAt($arr[$keys[9]]);
         }
     }
 
@@ -1257,14 +1515,23 @@ abstract class Delivery implements ActiveRecordInterface
         if ($this->isColumnModified(DeliveryTableMap::COL_NAME)) {
             $criteria->add(DeliveryTableMap::COL_NAME, $this->name);
         }
-        if ($this->isColumnModified(DeliveryTableMap::COL_DATA_URL)) {
-            $criteria->add(DeliveryTableMap::COL_DATA_URL, $this->data_url);
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_EMAIL)) {
+            $criteria->add(DeliveryTableMap::COL_HAS_EMAIL, $this->has_email);
         }
-        if ($this->isColumnModified(DeliveryTableMap::COL_FILTERS)) {
-            $criteria->add(DeliveryTableMap::COL_FILTERS, $this->filters);
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_FEED)) {
+            $criteria->add(DeliveryTableMap::COL_HAS_FEED, $this->has_feed);
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_HAS_SMS)) {
+            $criteria->add(DeliveryTableMap::COL_HAS_SMS, $this->has_sms);
         }
         if ($this->isColumnModified(DeliveryTableMap::COL_STATUS)) {
             $criteria->add(DeliveryTableMap::COL_STATUS, $this->status);
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS)) {
+            $criteria->add(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS, $this->nb_sent_notifications);
+        }
+        if ($this->isColumnModified(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS)) {
+            $criteria->add(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS, $this->nb_all_notifications);
         }
         if ($this->isColumnModified(DeliveryTableMap::COL_CREATED_AT)) {
             $criteria->add(DeliveryTableMap::COL_CREATED_AT, $this->created_at);
@@ -1359,9 +1626,12 @@ abstract class Delivery implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setName($this->getName());
-        $copyObj->setDataUrl($this->getDataUrl());
-        $copyObj->setFilters($this->getFilters());
+        $copyObj->setHasEmail($this->getHasEmail());
+        $copyObj->setHasFeed($this->getHasFeed());
+        $copyObj->setHasSms($this->getHasSms());
         $copyObj->setStatus($this->getStatus());
+        $copyObj->setNbSentNotifications($this->getNbSentNotifications());
+        $copyObj->setNbAllNotifications($this->getNbAllNotifications());
         $copyObj->setCreatedAt($this->getCreatedAt());
         $copyObj->setUpdatedAt($this->getUpdatedAt());
 
@@ -1463,9 +1733,12 @@ abstract class Delivery implements ActiveRecordInterface
     {
         $this->id = null;
         $this->name = null;
-        $this->data_url = null;
-        $this->filters = null;
+        $this->has_email = null;
+        $this->has_feed = null;
+        $this->has_sms = null;
         $this->status = null;
+        $this->nb_sent_notifications = null;
+        $this->nb_all_notifications = null;
         $this->created_at = null;
         $this->updated_at = null;
         $this->alreadyInSave = false;
@@ -1593,7 +1866,7 @@ abstract class Delivery implements ActiveRecordInterface
 
 
     /**
-     * Derived method to catches calls to undefined methods.
+     * Catches calls to undefined methods.
      *
      * Provides magic import/export method support (fromXML()/toXML(), fromYAML()/toYAML(), etc.).
      * Allows to define default __call() behavior if you overwrite __call()
@@ -1604,6 +1877,34 @@ abstract class Delivery implements ActiveRecordInterface
      * @return array|string
      */
     public function __call($name, $params)
+    {
+
+    // delegate behavior
+
+    if (method_exists(\Delivery\Model\Notification::class, $name)) {
+        $delegate = $this->getNotification();
+        if (!$delegate) {
+            $delegate = new ChildNotification();
+            $this->setNotification($delegate);
+        }
+
+        return call_user_func_array(array($delegate, $name), $params);
+    }
+        return $this->__parentCall($name, $params);
+    }
+
+    /**
+     * Derived method to catches calls to undefined methods.
+     *
+     * Provides magic import/export method support (fromXML()/toXML(), fromYAML()/toYAML(), etc.).
+     * Allows to define default __call() behavior if you overwrite __call()
+     *
+     * @param string $name
+     * @param mixed  $params
+     *
+     * @return array|string
+     */
+    public function __parentCall($name, $params)
     {
         if (0 === strpos($name, 'get')) {
             $virtualColumn = substr($name, 3);

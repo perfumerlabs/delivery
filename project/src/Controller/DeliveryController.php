@@ -23,7 +23,6 @@ class DeliveryController extends LayoutController
 
         if ($id) {
             $obj = DeliveryQuery::create()
-                ->joinWithNotification()
                 ->findPk($id);
         }
 
@@ -77,6 +76,9 @@ class DeliveryController extends LayoutController
 
         $data             = $this->f();
         $data['delivery'] = $obj;
+        if (isset($data['filters'])) {
+            unset($data['filters']);
+        }
 
         /** @var DeliveryFacade $facade */
         $facade = $this->s('delivery.facade.delivery');
@@ -85,7 +87,7 @@ class DeliveryController extends LayoutController
         $con->beginTransaction();
 
         try {
-            $response = $facade->save($this->f());
+            $response = $facade->save($data);
 
             if (!$response->status) {
                 $this->forward('error', 'badRequest', [$response->error]);

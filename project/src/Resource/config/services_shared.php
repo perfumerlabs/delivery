@@ -19,7 +19,7 @@ return [
             '@delivery/sms_worker',
             '@delivery/email_worker',
             '@delivery/feed_worker',
-            '@delivery/worker',
+            '@delivery/fraction_worker',
         ],
     ],
 
@@ -56,22 +56,9 @@ return [
         'arguments' => ['@delivery/timezone'],
     ],
 
-    'delivery.domain.notification' => [
-        'shared' => true,
-        'class'  => 'Delivery\\Domain\\NotificationDomain',
-    ],
-
     'delivery.domain.delivery' => [
         'shared' => true,
         'class'  => 'Delivery\\Domain\\DeliveryDomain',
-    ],
-
-    'delivery.repository.notification' => [
-        'shared'    => true,
-        'class'     => 'Delivery\\Repository\\NotificationRepository',
-        'arguments' => [
-            '#timezone',
-        ],
     ],
 
     'delivery.repository.delivery' => [
@@ -79,7 +66,6 @@ return [
         'class'     => 'Delivery\\Repository\\DeliveryRepository',
         'arguments' => [
             '#timezone',
-            '#delivery.repository.notification',
         ],
     ],
 
@@ -89,7 +75,6 @@ return [
         'arguments' => [
             '#queue',
             '#delivery.domain.delivery',
-            '#delivery.domain.notification',
         ],
     ],
 ];

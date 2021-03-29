@@ -16,7 +16,10 @@ class SendController extends LayoutController
         $max = (int) $this->f('_max');
         $gap = (int) $this->f('_gap');
 
-        error_log('Executing send controller. ' . $id);
+        error_log(
+            '[CUSTOM LOG] SendController.post(). Delivery_id => ' . $id . '; _min => ' . $min . '; _max => ' . $max
+            . '; _gap => ' . $gap
+        );
 
         /** @var DeliveryFacade $facade */
         $facade = $this->s('delivery.facade.delivery');

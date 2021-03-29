@@ -22,7 +22,7 @@ class Queue
 
     private $feed_worker;
 
-    private $delivery_worker;
+    private $delivery_fraction_worker;
 
     public function __construct(
         $queue_url,
@@ -33,17 +33,17 @@ class Queue
         $sms_worker,
         $email_worker,
         $feed_worker,
-        $delivery_worker
+        $delivery_fraction_worker
     ) {
-        $this->queue_url       = $queue_url;
-        $this->sms_url         = $sms_url;
-        $this->email_url       = $email_url;
-        $this->feed_url        = $feed_url;
-        $this->delivery_url    = $delivery_url;
-        $this->sms_worker      = $sms_worker;
-        $this->email_worker    = $email_worker;
-        $this->feed_worker     = $feed_worker;
-        $this->delivery_worker = $delivery_worker;
+        $this->queue_url                = $queue_url;
+        $this->sms_url                  = $sms_url;
+        $this->email_url                = $email_url;
+        $this->feed_url                 = $feed_url;
+        $this->delivery_url             = $delivery_url;
+        $this->sms_worker               = $sms_worker;
+        $this->email_worker             = $email_worker;
+        $this->feed_worker              = $feed_worker;
+        $this->delivery_fraction_worker = $delivery_fraction_worker;
     }
 
     public function sendSms($phone, $message): bool
@@ -110,7 +110,9 @@ class Queue
         ?string $collection,
         ?string $recipient,
         string $title = null,
-        string $text = null
+        string $text = null,
+        string $image = null,
+        array $payload = null
     ): bool {
         try {
             $client = new Client();
@@ -129,6 +131,8 @@ class Queue
                             'recipient'  => $recipient,
                             'title'      => $title,
                             'text'       => $text,
+                            'image'      => $image,
+                            'payload'    => $payload,
                         ],
                     ],
                 ]
@@ -151,7 +155,7 @@ class Queue
                     'read_timeout'    => 15,
                     'timeout'         => 15,
                     'json'            => [
-                        'worker' => $this->delivery_worker,
+                        'worker' => $this->delivery_fraction_worker,
                         'url'    => sprintf('%s/delivery/send', $this->delivery_url),
                         'method' => 'post',
                         'json'   => [
@@ -160,28 +164,6 @@ class Queue
                         'min'    => $min,
                         'max'    => $max,
                         'gap'    => $gap,
-                    ],
-                ]
-            );
-
-            var_dump(
-                [
-                    $this->queue_url . '/fraction',
-                    [
-                        'connect_timeout' => 15,
-                        'read_timeout'    => 15,
-                        'timeout'         => 15,
-                        'json'            => [
-                            'worker' => $this->delivery_worker,
-                            'url'    => sprintf('%s/delivery/send', $this->delivery_url),
-                            'method' => 'post',
-                            'json'   => [
-                                'id' => $delivery_id,
-                            ],
-                            'min'    => $min,
-                            'max'    => $max,
-                            'gap'    => $gap,
-                        ],
                     ],
                 ]
             );

@@ -22,17 +22,23 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildDeliveryQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildDeliveryQuery orderByName($order = Criteria::ASC) Order by the name column
- * @method     ChildDeliveryQuery orderByDataUrl($order = Criteria::ASC) Order by the data_url column
- * @method     ChildDeliveryQuery orderByFilters($order = Criteria::ASC) Order by the filters column
+ * @method     ChildDeliveryQuery orderByHasEmail($order = Criteria::ASC) Order by the has_email column
+ * @method     ChildDeliveryQuery orderByHasFeed($order = Criteria::ASC) Order by the has_feed column
+ * @method     ChildDeliveryQuery orderByHasSms($order = Criteria::ASC) Order by the has_sms column
  * @method     ChildDeliveryQuery orderByStatus($order = Criteria::ASC) Order by the status column
+ * @method     ChildDeliveryQuery orderByNbSentNotifications($order = Criteria::ASC) Order by the nb_sent_notifications column
+ * @method     ChildDeliveryQuery orderByNbAllNotifications($order = Criteria::ASC) Order by the nb_all_notifications column
  * @method     ChildDeliveryQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ChildDeliveryQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
  * @method     ChildDeliveryQuery groupById() Group by the id column
  * @method     ChildDeliveryQuery groupByName() Group by the name column
- * @method     ChildDeliveryQuery groupByDataUrl() Group by the data_url column
- * @method     ChildDeliveryQuery groupByFilters() Group by the filters column
+ * @method     ChildDeliveryQuery groupByHasEmail() Group by the has_email column
+ * @method     ChildDeliveryQuery groupByHasFeed() Group by the has_feed column
+ * @method     ChildDeliveryQuery groupByHasSms() Group by the has_sms column
  * @method     ChildDeliveryQuery groupByStatus() Group by the status column
+ * @method     ChildDeliveryQuery groupByNbSentNotifications() Group by the nb_sent_notifications column
+ * @method     ChildDeliveryQuery groupByNbAllNotifications() Group by the nb_all_notifications column
  * @method     ChildDeliveryQuery groupByCreatedAt() Group by the created_at column
  * @method     ChildDeliveryQuery groupByUpdatedAt() Group by the updated_at column
  *
@@ -61,9 +67,12 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildDelivery|null findOneById(int $id) Return the first ChildDelivery filtered by the id column
  * @method     ChildDelivery|null findOneByName(string $name) Return the first ChildDelivery filtered by the name column
- * @method     ChildDelivery|null findOneByDataUrl(string $data_url) Return the first ChildDelivery filtered by the data_url column
- * @method     ChildDelivery|null findOneByFilters(string $filters) Return the first ChildDelivery filtered by the filters column
+ * @method     ChildDelivery|null findOneByHasEmail(boolean $has_email) Return the first ChildDelivery filtered by the has_email column
+ * @method     ChildDelivery|null findOneByHasFeed(boolean $has_feed) Return the first ChildDelivery filtered by the has_feed column
+ * @method     ChildDelivery|null findOneByHasSms(boolean $has_sms) Return the first ChildDelivery filtered by the has_sms column
  * @method     ChildDelivery|null findOneByStatus(int $status) Return the first ChildDelivery filtered by the status column
+ * @method     ChildDelivery|null findOneByNbSentNotifications(int $nb_sent_notifications) Return the first ChildDelivery filtered by the nb_sent_notifications column
+ * @method     ChildDelivery|null findOneByNbAllNotifications(int $nb_all_notifications) Return the first ChildDelivery filtered by the nb_all_notifications column
  * @method     ChildDelivery|null findOneByCreatedAt(string $created_at) Return the first ChildDelivery filtered by the created_at column
  * @method     ChildDelivery|null findOneByUpdatedAt(string $updated_at) Return the first ChildDelivery filtered by the updated_at column *
 
@@ -72,18 +81,24 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildDelivery requireOneById(int $id) Return the first ChildDelivery filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildDelivery requireOneByName(string $name) Return the first ChildDelivery filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildDelivery requireOneByDataUrl(string $data_url) Return the first ChildDelivery filtered by the data_url column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildDelivery requireOneByFilters(string $filters) Return the first ChildDelivery filtered by the filters column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildDelivery requireOneByHasEmail(boolean $has_email) Return the first ChildDelivery filtered by the has_email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildDelivery requireOneByHasFeed(boolean $has_feed) Return the first ChildDelivery filtered by the has_feed column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildDelivery requireOneByHasSms(boolean $has_sms) Return the first ChildDelivery filtered by the has_sms column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildDelivery requireOneByStatus(int $status) Return the first ChildDelivery filtered by the status column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildDelivery requireOneByNbSentNotifications(int $nb_sent_notifications) Return the first ChildDelivery filtered by the nb_sent_notifications column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildDelivery requireOneByNbAllNotifications(int $nb_all_notifications) Return the first ChildDelivery filtered by the nb_all_notifications column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildDelivery requireOneByCreatedAt(string $created_at) Return the first ChildDelivery filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildDelivery requireOneByUpdatedAt(string $updated_at) Return the first ChildDelivery filtered by the updated_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildDelivery[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildDelivery objects based on current ModelCriteria
  * @method     ChildDelivery[]|ObjectCollection findById(int $id) Return ChildDelivery objects filtered by the id column
  * @method     ChildDelivery[]|ObjectCollection findByName(string $name) Return ChildDelivery objects filtered by the name column
- * @method     ChildDelivery[]|ObjectCollection findByDataUrl(string $data_url) Return ChildDelivery objects filtered by the data_url column
- * @method     ChildDelivery[]|ObjectCollection findByFilters(string $filters) Return ChildDelivery objects filtered by the filters column
+ * @method     ChildDelivery[]|ObjectCollection findByHasEmail(boolean $has_email) Return ChildDelivery objects filtered by the has_email column
+ * @method     ChildDelivery[]|ObjectCollection findByHasFeed(boolean $has_feed) Return ChildDelivery objects filtered by the has_feed column
+ * @method     ChildDelivery[]|ObjectCollection findByHasSms(boolean $has_sms) Return ChildDelivery objects filtered by the has_sms column
  * @method     ChildDelivery[]|ObjectCollection findByStatus(int $status) Return ChildDelivery objects filtered by the status column
+ * @method     ChildDelivery[]|ObjectCollection findByNbSentNotifications(int $nb_sent_notifications) Return ChildDelivery objects filtered by the nb_sent_notifications column
+ * @method     ChildDelivery[]|ObjectCollection findByNbAllNotifications(int $nb_all_notifications) Return ChildDelivery objects filtered by the nb_all_notifications column
  * @method     ChildDelivery[]|ObjectCollection findByCreatedAt(string $created_at) Return ChildDelivery objects filtered by the created_at column
  * @method     ChildDelivery[]|ObjectCollection findByUpdatedAt(string $updated_at) Return ChildDelivery objects filtered by the updated_at column
  * @method     ChildDelivery[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -91,7 +106,17 @@ use Propel\Runtime\Exception\PropelException;
  */
 abstract class DeliveryQuery extends ModelCriteria
 {
-    protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
+
+    // delegate behavior
+
+    protected $delegatedFields = [
+        'DataUrl' => 'Notification',
+        'Filters' => 'Notification',
+        'FeedPayload' => 'Notification',
+        'Payload' => 'Notification',
+    ];
+
+protected $entityNotFoundExceptionClass = '\\Propel\\Runtime\\Exception\\EntityNotFoundException';
 
     /**
      * Initializes internal state of \Delivery\Model\Base\DeliveryQuery object.
@@ -184,7 +209,7 @@ abstract class DeliveryQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, name, data_url, filters, status, created_at, updated_at FROM delivery_delivery WHERE id = :p0';
+        $sql = 'SELECT id, name, has_email, has_feed, has_sms, status, nb_sent_notifications, nb_all_notifications, created_at, updated_at FROM delivery_delivery WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -341,53 +366,84 @@ abstract class DeliveryQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the data_url column
+     * Filter the query on the has_email column
      *
      * Example usage:
      * <code>
-     * $query->filterByDataUrl('fooValue');   // WHERE data_url = 'fooValue'
-     * $query->filterByDataUrl('%fooValue%', Criteria::LIKE); // WHERE data_url LIKE '%fooValue%'
+     * $query->filterByHasEmail(true); // WHERE has_email = true
+     * $query->filterByHasEmail('yes'); // WHERE has_email = true
      * </code>
      *
-     * @param     string $dataUrl The value to use as filter.
+     * @param     boolean|string $hasEmail The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildDeliveryQuery The current query, for fluid interface
      */
-    public function filterByDataUrl($dataUrl = null, $comparison = null)
+    public function filterByHasEmail($hasEmail = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($dataUrl)) {
-                $comparison = Criteria::IN;
-            }
+        if (is_string($hasEmail)) {
+            $hasEmail = in_array(strtolower($hasEmail), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
         }
 
-        return $this->addUsingAlias(DeliveryTableMap::COL_DATA_URL, $dataUrl, $comparison);
+        return $this->addUsingAlias(DeliveryTableMap::COL_HAS_EMAIL, $hasEmail, $comparison);
     }
 
     /**
-     * Filter the query on the filters column
+     * Filter the query on the has_feed column
      *
      * Example usage:
      * <code>
-     * $query->filterByFilters('fooValue');   // WHERE filters = 'fooValue'
-     * $query->filterByFilters('%fooValue%', Criteria::LIKE); // WHERE filters LIKE '%fooValue%'
+     * $query->filterByHasFeed(true); // WHERE has_feed = true
+     * $query->filterByHasFeed('yes'); // WHERE has_feed = true
      * </code>
      *
-     * @param     string $filters The value to use as filter.
+     * @param     boolean|string $hasFeed The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildDeliveryQuery The current query, for fluid interface
      */
-    public function filterByFilters($filters = null, $comparison = null)
+    public function filterByHasFeed($hasFeed = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($filters)) {
-                $comparison = Criteria::IN;
-            }
+        if (is_string($hasFeed)) {
+            $hasFeed = in_array(strtolower($hasFeed), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
         }
 
-        return $this->addUsingAlias(DeliveryTableMap::COL_FILTERS, $filters, $comparison);
+        return $this->addUsingAlias(DeliveryTableMap::COL_HAS_FEED, $hasFeed, $comparison);
+    }
+
+    /**
+     * Filter the query on the has_sms column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByHasSms(true); // WHERE has_sms = true
+     * $query->filterByHasSms('yes'); // WHERE has_sms = true
+     * </code>
+     *
+     * @param     boolean|string $hasSms The value to use as filter.
+     *              Non-boolean arguments are converted using the following rules:
+     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildDeliveryQuery The current query, for fluid interface
+     */
+    public function filterByHasSms($hasSms = null, $comparison = null)
+    {
+        if (is_string($hasSms)) {
+            $hasSms = in_array(strtolower($hasSms), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+        }
+
+        return $this->addUsingAlias(DeliveryTableMap::COL_HAS_SMS, $hasSms, $comparison);
     }
 
     /**
@@ -421,6 +477,88 @@ abstract class DeliveryQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(DeliveryTableMap::COL_STATUS, $status, $comparison);
+    }
+
+    /**
+     * Filter the query on the nb_sent_notifications column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByNbSentNotifications(1234); // WHERE nb_sent_notifications = 1234
+     * $query->filterByNbSentNotifications(array(12, 34)); // WHERE nb_sent_notifications IN (12, 34)
+     * $query->filterByNbSentNotifications(array('min' => 12)); // WHERE nb_sent_notifications > 12
+     * </code>
+     *
+     * @param     mixed $nbSentNotifications The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildDeliveryQuery The current query, for fluid interface
+     */
+    public function filterByNbSentNotifications($nbSentNotifications = null, $comparison = null)
+    {
+        if (is_array($nbSentNotifications)) {
+            $useMinMax = false;
+            if (isset($nbSentNotifications['min'])) {
+                $this->addUsingAlias(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS, $nbSentNotifications['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($nbSentNotifications['max'])) {
+                $this->addUsingAlias(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS, $nbSentNotifications['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(DeliveryTableMap::COL_NB_SENT_NOTIFICATIONS, $nbSentNotifications, $comparison);
+    }
+
+    /**
+     * Filter the query on the nb_all_notifications column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByNbAllNotifications(1234); // WHERE nb_all_notifications = 1234
+     * $query->filterByNbAllNotifications(array(12, 34)); // WHERE nb_all_notifications IN (12, 34)
+     * $query->filterByNbAllNotifications(array('min' => 12)); // WHERE nb_all_notifications > 12
+     * </code>
+     *
+     * @param     mixed $nbAllNotifications The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildDeliveryQuery The current query, for fluid interface
+     */
+    public function filterByNbAllNotifications($nbAllNotifications = null, $comparison = null)
+    {
+        if (is_array($nbAllNotifications)) {
+            $useMinMax = false;
+            if (isset($nbAllNotifications['min'])) {
+                $this->addUsingAlias(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS, $nbAllNotifications['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($nbAllNotifications['max'])) {
+                $this->addUsingAlias(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS, $nbAllNotifications['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(DeliveryTableMap::COL_NB_ALL_NOTIFICATIONS, $nbAllNotifications, $comparison);
     }
 
     /**
@@ -521,7 +659,7 @@ abstract class DeliveryQuery extends ModelCriteria
     {
         if ($notification instanceof \Delivery\Model\Notification) {
             return $this
-                ->addUsingAlias(DeliveryTableMap::COL_ID, $notification->getDeliveryId(), $comparison);
+                ->addUsingAlias(DeliveryTableMap::COL_ID, $notification->getId(), $comparison);
         } elseif ($notification instanceof ObjectCollection) {
             return $this
                 ->useNotificationQuery()
@@ -540,7 +678,7 @@ abstract class DeliveryQuery extends ModelCriteria
      *
      * @return $this|ChildDeliveryQuery The current query, for fluid interface
      */
-    public function joinNotification($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinNotification($relationAlias = null, $joinType = 'LEFT JOIN')
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('Notification');
@@ -575,7 +713,7 @@ abstract class DeliveryQuery extends ModelCriteria
      *
      * @return \Delivery\Model\NotificationQuery A secondary query class using the current class as primary query
      */
-    public function useNotificationQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useNotificationQuery($relationAlias = null, $joinType = 'LEFT JOIN')
     {
         return $this
             ->joinNotification($relationAlias, $joinType)
@@ -723,6 +861,199 @@ abstract class DeliveryQuery extends ModelCriteria
     public function firstCreatedFirst()
     {
         return $this->addAscendingOrderByColumn(DeliveryTableMap::COL_CREATED_AT);
+    }
+
+    // delegate behavior
+    /**
+    * Filter the query by data_url column
+    *
+    * Example usage:
+    * <code>
+        * $query->filterByDataUrl(1234); // WHERE data_url = 1234
+        * $query->filterByDataUrl(array(12, 34)); // WHERE data_url IN (12, 34)
+        * $query->filterByDataUrl(array('min' => 12)); // WHERE data_url >= 12
+        * </code>
+    *
+    * @param     mixed $value The value to use as filter.
+    *              Use scalar values for equality.
+    *              Use array values for in_array() equivalent.
+    *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+    * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+    *
+    * @return $this|ChildDeliveryQuery The current query, for fluid interface
+    */
+    public function filterByDataUrl($value = null, $comparison = null)
+    {
+        return $this->useNotificationQuery()->filterByDataUrl($value, $comparison)->endUse();
+    }
+
+    /**
+    * Adds an ORDER BY clause to the query
+    * Usability layer on top of Criteria::addAscendingOrderByColumn() and Criteria::addDescendingOrderByColumn()
+    * Infers $column and $order from $columnName and some optional arguments
+    * Examples:
+    *   $c->orderBy('Book.CreatedAt')
+    *    => $c->addAscendingOrderByColumn(BookTableMap::CREATED_AT)
+    *   $c->orderBy('Book.CategoryId', 'desc')
+    *    => $c->addDescendingOrderByColumn(BookTableMap::CATEGORY_ID)
+    *
+    * @param string $order      The sorting order. Criteria::ASC by default, also accepts Criteria::DESC
+    *
+    * @return $this|ModelCriteria The current object, for fluid interface
+    */
+    public function orderByDataUrl($order = Criteria::ASC)
+    {
+        return $this->useNotificationQuery()->orderByDataUrl($order)->endUse();
+    }
+    /**
+    * Filter the query by filters column
+    *
+    * Example usage:
+    * <code>
+        * $query->filterByFilters(1234); // WHERE filters = 1234
+        * $query->filterByFilters(array(12, 34)); // WHERE filters IN (12, 34)
+        * $query->filterByFilters(array('min' => 12)); // WHERE filters >= 12
+        * </code>
+    *
+    * @param     mixed $value The value to use as filter.
+    *              Use scalar values for equality.
+    *              Use array values for in_array() equivalent.
+    *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+    * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+    *
+    * @return $this|ChildDeliveryQuery The current query, for fluid interface
+    */
+    public function filterByFilters($value = null, $comparison = null)
+    {
+        return $this->useNotificationQuery()->filterByFilters($value, $comparison)->endUse();
+    }
+
+    /**
+    * Adds an ORDER BY clause to the query
+    * Usability layer on top of Criteria::addAscendingOrderByColumn() and Criteria::addDescendingOrderByColumn()
+    * Infers $column and $order from $columnName and some optional arguments
+    * Examples:
+    *   $c->orderBy('Book.CreatedAt')
+    *    => $c->addAscendingOrderByColumn(BookTableMap::CREATED_AT)
+    *   $c->orderBy('Book.CategoryId', 'desc')
+    *    => $c->addDescendingOrderByColumn(BookTableMap::CATEGORY_ID)
+    *
+    * @param string $order      The sorting order. Criteria::ASC by default, also accepts Criteria::DESC
+    *
+    * @return $this|ModelCriteria The current object, for fluid interface
+    */
+    public function orderByFilters($order = Criteria::ASC)
+    {
+        return $this->useNotificationQuery()->orderByFilters($order)->endUse();
+    }
+    /**
+    * Filter the query by feed_payload column
+    *
+    * Example usage:
+    * <code>
+        * $query->filterByFeedPayload(1234); // WHERE feed_payload = 1234
+        * $query->filterByFeedPayload(array(12, 34)); // WHERE feed_payload IN (12, 34)
+        * $query->filterByFeedPayload(array('min' => 12)); // WHERE feed_payload >= 12
+        * </code>
+    *
+    * @param     mixed $value The value to use as filter.
+    *              Use scalar values for equality.
+    *              Use array values for in_array() equivalent.
+    *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+    * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+    *
+    * @return $this|ChildDeliveryQuery The current query, for fluid interface
+    */
+    public function filterByFeedPayload($value = null, $comparison = null)
+    {
+        return $this->useNotificationQuery()->filterByFeedPayload($value, $comparison)->endUse();
+    }
+
+    /**
+    * Adds an ORDER BY clause to the query
+    * Usability layer on top of Criteria::addAscendingOrderByColumn() and Criteria::addDescendingOrderByColumn()
+    * Infers $column and $order from $columnName and some optional arguments
+    * Examples:
+    *   $c->orderBy('Book.CreatedAt')
+    *    => $c->addAscendingOrderByColumn(BookTableMap::CREATED_AT)
+    *   $c->orderBy('Book.CategoryId', 'desc')
+    *    => $c->addDescendingOrderByColumn(BookTableMap::CATEGORY_ID)
+    *
+    * @param string $order      The sorting order. Criteria::ASC by default, also accepts Criteria::DESC
+    *
+    * @return $this|ModelCriteria The current object, for fluid interface
+    */
+    public function orderByFeedPayload($order = Criteria::ASC)
+    {
+        return $this->useNotificationQuery()->orderByFeedPayload($order)->endUse();
+    }
+    /**
+    * Filter the query by payload column
+    *
+    * Example usage:
+    * <code>
+        * $query->filterByPayload(1234); // WHERE payload = 1234
+        * $query->filterByPayload(array(12, 34)); // WHERE payload IN (12, 34)
+        * $query->filterByPayload(array('min' => 12)); // WHERE payload >= 12
+        * </code>
+    *
+    * @param     mixed $value The value to use as filter.
+    *              Use scalar values for equality.
+    *              Use array values for in_array() equivalent.
+    *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+    * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+    *
+    * @return $this|ChildDeliveryQuery The current query, for fluid interface
+    */
+    public function filterByPayload($value = null, $comparison = null)
+    {
+        return $this->useNotificationQuery()->filterByPayload($value, $comparison)->endUse();
+    }
+
+    /**
+    * Adds an ORDER BY clause to the query
+    * Usability layer on top of Criteria::addAscendingOrderByColumn() and Criteria::addDescendingOrderByColumn()
+    * Infers $column and $order from $columnName and some optional arguments
+    * Examples:
+    *   $c->orderBy('Book.CreatedAt')
+    *    => $c->addAscendingOrderByColumn(BookTableMap::CREATED_AT)
+    *   $c->orderBy('Book.CategoryId', 'desc')
+    *    => $c->addDescendingOrderByColumn(BookTableMap::CATEGORY_ID)
+    *
+    * @param string $order      The sorting order. Criteria::ASC by default, also accepts Criteria::DESC
+    *
+    * @return $this|ModelCriteria The current object, for fluid interface
+    */
+    public function orderByPayload($order = Criteria::ASC)
+    {
+        return $this->useNotificationQuery()->orderByPayload($order)->endUse();
+    }
+
+    /**
+     * Adds a condition on a column based on a column phpName and a value
+     * Uses introspection to translate the column phpName into a fully qualified name
+     * Warning: recognizes only the phpNames of the main Model (not joined tables)
+     * <code>
+     * $c->filterBy('Title', 'foo');
+     * </code>
+     *
+     * @see Criteria::add()
+     *
+     * @param string $column     A string representing thecolumn phpName, e.g. 'AuthorId'
+     * @param mixed  $value      A value for the condition
+     * @param string $comparison What to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ModelCriteria The current object, for fluid interface
+     */
+    public function filterBy($column, $value, $comparison = Criteria::EQUAL)
+    {
+        if (isset($this->delegatedFields[$column])) {
+            $methodUse = "use{$this->delegatedFields[$column]}Query";
+
+            return $this->{$methodUse}()->filterBy($column, $value, $comparison)->endUse();
+        } else {
+            return $this->add($this->getRealColumnName($column), $value, $comparison);
+        }
     }
 
 } // DeliveryQuery

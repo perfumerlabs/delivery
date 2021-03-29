@@ -51,7 +51,7 @@ if [ $DEV != 'true' ]; then
   sed -i "s/DELIVERY_FEED_URL/$DELIVERY_FEED_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_FEED_WORKER/$DELIVERY_FEED_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_URL/$DELIVERY_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
-  sed -i "s/DELIVERY_WORKER/$DELIVERY_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_FRACTION_WORKER/$DELIVERY_FRACTION_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_TIMEZONE/$DELIVERY_TIMEZONE_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_HOST/$PG_HOST_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_PORT/$PG_PORT/g" /opt/delivery/src/Resource/config/resources_shared.php
