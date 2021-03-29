@@ -10,6 +10,7 @@ return [
                 $r->addRoute('PATCH', '/delivery', 'delivery.patch');
                 $r->addRoute('DELETE', '/delivery', 'delivery.delete');
                 $r->addRoute('POST', '/delivery/send', 'delivery/send.post');
+                $r->addRoute('POST', '/delivery/cancel', 'delivery/cancel.post');
             });
         }
     ],
