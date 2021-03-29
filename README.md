@@ -37,7 +37,7 @@ Environment variables
 - DELIVERY_FEED_URL [Feed](https://github.com/perfumerlabs/feed) service URL. Required.
 - DELIVERY_FEED_WORKER - worker that handles feed queueing. Required.
 - DELIVERY_URL - this service URL. Required.
-- DELIVERY_WORKER - worker that handles delivery queueing. Required.
+- DELIVERY_FRACTION_WORKER - worker that handles delivery queueing. Required.
 - PHP_PM_MAX_CHILDREN - number of FPM workers. Default value is 10.
 - PHP_PM_MAX_REQUESTS - number of FPM max requests. Default value is 500.
 - PG_HOST - PostgreSQL host. Required.
