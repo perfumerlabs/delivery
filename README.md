@@ -15,7 +15,7 @@ docker run \
 -e DELIVERY_FEED_URL="http://feed" \
 -e DELIVERY_FEED_WORKER=feed \
 -e DELIVERY_URL="http://delivery" \
--e DELIVERY_WORKER=delivery \
+-e DELIVERY_FRACTION_WORKER=delivery \
 -e PG_HOST=db \
 -e PG_PORT=5432 \
 -e PG_DATABASE=delivery_db \
