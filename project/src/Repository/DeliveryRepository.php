@@ -25,6 +25,7 @@ class DeliveryRepository
         $updated_at = $this->timezone->formatDate($obj->getUpdatedAt());
 
         return [
+            'id'                    => $obj->getId(),
             'name'                  => $obj->getName(),
             'has_email'             => $obj->getHasEmail(),
             'has_feed'              => $obj->getHasFeed(),
