@@ -15,6 +15,12 @@ DELIVERY_SMS_URL_SED=${DELIVERY_SMS_URL//\//\\\/}
 DELIVERY_SMS_URL_SED=${DELIVERY_SMS_URL_SED//\./\\\.}
 DELIVERY_EMAIL_URL_SED=${DELIVERY_EMAIL_URL//\//\\\/}
 DELIVERY_EMAIL_URL_SED=${DELIVERY_EMAIL_URL_SED//\./\\\.}
+DELIVERY_FEED_URL_SED=${DELIVERY_FEED_URL//\//\\\/}
+DELIVERY_FEED_URL_SED=${DELIVERY_FEED_URL_SED//\./\\\.}
+DELIVERY_URL_SED=${DELIVERY_URL//\//\\\/}
+DELIVERY_URL_SED=${DELIVERY_URL_SED//\./\\\.}
+DELIVERY_TIMEZONE_SED=${DELIVERY_TIMEZONE//\//\\\/}
+DELIVERY_TIMEZONE_SED=${DELIVERY_TIMEZONE_SED//\./\\\.}
 PG_HOST_SED=${PG_HOST//\//\\\/}
 PG_HOST_SED=${PG_HOST_SED//\./\\\.}
 PG_PASSWORD_SED=${PG_PASSWORD//\//\\\/}
@@ -42,6 +48,11 @@ if [ $DEV != 'true' ]; then
   sed -i "s/DELIVERY_SMS_WORKER/$DELIVERY_SMS_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_EMAIL_URL/$DELIVERY_EMAIL_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_EMAIL_WORKER/$DELIVERY_EMAIL_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_FEED_URL/$DELIVERY_FEED_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_FEED_WORKER/$DELIVERY_FEED_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_URL/$DELIVERY_URL_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_FRACTION_WORKER/$DELIVERY_FRACTION_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/DELIVERY_TIMEZONE/$DELIVERY_TIMEZONE_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_HOST/$PG_HOST_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_PORT/$PG_PORT/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_DATABASE/$PG_DATABASE/g" /opt/delivery/src/Resource/config/resources_shared.php

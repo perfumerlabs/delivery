@@ -1,3 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="delivery" defaultIdMethod="native" namespace="Delivery\Model">
+    <!-- Table describes all deliveries -->
+    <table name="delivery_delivery" phpName="Delivery">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="255" required="true"/> <!-- Name of delivery -->
+        <column name="has_email" type="boolean" required="true" defaultValue="false"/> <!-- Send email? -->
+        <column name="has_feed" type="boolean" required="true" defaultValue="false"/> <!-- Send feed? -->
+        <column name="has_sms" type="boolean" required="true" defaultValue="false"/> <!-- Send SMS? -->
+        <column name="status" type="enum" valueSet="started,canceled,finished" required="true" defaultValue="started"/> <!-- Status of delivery -->
+        <column name="nb_sent_notifications" type="integer" defaultValue="0"/> <!-- Sent notifications count -->
+        <column name="nb_all_notifications" type="integer" defaultValue="0"/> <!-- All notifications count -->
+        <behavior name="timestampable"/>
+        <behavior name="delegate">
+            <parameter name="to" value="delivery_notification" />
+        </behavior>
+    </table>
+
+    <!-- Dependent Table from delivery_delivery describes notification information -->
+    <table name="delivery_notification" phpName="Notification">
+        <column name="data_url" type="varchar" size="255" required="true"/> <!-- URL using for fetching users email, phones, feed ID -->
+        <column name="filters" type="json"/> <!-- Array of filters sending to data_url -->
+        <column name="email_subject" type="varchar" size="255"/> <!-- Email notif subject -->
+        <column name="email_html" type="longvarchar"/> <!-- Email notif html -->
+        <column name="sms_message" type="longvarchar"/> <!-- SMS notif message -->
+        <column name="feed_title" type="varchar" size="255"/> <!-- Feed notif title -->
+        <column name="feed_text" type="longvarchar"/> <!-- Feed notif text -->
+        <column name="feed_image" type="varchar" size="255"/> <!-- Feed notif image -->
+        <column name="feed_payload" type="json"/> <!-- Feed notif payload -->
+        <column name="payload" type="json"/> <!-- Payload. Some additional data -->
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="email_subject,email_html,sms_message,feed_title,feed_text,feed_image"/>
+        </behavior>
+    </table>
 </database>
