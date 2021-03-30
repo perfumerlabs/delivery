@@ -53,33 +53,6 @@ This image has no volumes.
 
 If you want to make any additional configuration of container, mount your bash script to /opt/setup.sh. This script will be executed on container setup.
 
-# Контейнер рассылки email, feed, sms
-
-Схема работы:
-
-1. Для создания новой рассылки посылается запрос на `POST /delivery` с примерными параметрами
-
-```json
-{
-  "min":1,
-  "max":1000,
-  "gap":100,
-  "filters": {},
-  "messages": {},
-  "data_url": "/data/url"
-}
-```
-
-- min, max, gap - это параметры для отправки на Queue на задачу /fraction.
-- messages - текста для имейлов, смс, уведомлений
-- data_url - URL на приложении куда будет кидаться раздробленные fraction-таски для получения реквизитов юзеров (имейлов, телефонов, идентификаторов для feed)
-- filters - массив фильтров, кидаемый на data_url
-
-2. Delivery сохранил рассылку и кидает на [Queue](https://github.com/perfumerlabs/queue#fraction-task) на fraction запрос.
-3. Queue дробит запрос на маленькие таски.
-4. каждый запрос по маленькому таску Queue делает на Delivery, а Delivery делает запрос на приложение на data_url. Delivery сохраняет факт получения маленького запроса. На основании этих данных затем будет строиться апишка для показа прогресса рассылки на приложении.
-5. Delivery получает реквизиты юзеров по срезу и кидает запрос на отправу на email, sms или feed опять же на Queue.
-
 API Reference
 =============
 
