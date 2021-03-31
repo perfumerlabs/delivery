@@ -157,6 +157,8 @@ class DeliveryDomain
         $copy_obj->setStatus(DeliveryTableMap::COL_STATUS_WAITING);
         $copy_obj->setCreatedAt(new \DateTime());
         $copy_obj->setUpdatedAt(new \DateTime());
+
+        $copy_obj->save();
     }
 
     public function increaseSentNotifications(Delivery $obj, int $count): void
