@@ -14,6 +14,7 @@ class DeliveryController extends LayoutController
     public function get()
     {
         $id = (int) $this->f('id');
+        $locale = $this->f('locale');
 
         if (!$id) {
             $this->forward('error', 'badRequest', ["Нужно указать идентификатор рассылки"]);
@@ -33,7 +34,7 @@ class DeliveryController extends LayoutController
         /** @var DeliveryRepository $repository */
         $repository = $this->s('delivery.repository.delivery');
 
-        $this->setContent(['delivery' => $repository->format($obj)]);
+        $this->setContent(['delivery' => $repository->format($obj, true, $locale)]);
     }
 
     public function post()

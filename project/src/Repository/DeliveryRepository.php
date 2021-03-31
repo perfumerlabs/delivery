@@ -15,7 +15,7 @@ class DeliveryRepository
         $this->timezone = $timezone;
     }
 
-    public function format(?Delivery $obj): ?array
+    public function format(?Delivery $obj, bool $with_notif = false, string $locale = null): ?array
     {
         if (!$obj) {
             return null;
@@ -24,18 +24,33 @@ class DeliveryRepository
         $created_at = $this->timezone->formatDate($obj->getCreatedAt());
         $updated_at = $this->timezone->formatDate($obj->getUpdatedAt());
 
-        return [
-            'id'                    => $obj->getId(),
-            'name'                  => $obj->getName(),
-            'has_email'             => $obj->getHasEmail(),
-            'has_feed'              => $obj->getHasFeed(),
-            'has_sms'               => $obj->getHasSms(),
-            'status'                => $obj->getStatus(),
-            'nb_all_notifications'  => $obj->getNbAllNotifications(),
-            'nb_sent_notifications' => $obj->getNbSentNotifications(),
-            'created_at'            => $created_at ? $created_at->format('Y-m-d H:i:s') : null,
-            'updated_at'            => $updated_at ? $updated_at->format('Y-m-d H:i:s') : null,
+        $result = [
+            'id'         => $obj->getId(),
+            'name'       => $obj->getName(),
+            'has_email'  => $obj->getHasEmail(),
+            'has_feed'   => $obj->getHasFeed(),
+            'has_sms'    => $obj->getHasSms(),
+            'status'     => $obj->getStatus(),
+            'progress'   => $obj->getNbAllNotifications() ? $obj->getNbSentNotifications()
+                / $obj->getNbAllNotifications() : 0,
+            'created_at' => $created_at ? $created_at->format('Y-m-d H:i:s') : null,
+            'updated_at' => $updated_at ? $updated_at->format('Y-m-d H:i:s') : null,
         ];
+
+        if ($with_notif) {
+            $result['data_url']      = $obj->getDataUrl();
+            $result['filters']       = $obj->getFilters();
+            $result['email_subject'] = $this->getEmailSubject($obj, $locale);
+            $result['email_html']    = $this->getEmailHtml($obj, $locale);
+            $result['sms_message']   = $this->getSmsMessage($obj, $locale);
+            $result['feed_title']    = $this->getFeedTitle($obj, $locale);
+            $result['feed_text']     = $this->getFeedText($obj, $locale);
+            $result['feed_image']    = $this->getFeedImage($obj, $locale);
+            $result['feed_payload']  = $obj->getFeedPayload();
+            $result['payload']       = $obj->getPayload();
+        }
+
+        return $result;
     }
 
     /**
@@ -48,43 +63,6 @@ class DeliveryRepository
 
         foreach ($objs as $obj) {
             $array[] = $this->format($obj);
-        }
-
-        return $array;
-    }
-
-    public function formatNotification(?Delivery $obj, string $locale = null): ?array
-    {
-        if (!$obj) {
-            return null;
-        }
-
-        return [
-            'data_url'      => $obj->getDataUrl(),
-            'filters'       => $obj->getFilters(),
-            'email_subject' => $this->getEmailSubject($obj, $locale),
-            'email_html'    => $this->getEmailHtml($obj, $locale),
-            'sms_message'   => $this->getSmsMessage($obj, $locale),
-            'feed_title'    => $this->getFeedTitle($obj, $locale),
-            'feed_text'     => $this->getFeedText($obj, $locale),
-            'feed_image'    => $this->getFeedImage($obj, $locale),
-            'feed_payload'  => $obj->getFeedPayload(),
-            'payload'       => $obj->getPayload(),
-            'delivery'      => $this->format($obj),
-        ];
-    }
-
-    /**
-     * @param Delivery[]  $objs
-     * @param string|null $locale
-     * @return array
-     */
-    public function formatNotificationCollection($objs, string $locale = null): array
-    {
-        $array = [];
-
-        foreach ($objs as $obj) {
-            $array[] = $this->formatNotification($obj, $locale);
         }
 
         return $array;
