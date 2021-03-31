@@ -75,12 +75,6 @@ class DeliveryController extends LayoutController
             $this->forward('error', 'badRequest', ["Рассылка не найдена"]);
         }
 
-        $data             = $this->f();
-        $data['delivery'] = $obj;
-        if (isset($data['filters'])) {
-            unset($data['filters']);
-        }
-
         /** @var DeliveryFacade $facade */
         $facade = $this->s('delivery.facade.delivery');
 
@@ -88,7 +82,7 @@ class DeliveryController extends LayoutController
         $con->beginTransaction();
 
         try {
-            $response = $facade->save($data);
+            $response = $facade->save($this->f(), $obj);
 
             if (!$response->status) {
                 $this->forward('error', 'badRequest', [$response->error]);

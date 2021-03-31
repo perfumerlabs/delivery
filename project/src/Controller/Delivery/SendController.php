@@ -18,7 +18,7 @@ class SendController extends LayoutController
 
         error_log(
             '[CUSTOM LOG] SendController.post(). Delivery_id => ' . $id . '; _min => ' . $min . '; _max => ' . $max
-            . '; _gap => ' . $gap
+            . '; _gap => ' . $gap . PHP_EOL
         );
 
         /** @var DeliveryFacade $facade */

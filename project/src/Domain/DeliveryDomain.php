@@ -140,7 +140,26 @@ class DeliveryDomain
         $obj->save();
     }
 
-    public function increaseProgress(Delivery $obj, int $count): void
+    public function copy($obj): void
+    {
+        if (is_int($obj)) {
+            $obj = DeliveryQuery::create()
+                ->findPk((int) $obj);
+        }
+
+        if (!$obj instanceof Delivery) {
+            return;
+        }
+
+        $copy_obj = $obj->copy();
+
+        $copy_obj->setNbSentNotifications(0);
+        $copy_obj->setStatus(DeliveryTableMap::COL_STATUS_WAITING);
+        $copy_obj->setCreatedAt(new \DateTime());
+        $copy_obj->setUpdatedAt(new \DateTime());
+    }
+
+    public function increaseSentNotifications(Delivery $obj, int $count): void
     {
         $con = Propel::getWriteConnection(DeliveryTableMap::DATABASE_NAME);
 

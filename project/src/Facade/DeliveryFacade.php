@@ -28,7 +28,7 @@ class DeliveryFacade
         $this->delivery_domain = $delivery_domain;
     }
 
-    public function save(array $data): SaveResponse
+    public function save(array $data, Delivery $obj = null): SaveResponse
     {
         $response = new SaveResponse();
 
@@ -41,7 +41,7 @@ class DeliveryFacade
             return $response;
         }
 
-        $delivery = $this->saveDelivery($data);
+        $delivery = $this->saveDelivery($data, $obj);
 
         $this->queue->sendDelivery($delivery->getId(), $data['min'], $data['max'], $data['gap']);
 
@@ -99,13 +99,22 @@ class DeliveryFacade
         }
 
 //        $filters = [
-//            'type'   => 'users', //customers | groups | null
-//            'users'  => ['user_12', 'customer_14'], //null
+//            'type'   => 'users', //users | customers | groups | null
+//            'id'  => ['12', '14'], //null
 //            'groups' => [12, 15], //null
 //        ];
 
+        if (!$filters) {
+            $filters = [];
+        }
+
+        $filters['id_from'] = $min;
+        $filters['id_to'] = $max;
+
         try {
-            $users = $this->getUsersData($url, $min, $gap, $filters);
+            $users = $this->getUsersData($url, $filters);
+
+            error_log('[CUSTOM LOG] users = ' . print_r($users, true) . PHP_EOL);
 //            $users = [
 //                [
 //                    'email' => 'torbayevnurbek1992@gmail.com',
@@ -145,10 +154,10 @@ class DeliveryFacade
             }
         }
 
-        $this->delivery_domain->increaseProgress($obj, $max - $min);
+        $this->delivery_domain->increaseSentNotifications($obj, $max - $min + 1);
 
         //последняя итерация
-        if ($max - $min <= $gap) {
+        if ($obj->getNbSentNotifications() >= $obj->getNbAllNotifications()) {
             $this->delivery_domain->finish($obj);
         }
 
@@ -243,14 +252,11 @@ class DeliveryFacade
      *    ],
      * ]
      */
-    private function getUsersData(string $url, int $min, int $gap, array $filters = null): array
+    private function getUsersData(string $url, array $filters): array
     {
         $client = new Client();
 
-        $json = $filters;
-
-        $json['_min'] = $min;
-        $json['_gap'] = $gap;
+        error_log('[CUSTOM LOG] getUsersData(). filters: ' . print_r($filters, true) . PHP_EOL);
 
         $guzzle_response = $client->get(
             $url,
@@ -258,7 +264,7 @@ class DeliveryFacade
                 'connect_timeout' => 15,
                 'read_timeout'    => 15,
                 'timeout'         => 15,
-                'json'            => $json,
+                'json'            => $filters,
             ]
         );
 
@@ -271,18 +277,16 @@ class DeliveryFacade
         return [];
     }
 
-    private function saveDelivery(array $data): Delivery
+    private function saveDelivery(array $data, Delivery $obj = null): Delivery
     {
         $new_data = [
-            'delivery'             => $data['delivery'] ?? null,
+            'delivery'             => $obj,
             'name'                 => $data['name'] ?? null,
             'has_email'            => $data['has_email'] ?? null,
             'has_feed'             => $data['has_feed'] ?? null,
             'has_sms'              => $data['has_sms'] ?? null,
             'status'               => DeliveryTableMap::COL_STATUS_STARTED,
-            'nb_all_notifications' => $data['max'],
-            'data_url'             => $data['data_url'] ?? null,
-            'filters'              => $data['filters'] ?? null,
+            'nb_all_notifications' => $data['max'] - $data['min'] + 1,
             'email_subject'        => $data['email_subject'] ?? null,
             'email_html'           => $data['email_html'] ?? null,
             'sms_message'          => $data['sms_message'] ?? null,
@@ -292,6 +296,11 @@ class DeliveryFacade
             'feed_payload'         => $data['feed_payload'] ?? null,
             'payload'              => $data['payload'] ?? null,
         ];
+
+        if (!$obj || $obj->getStatus() === DeliveryTableMap::COL_STATUS_WAITING) {
+            $new_data['data_url'] = $data['data_url'] ?? null;
+            $new_data['filters']  = $data['filters'] ?? null;
+        }
 
         return $this->delivery_domain->save($new_data);
     }

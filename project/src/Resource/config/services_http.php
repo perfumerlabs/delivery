@@ -12,6 +12,7 @@ return [
                 $r->addRoute('GET', '/deliveries', 'deliveries.get');
                 $r->addRoute('POST', '/delivery/send', 'delivery/send.post');
                 $r->addRoute('POST', '/delivery/cancel', 'delivery/cancel.post');
+                $r->addRoute('POST', '/delivery/copy', 'delivery/copy.post');
             });
         }
     ],

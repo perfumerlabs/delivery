@@ -7,7 +7,7 @@
         <column name="has_email" type="boolean" required="true" defaultValue="false"/> <!-- Send email? -->
         <column name="has_feed" type="boolean" required="true" defaultValue="false"/> <!-- Send feed? -->
         <column name="has_sms" type="boolean" required="true" defaultValue="false"/> <!-- Send SMS? -->
-        <column name="status" type="enum" valueSet="started,canceled,finished" required="true" defaultValue="started"/> <!-- Status of delivery -->
+        <column name="status" type="enum" valueSet="waiting,started,canceled,finished" required="true" defaultValue="waiting"/> <!-- Status of delivery -->
         <column name="nb_sent_notifications" type="integer" defaultValue="0"/> <!-- Sent notifications count -->
         <column name="nb_all_notifications" type="integer" defaultValue="0"/> <!-- All notifications count -->
         <behavior name="timestampable"/>
