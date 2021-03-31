@@ -19,6 +19,7 @@ docker run \
 -e PG_HOST=db \
 -e PG_PORT=5432 \
 -e PG_DATABASE=delivery_db \
+-e PG_SCHEMA=public \
 -e PG_USER=user \
 -e PG_PASSWORD=password \
 -d perfumerlabs/delivery:v1.0.0
@@ -43,6 +44,7 @@ Environment variables
 - PG_HOST - PostgreSQL host. Required.
 - PG_PORT - PostgreSQL port. Default value is 5432.
 - PG_DATABASE - PostgreSQL database name. Required.
+  PG_SCHEMA - PostgreSQL database schema. Default value is 'public'
 - PG_USER - PostgreSQL user name. Required.
 - PG_PASSWORD - PostgreSQL user password. Required.
 
