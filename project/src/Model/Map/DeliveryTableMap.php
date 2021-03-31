@@ -126,6 +126,7 @@ class DeliveryTableMap extends TableMap
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /** The enumerated values for the status field */
+    const COL_STATUS_WAITING = 'waiting';
     const COL_STATUS_STARTED = 'started';
     const COL_STATUS_CANCELED = 'canceled';
     const COL_STATUS_FINISHED = 'finished';
@@ -250,7 +251,8 @@ class DeliveryTableMap extends TableMap
     /** The enumerated values for this table */
     protected static $enumValueSets = array(
                 DeliveryTableMap::COL_STATUS => array(
-                            self::COL_STATUS_STARTED,
+                            self::COL_STATUS_WAITING,
+            self::COL_STATUS_STARTED,
             self::COL_STATUS_CANCELED,
             self::COL_STATUS_FINISHED,
         ),
@@ -300,11 +302,12 @@ class DeliveryTableMap extends TableMap
         $this->addColumn('has_email', 'HasEmail', 'BOOLEAN', true, null, false);
         $this->addColumn('has_feed', 'HasFeed', 'BOOLEAN', true, null, false);
         $this->addColumn('has_sms', 'HasSms', 'BOOLEAN', true, null, false);
-        $this->addColumn('status', 'Status', 'ENUM', true, null, 'started');
+        $this->addColumn('status', 'Status', 'ENUM', true, null, 'waiting');
         $this->getColumn('status')->setValueSet(array (
-  0 => 'started',
-  1 => 'canceled',
-  2 => 'finished',
+  0 => 'waiting',
+  1 => 'started',
+  2 => 'canceled',
+  3 => 'finished',
 ));
         $this->addColumn('nb_sent_notifications', 'NbSentNotifications', 'INTEGER', false, null, 0);
         $this->addColumn('nb_all_notifications', 'NbAllNotifications', 'INTEGER', false, null, 0);
