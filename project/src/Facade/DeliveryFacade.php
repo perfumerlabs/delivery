@@ -105,7 +105,7 @@ class DeliveryFacade
 //        ];
 
         try {
-            $users = $this->getUsersData($url, $filters);
+            $users = $this->getUsersData($url, $min, $gap, $filters);
 //            $users = [
 //                [
 //                    'email' => 'torbayevnurbek1992@gmail.com',
@@ -243,9 +243,14 @@ class DeliveryFacade
      *    ],
      * ]
      */
-    private function getUsersData(string $url, array $filters = null): array
+    private function getUsersData(string $url, int $min, int $gap, array $filters = null): array
     {
         $client = new Client();
+
+        $json = $filters;
+
+        $json['_min'] = $min;
+        $json['_gap'] = $gap;
 
         $guzzle_response = $client->get(
             $url,
@@ -253,7 +258,7 @@ class DeliveryFacade
                 'connect_timeout' => 15,
                 'read_timeout'    => 15,
                 'timeout'         => 15,
-                'json'            => $filters,
+                'json'            => $json,
             ]
         );
 
