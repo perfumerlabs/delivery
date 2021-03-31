@@ -3,7 +3,6 @@
 namespace Delivery\Facade;
 
 use Delivery\Domain\DeliveryDomain;
-use Delivery\Domain\NotificationDomain;
 use Delivery\Helper\Text;
 use Delivery\Model\Delivery;
 use Delivery\Model\DeliveryQuery;
@@ -269,26 +268,24 @@ class DeliveryFacade
 
     private function saveDelivery(array $data): Delivery
     {
-        $messages = $data['messages'] ?? null;
-
         $new_data = [
             'delivery'             => $data['delivery'] ?? null,
             'name'                 => $data['name'] ?? null,
-            'has_email'            => $messages['has_email'] ?? null,
-            'has_feed'             => $messages['has_feed'] ?? null,
-            'has_sms'              => $messages['has_sms'] ?? null,
+            'has_email'            => $data['has_email'] ?? null,
+            'has_feed'             => $data['has_feed'] ?? null,
+            'has_sms'              => $data['has_sms'] ?? null,
             'status'               => DeliveryTableMap::COL_STATUS_STARTED,
             'nb_all_notifications' => $data['max'],
             'data_url'             => $data['data_url'] ?? null,
             'filters'              => $data['filters'] ?? null,
-            'email_subject'        => $messages['email_subject'] ?? null,
-            'email_html'           => $messages['email_html'] ?? null,
-            'sms_message'          => $messages['sms_message'] ?? null,
-            'feed_title'           => $messages['feed_title'] ?? null,
-            'feed_text'            => $messages['feed_text'] ?? null,
-            'feed_image'           => $messages['feed_image'] ?? null,
-            'feed_payload'         => $messages['feed_payload'] ?? null,
-            'payload'              => $messages['payload'] ?? null,
+            'email_subject'        => $data['email_subject'] ?? null,
+            'email_html'           => $data['email_html'] ?? null,
+            'sms_message'          => $data['sms_message'] ?? null,
+            'feed_title'           => $data['feed_title'] ?? null,
+            'feed_text'            => $data['feed_text'] ?? null,
+            'feed_image'           => $data['feed_image'] ?? null,
+            'feed_payload'         => $data['feed_payload'] ?? null,
+            'payload'              => $data['payload'] ?? null,
         ];
 
         return $this->delivery_domain->save($new_data);
