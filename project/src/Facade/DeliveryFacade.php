@@ -32,7 +32,7 @@ class DeliveryFacade
     {
         $response = new SaveResponse();
 
-        $validate_result = $this->validateDelivery($data);
+        $validate_result = $this->validateDelivery($data, $obj);
 
         if ($validate_result) {
             $response->status = false;
@@ -305,7 +305,6 @@ class DeliveryFacade
         $payload['_gap'] = $data['gap'];
 
         $new_data = [
-            'delivery'             => $obj,
             'name'                 => $data['name'] ?? null,
             'has_email'            => $data['has_email'] ?? null,
             'has_feed'             => $data['has_feed'] ?? null,
@@ -327,10 +326,10 @@ class DeliveryFacade
             $new_data['status']   = DeliveryTableMap::COL_STATUS_WAITING;
         }
 
-        return $this->delivery_domain->save($new_data);
+        return $this->delivery_domain->save($new_data, $obj);
     }
 
-    private function validateDelivery(array $data): ?string
+    private function validateDelivery(array $data, Delivery $obj = null): ?string
     {
         $error = null;
 
@@ -354,9 +353,9 @@ class DeliveryFacade
             $error = 'Параметр gap обязателен';
         } elseif (!$has_email && !$has_sms && !$has_feed) {
             $error = 'Выберите хотя бы 1 способ доставки';
-        } elseif (!$filters) {
+        } elseif (!$filters && !$obj) {
             $error = 'Фильтры обязательны';
-        } elseif (!$data_url) {
+        } elseif (!$data_url && !$obj) {
             $error = 'data_url обязателен';
         }
 

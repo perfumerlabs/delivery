@@ -9,10 +9,8 @@ use Propel\Runtime\Propel;
 
 class DeliveryDomain
 {
-    public function save(array $data): Delivery
+    public function save(array $data, Delivery $delivery = null): Delivery
     {
-        $delivery = $data['delivery'] ?? null;
-
         $obj = null;
 
         if ($delivery instanceof Delivery) {
