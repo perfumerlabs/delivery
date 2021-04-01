@@ -196,7 +196,7 @@ class DeliveryFacade
             $text = $notification->setLocale('ru')->getFeedText();
         }
 
-        $image = $notification->getFeedText();
+        $image = $notification->getFeedImage();
         if (($image === null || $image === '') && $notification->getLocale() !== 'ru') {
             $image = $notification->setLocale('ru')->getFeedImage();
         }
