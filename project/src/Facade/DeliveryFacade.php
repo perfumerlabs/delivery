@@ -51,9 +51,9 @@ class DeliveryFacade
     public function start(Delivery $obj): void
     {
         $payload = $obj->getPayload();
-        $min = $payload['min'] ?? null;
-        $max = $payload['max'] ?? null;
-        $gap = $payload['gap'] ?? null;
+        $min     = $payload['min'] ?? null;
+        $max     = $payload['max'] ?? null;
+        $gap     = $payload['gap'] ?? null;
 
         if ($min === null || $max === null || $gap === null) {
             return;
@@ -295,7 +295,7 @@ class DeliveryFacade
 
     private function saveDelivery(array $data, Delivery $obj = null): Delivery
     {
-        $payload = $data['payload'] ?? [];
+        $payload         = $data['payload'] ?? [];
         $payload['_min'] = $data['min'];
         $payload['_max'] = $data['max'];
         $payload['_gap'] = $data['gap'];
@@ -330,28 +330,30 @@ class DeliveryFacade
     {
         $error = null;
 
-        $min      = $data['min'] ?? null;
-        $max      = $data['max'] ?? null;
-        $gap      = $data['gap'] ?? null;
-        $name     = $data['name'] ?? null;
-        $messages = $data['messages'] ?? null;
-        $filters  = $data['filters'] ?? null;
-        $data_url = $data['data_url'] ?? null;
+        $min       = $data['min'] ?? null;
+        $max       = $data['max'] ?? null;
+        $gap       = $data['gap'] ?? null;
+        $name      = $data['name'] ?? null;
+        $has_email = $data['has_email'];
+        $has_sms   = $data['has_sms'];
+        $has_feed  = $data['has_feed'];
+        $filters   = $data['filters'] ?? null;
+        $data_url  = $data['data_url'] ?? null;
 
         if ($name === null || $name === '') {
-            $error = 'Name required';
+            $error = 'Имя обязательно';
         } elseif ($min === null || !is_int($min)) {
-            $error = 'Queue min param required';
+            $error = 'Параметр min обязателен';
         } elseif ($max === null || !is_int($max)) {
-            $error = 'Queue max param required';
+            $error = 'Параметр max обязателен';
         } elseif ($gap === null || !is_int($gap)) {
-            $error = 'Queue gap param required';
-        } elseif (!$messages) {
-            $error = 'Messages required';
+            $error = 'Параметр gap обязателен';
+        } elseif (!$has_email && !$has_sms && !$has_feed) {
+            $error = 'Выберите хотя бы 1 способ доставки';
         } elseif (!$filters) {
-            $error = 'Filters required';
+            $error = 'Фильтры обязательны';
         } elseif (!$data_url) {
-            $error = 'Data url required';
+            $error = 'data_url обязателен';
         }
 
         return $error;
