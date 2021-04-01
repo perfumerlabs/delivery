@@ -163,6 +163,12 @@ class DeliveryDomain
         $copy_notif = $obj->getNotification()->copy();
         $copy_notif->setDelivery($copy_obj);
         $copy_notif->save();
+
+        foreach ($obj->getNotification()->getNotificationI18ns() as $notif_i18n) {
+            $copy_notif_i18n = $notif_i18n->copy();
+            $copy_notif_i18n->setNotification($copy_notif);
+            $copy_notif_i18n->save();
+        }
     }
 
     public function increaseSentNotifications(Delivery $obj, int $count): void
