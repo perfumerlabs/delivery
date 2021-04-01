@@ -51,9 +51,9 @@ class DeliveryFacade
     public function start(Delivery $obj): void
     {
         $payload = $obj->getPayload();
-        $min     = $payload['min'] ?? null;
-        $max     = $payload['max'] ?? null;
-        $gap     = $payload['gap'] ?? null;
+        $min     = $payload['_min'] ?? null;
+        $max     = $payload['_max'] ?? null;
+        $gap     = $payload['_gap'] ?? null;
 
         if ($min === null || $max === null || $gap === null) {
             return;

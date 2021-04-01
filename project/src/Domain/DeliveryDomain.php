@@ -159,6 +159,10 @@ class DeliveryDomain
         $copy_obj->setUpdatedAt(new \DateTime());
 
         $copy_obj->save();
+
+        $copy_notif = $obj->getNotification()->copy();
+        $copy_notif->setDelivery($copy_obj);
+        $copy_notif->save();
     }
 
     public function increaseSentNotifications(Delivery $obj, int $count): void

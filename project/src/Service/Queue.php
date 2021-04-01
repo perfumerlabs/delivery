@@ -148,25 +148,33 @@ class Queue
     {
         try {
             $client = new Client();
-            $client->post(
-                $this->queue_url . '/fraction',
-                [
-                    'connect_timeout' => 15,
-                    'read_timeout'    => 15,
-                    'timeout'         => 15,
-                    'json'            => [
-                        'worker' => $this->delivery_fraction_worker,
-                        'url'    => sprintf('%s/delivery/send', $this->delivery_url),
-                        'method' => 'post',
-                        'json'   => [
-                            'id' => $delivery_id,
-                        ],
-                        'min'    => $min,
-                        'max'    => $max,
-                        'gap'    => $gap,
+            $body = [
+                'debug' => true,
+                'connect_timeout' => 15,
+                'read_timeout'    => 15,
+                'timeout'         => 15,
+                'json'            => [
+                    'worker' => $this->delivery_fraction_worker,
+                    'url'    => sprintf('%s/delivery/send', $this->delivery_url),
+                    'method' => 'post',
+                    'json'   => [
+                        'id' => $delivery_id,
                     ],
-                ]
+                    'min'    => $min,
+                    'max'    => $max,
+                    'gap'    => $gap,
+                ],
+            ];
+
+            $response = $client->post(
+                $this->queue_url . '/fraction',
+                $body
             );
+
+            error_log('[CUSTOM LOG] Send delivery to queue. URL: ' . $this->queue_url . '/fraction' . PHP_EOL);
+            error_log('[CUSTOM LOG] Send delivery to queue. Data: ' . print_r($body, true) . PHP_EOL);
+
+            error_log('[CUSTOM LOG] Send delivery to queue. RESPONSE: ' . $response->getBody()->getContents() . PHP_EOL);
         } catch (\Exception $e) {
             throw $e;
         }
