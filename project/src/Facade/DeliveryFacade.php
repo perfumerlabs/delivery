@@ -110,10 +110,6 @@ class DeliveryFacade
 
         $filters = $obj->getFilters();
 
-        if ($filters !== null) {
-            $filters = json_decode($filters, true);
-        }
-
 //        $filters = [
 //            'type'   => 'users', //users | customers | groups | null
 //            'recipients'  => ['12', '14'], //null
@@ -172,7 +168,15 @@ class DeliveryFacade
 
         $this->delivery_domain->increaseSentNotifications($obj, $max - $min + 1);
 
+        //перезапросим модель
+        $obj->reload();
+
         //последняя итерация
+        error_log(
+            '[CUSTOM LOG] sent_notifs = ' . $obj->getNbSentNotifications() . ', all_notifs = '
+            . $obj->getNbAllNotifications() . PHP_EOL
+        );
+
         if ($obj->getNbSentNotifications() >= $obj->getNbAllNotifications()) {
             $this->delivery_domain->finish($obj);
         }
