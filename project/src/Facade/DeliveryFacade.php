@@ -306,7 +306,6 @@ class DeliveryFacade
             'has_email'            => $data['has_email'] ?? null,
             'has_feed'             => $data['has_feed'] ?? null,
             'has_sms'              => $data['has_sms'] ?? null,
-            'status'               => DeliveryTableMap::COL_STATUS_WAITING,
             'nb_all_notifications' => $data['max'] - $data['min'] + 1,
             'email_subject'        => $data['email_subject'] ?? null,
             'email_html'           => $data['email_html'] ?? null,
@@ -321,6 +320,7 @@ class DeliveryFacade
         if (!$obj || $obj->getStatus() === DeliveryTableMap::COL_STATUS_WAITING) {
             $new_data['data_url'] = $data['data_url'] ?? null;
             $new_data['filters']  = $data['filters'] ?? null;
+            $new_data['status']   = DeliveryTableMap::COL_STATUS_WAITING;
         }
 
         return $this->delivery_domain->save($new_data);
