@@ -68,7 +68,7 @@ Parameters (json):
 - min, max, gap [integer,required] - parameters for send fraction task to Queue
 - has_email [boolean,optional] - delivery has email notification?. Default is false
 - has_sms [boolean,optional] - delivery has sms notification?. Default is false
-- has_sms [boolean,optional] - delivery has feed notification?. Default is false
+- has_feed [boolean,optional] - delivery has feed notification?. Default is false
 - email_subject [array,optional] - subject of email notification with translations. Format
 
 ```json
@@ -189,7 +189,7 @@ Parameters (json):
 - min, max, gap [integer,required] - parameters for send fraction task to Queue
 - has_email [boolean,optional] - delivery has email notification?. Default is false
 - has_sms [boolean,optional] - delivery has sms notification?. Default is false
-- has_sms [boolean,optional] - delivery has feed notification?. Default is false
+- has_feed [boolean,optional] - delivery has feed notification?. Default is false
 - email_subject [array,optional] - subject of email notification with translations. Format
 
 ```json
