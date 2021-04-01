@@ -55,6 +55,14 @@ class DeliveryDomain
             $obj->setFilters($data['filters']);
         }
 
+        if (array_key_exists('feed_payload', $data)) {
+            $obj->setFeedPayload($data['feed_payload']);
+        }
+
+        if (array_key_exists('payload', $data)) {
+            $obj->setPayload($data['payload']);
+        }
+
         if (array_key_exists('email_subject', $data)) {
             $this->setEmailSubject($obj, $data['email_subject']);
         }
@@ -77,14 +85,6 @@ class DeliveryDomain
 
         if (array_key_exists('feed_image', $data)) {
             $this->setFeedImage($obj, $data['feed_image']);
-        }
-
-        if (array_key_exists('feed_payload', $data)) {
-            $obj->setFeedPayload($obj, $data['feed_payload']);
-        }
-
-        if (array_key_exists('payload', $data)) {
-            $obj->setPayload($obj, $data['payload']);
         }
 
         $obj->save();

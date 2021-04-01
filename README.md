@@ -66,6 +66,7 @@ API Reference
 Parameters (json):
 
 - min, max, gap [integer,required] - parameters for send fraction task to Queue
+- name [string,required] - delivery name 
 - has_email [boolean,optional] - delivery has email notification?. Default is false
 - has_sms [boolean,optional] - delivery has sms notification?. Default is false
 - has_feed [boolean,optional] - delivery has feed notification?. Default is false
@@ -187,6 +188,7 @@ Parameters (json):
 
 - id [integer,required] - id of updating delivery
 - min, max, gap [integer,required] - parameters for send fraction task to Queue
+- name [string,required] - delivery name
 - has_email [boolean,optional] - delivery has email notification?. Default is false
 - has_sms [boolean,optional] - delivery has sms notification?. Default is false
 - has_feed [boolean,optional] - delivery has feed notification?. Default is false
