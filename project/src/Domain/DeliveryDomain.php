@@ -23,7 +23,7 @@ class DeliveryDomain
             $obj = new Delivery();
         }
 
-        error_log('[CUSTOM LOG] Saving delivery domain data: ' . print_r($data, true) . PHP_EOL);
+        error_log('[CUSTOM LOG] Saving delivery domain payload: ' . print_r($data['payload'] ?? null, true) . PHP_EOL);
 
         if (array_key_exists('name', $data)) {
             $obj->setName($data['name']);
