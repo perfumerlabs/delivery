@@ -2,6 +2,8 @@
 
 namespace Delivery\Response\Facade\DeliveryFacade;
 
+use Delivery\Model\Delivery;
+
 class SaveResponse
 {
     /**
@@ -13,4 +15,9 @@ class SaveResponse
      * @var string
      */
     public $error;
+
+    /**
+     * @var Delivery
+     */
+    public $delivery;
 }

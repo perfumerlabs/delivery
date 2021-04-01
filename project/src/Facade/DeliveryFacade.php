@@ -43,9 +43,25 @@ class DeliveryFacade
 
         $delivery = $this->saveDelivery($data, $obj);
 
-        $this->queue->sendDelivery($delivery->getId(), $data['min'], $data['max'], $data['gap']);
+        $response->delivery = $delivery;
 
         return $response;
+    }
+
+    public function start(Delivery $obj): void
+    {
+        $payload = $obj->getPayload();
+        $min = $payload['min'] ?? null;
+        $max = $payload['max'] ?? null;
+        $gap = $payload['gap'] ?? null;
+
+        if ($min === null || $max === null || $gap === null) {
+            return;
+        }
+
+        $this->delivery_domain->start($obj);
+
+        $this->queue->sendDelivery($obj->getId(), $min, $max, $gap);
     }
 
     public function send(int $delivery_id, int $min, int $max, int $gap): SendResponse
@@ -100,7 +116,7 @@ class DeliveryFacade
 
 //        $filters = [
 //            'type'   => 'users', //users | customers | groups | null
-//            'id'  => ['12', '14'], //null
+//            'recipients'  => ['12', '14'], //null
 //            'groups' => [12, 15], //null
 //        ];
 
@@ -109,7 +125,7 @@ class DeliveryFacade
         }
 
         $filters['id_from'] = $min;
-        $filters['id_to'] = $max;
+        $filters['id_to']   = $max;
 
         try {
             $users = $this->getUsersData($url, $filters);
@@ -279,13 +295,18 @@ class DeliveryFacade
 
     private function saveDelivery(array $data, Delivery $obj = null): Delivery
     {
+        $payload = $data['payload'] ?? [];
+        $payload['_min'] = $data['min'];
+        $payload['_max'] = $data['max'];
+        $payload['_gap'] = $data['gap'];
+
         $new_data = [
             'delivery'             => $obj,
             'name'                 => $data['name'] ?? null,
             'has_email'            => $data['has_email'] ?? null,
             'has_feed'             => $data['has_feed'] ?? null,
             'has_sms'              => $data['has_sms'] ?? null,
-            'status'               => DeliveryTableMap::COL_STATUS_STARTED,
+            'status'               => DeliveryTableMap::COL_STATUS_WAITING,
             'nb_all_notifications' => $data['max'] - $data['min'] + 1,
             'email_subject'        => $data['email_subject'] ?? null,
             'email_html'           => $data['email_html'] ?? null,
@@ -294,7 +315,7 @@ class DeliveryFacade
             'feed_text'            => $data['feed_text'] ?? null,
             'feed_image'           => $data['feed_image'] ?? null,
             'feed_payload'         => $data['feed_payload'] ?? null,
-            'payload'              => $data['payload'] ?? null,
+            'payload'              => $payload,
         ];
 
         if (!$obj || $obj->getStatus() === DeliveryTableMap::COL_STATUS_WAITING) {

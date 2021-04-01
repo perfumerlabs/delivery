@@ -53,6 +53,11 @@ class DeliveryController extends LayoutController
             }
 
             $con->commit();
+
+            /** @var DeliveryRepository $repository */
+            $repository = $this->s('delivery.repository.delivery');
+
+            $this->setContent(['delivery' => $repository->format($response->delivery)]);
         } catch (\Throwable $e) {
             $con->rollBack();
 
@@ -89,6 +94,11 @@ class DeliveryController extends LayoutController
             }
 
             $con->commit();
+
+            /** @var DeliveryRepository $repository */
+            $repository = $this->s('delivery.repository.delivery');
+
+            $this->setContent(['delivery' => $repository->format($response->delivery)]);
         } catch (\Throwable $e) {
             $con->rollBack();
 
