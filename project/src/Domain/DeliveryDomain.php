@@ -151,7 +151,7 @@ class DeliveryDomain
             return;
         }
 
-        $copy_obj = $obj->copy();
+        $copy_obj = $obj->copy(true);
 
         $copy_obj->setNbSentNotifications(0);
         $copy_obj->setStatus(DeliveryTableMap::COL_STATUS_WAITING);
@@ -159,10 +159,6 @@ class DeliveryDomain
         $copy_obj->setUpdatedAt(new \DateTime());
 
         $copy_obj->save();
-
-        $copy_notif = $obj->getNotification()->copy();
-        $copy_notif->setDelivery($copy_obj);
-        $copy_notif->save();
     }
 
     public function increaseSentNotifications(Delivery $obj, int $count): void
