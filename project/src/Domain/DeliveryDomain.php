@@ -23,8 +23,6 @@ class DeliveryDomain
             $obj = new Delivery();
         }
 
-        error_log('[CUSTOM LOG] Saving delivery domain payload: ' . print_r($data['payload'] ?? null, true) . PHP_EOL);
-
         if (array_key_exists('name', $data)) {
             $obj->setName($data['name']);
         }
@@ -58,11 +56,11 @@ class DeliveryDomain
         }
 
         if (array_key_exists('feed_payload', $data)) {
-            $obj->setFeedPayload($obj, $data['feed_payload']);
+            $obj->setFeedPayload($data['feed_payload']);
         }
 
         if (array_key_exists('payload', $data)) {
-            $obj->setPayload($obj, $data['payload']);
+            $obj->setPayload($data['payload']);
         }
 
         if (array_key_exists('email_subject', $data)) {
