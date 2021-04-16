@@ -16,6 +16,15 @@ return [
         'migration_dir' => 'src/Resource/propel/migration',
         'migration_table' => 'delivery_propel_migration',
     ],
+    'pg' => [
+        'real_host' => 'db',
+        'host' => 'db',
+        'port' => '5432',
+        'database' => 'delivery',
+        'schema' => 'public',
+        'user' => 'postgres',
+        'password' => 'postgres',
+    ],
     'delivery' => [
         'timezone' => 'Utc',
     ],

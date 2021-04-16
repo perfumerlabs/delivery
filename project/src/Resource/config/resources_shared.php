@@ -16,6 +16,15 @@ return [
         'migration_dir' => 'src/Resource/propel/migration',
         'migration_table' => 'delivery_propel_migration',
     ],
+    'pg' => [
+        'real_host' => 'PG_REAL_HOST',
+        'host' => 'PG_HOST',
+        'port' => 'PG_PORT',
+        'database' => 'PG_DATABASE',
+        'schema' => 'PG_SCHEMA',
+        'user' => 'PG_USER',
+        'password' => 'PG_PASSWORD',
+    ],
     'delivery' => [
         'queue_url' => 'DELIVERY_QUEUE_URL',
         'sms_url' => 'DELIVERY_SMS_URL',

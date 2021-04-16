@@ -21,6 +21,8 @@ DELIVERY_URL_SED=${DELIVERY_URL//\//\\\/}
 DELIVERY_URL_SED=${DELIVERY_URL_SED//\./\\\.}
 DELIVERY_TIMEZONE_SED=${DELIVERY_TIMEZONE//\//\\\/}
 DELIVERY_TIMEZONE_SED=${DELIVERY_TIMEZONE_SED//\./\\\.}
+PG_REAL_HOST_SED=${PG_REAL_HOST//\//\\\/}
+PG_REAL_HOST_SED=${PG_REAL_HOST_SED//\./\\\.}
 PG_HOST_SED=${PG_HOST//\//\\\/}
 PG_HOST_SED=${PG_HOST_SED//\./\\\.}
 PG_PASSWORD_SED=${PG_PASSWORD//\//\\\/}
@@ -54,6 +56,7 @@ if [ $DEV != 'true' ]; then
   sed -i "s/DELIVERY_FRACTION_WORKER/$DELIVERY_FRACTION_WORKER/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/DELIVERY_TIMEZONE/$DELIVERY_TIMEZONE_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_HOST/$PG_HOST_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
+  sed -i "s/PG_REAL_HOST/$PG_REAL_HOST_SED/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_PORT/$PG_PORT/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_DATABASE/$PG_DATABASE/g" /opt/delivery/src/Resource/config/resources_shared.php
   sed -i "s/PG_SCHEMA/$PG_SCHEMA/g" /opt/delivery/src/Resource/config/resources_shared.php
@@ -76,6 +79,6 @@ fi
 
 set -x \
 && cd /opt/delivery \
-&& sudo -u delivery php cli framework propel/migrate
+&& sudo -u delivery php cli delivery startup
 
 touch /node_status_inited
