@@ -29,7 +29,8 @@ class DeliveriesController extends LayoutController
             $offset = 0;
         }
 
-        $objs = DeliveryQuery::create();
+        $objs = DeliveryQuery::create()
+            ->orderByCreatedAt(Criteria::DESC);
 
         if ($name) {
             $objs = $objs
