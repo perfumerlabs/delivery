@@ -20,7 +20,7 @@ class DeliveryFacade
     private $delivery_domain;
 
     public function __construct(
-        Queue $queue,
+        Queue          $queue,
         DeliveryDomain $delivery_domain
     ) {
         $this->queue = $queue;
@@ -345,11 +345,11 @@ class DeliveryFacade
 
         if ($name === null || $name === '') {
             $error = 'Имя обязательно';
-        } elseif ($min === null || !is_int($min)) {
-            $error = 'Параметр min обязателен';
-        } elseif ($max === null || !is_int($max)) {
-            $error = 'Параметр max обязателен';
-        } elseif ($gap === null || !is_int($gap)) {
+        } elseif (!is_int($min)) {
+            $error = 'Не обнаружены получатели рассылок';
+        } elseif (!is_int($max)) {
+            $error = 'Не обнаружены получатели рассылок';
+        } elseif (!is_int($gap)) {
             $error = 'Параметр gap обязателен';
         } elseif (!$has_email && !$has_sms && !$has_feed) {
             $error = 'Выберите хотя бы 1 способ доставки';
